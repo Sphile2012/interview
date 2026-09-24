@@ -135,6 +135,61 @@
 
 
 <!-- =====================================================================
+     MEET THE BARBERS — home page preview of the team
+====================================================================== -->
+<section class="section" style="background:var(--charcoal-mid);border-top:1px solid var(--charcoal-line);border-bottom:1px solid var(--charcoal-line);" aria-labelledby="home-barbers-heading">
+  <div class="container">
+    <div class="section-header section-header--center">
+      <p class="section-eyebrow">The Team</p>
+      <h2 id="home-barbers-heading" class="section-heading">Meet the Barbers</h2>
+      <p class="section-sub">Three specialists. Pick the one that fits your style — or let us match you.</p>
+    </div>
+    <div class="barber-circles-grid">
+      {% for barber in barbers %}
+      <div class="barber-circle-card">
+        <div class="barber-circle-img-wrap">
+          <img src="{{ barber.image }}" alt="{{ barber.name }}" class="barber-circle-img" loading="lazy" />
+        </div>
+        <h3 class="barber-circle-name">{{ barber.name }}</h3>
+        <p class="barber-circle-role">{{ barber.role }}</p>
+        <span class="barber-circle-spec">{{ barber.speciality }}</span>
+        <br />
+        <a href="{{ url_for('booking') }}?barber={{ barber.id }}" class="btn btn-outline btn-sm" style="margin-top:16px;">
+          Book with {{ barber.name.split()[0] }}
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+    <div style="text-align:center;margin-top:48px;">
+      <a href="{{ url_for('about') }}" class="btn btn-ghost">Read Their Stories &rarr;</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- =====================================================================
+     SPECIAL OFFER / PROMOTION SECTION
+====================================================================== -->
+<section class="section" style="background:var(--olive);padding:80px 0;position:relative;overflow:hidden;" aria-labelledby="offer-heading">
+  <!-- Decorative large text in background -->
+  <div aria-hidden="true" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--font-heading);font-size:clamp(6rem,15vw,14rem);color:rgba(197,164,106,.06);white-space:nowrap;pointer-events:none;letter-spacing:.05em;line-height:1;">NEW CLIENT</div>
+  <div class="container" style="text-align:center;position:relative;z-index:1;">
+    <div style="display:inline-block;background:var(--gold);color:var(--charcoal);font-size:.625rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:5px 16px;border-radius:20px;margin-bottom:20px;">Limited Offer</div>
+    <h2 id="offer-heading" class="section-heading" style="font-size:clamp(2.5rem,6vw,5rem);">10% Off Your First Cut</h2>
+    <p style="color:rgba(245,243,239,.65);font-size:1.0625rem;max-width:480px;margin:0 auto 12px;line-height:1.7;">
+      New to Blade &amp; Bone? Book online and use code <strong style="color:var(--gold);font-size:1.1em;">NEWCUT10</strong> at checkout.
+      Valid on any service. First visit only.
+    </p>
+    <p style="color:rgba(245,243,239,.4);font-size:.8125rem;margin-bottom:36px;">No minimum spend. Cannot be combined with other offers.</p>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+      <a href="{{ url_for('booking') }}" class="btn btn-gold btn-lg">Claim Offer &amp; Book</a>
+      <a href="{{ url_for('services') }}" class="btn btn-outline btn-lg">View Services</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- =====================================================================
      GALLERY — dark moody shop interior images
 ====================================================================== -->
 <section class="section" style="padding-top:0;" aria-labelledby="gallery-heading">

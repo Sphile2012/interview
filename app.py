@@ -198,7 +198,7 @@ def build_ics_content(booking):
 
 @app.route("/")
 def home():
-    return render_template("home.html", shop=SHOP, services=SERVICES[:4])
+    return render_template("home.html", shop=SHOP, services=SERVICES[:4], barbers=BARBERS)
 
 
 @app.route("/services")
