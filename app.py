@@ -11,8 +11,8 @@ import urllib.parse
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET_KEY", "blade-bone-2024-xk9q")
 
-# Path to SQLite database
-DATABASE = os.path.join(os.path.dirname(__file__), "barbershop.db")
+# Path to SQLite database — /tmp is writable on Netlify/Lambda, local dev uses repo root
+DATABASE = os.environ.get("DB_PATH", os.path.join(os.path.dirname(__file__), "barbershop.db"))
 
 # Admin email — no password needed, just enter this email to get in
 ADMIN_EMAIL = "poomeigh503@gmail.com"
