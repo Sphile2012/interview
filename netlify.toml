@@ -6,10 +6,17 @@
 [build.environment]
   PYTHON_VERSION = "3.11"
 
+[functions]
+  included_files = ["templates/**", "static/**"]
+
+# Route every request through the Flask serverless function
 [[redirects]]
-  from   = "/*"
-  to     = "/.netlify/functions/app/:splat"
+  from   = "/static/*"
+  to     = "/static/:splat"
   status = 200
 
-[functions]
-  included_files = ["templates/**", "static/**", "barbershop.db"]
+[[redirects]]
+  from   = "/*"
+  to     = "/.netlify/functions/app"
+  status = 200
+  force  = true

@@ -1,36 +1,34 @@
 """
-Netlify serverless function entry point for Blade & Bone Barbershop.
-Bridges between Netlify Lambda events and the Flask WSGI app.
+Netlify serverless function — bridges Lambda events to Flask WSGI.
 """
 
 import sys
 import os
 
-# Walk two levels up to reach the repo root where app.py lives
+# Repo root is two levels up from netlify/functions/
 ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 
 if ROOT not in sys.path:
     sys.path.insert(0, ROOT)
 
-# Point Flask to the correct template and static folders
-os.environ.setdefault("FLASK_TEMPLATE_FOLDER", os.path.join(ROOT, "templates"))
-os.environ.setdefault("FLASK_STATIC_FOLDER",   os.path.join(ROOT, "static"))
-
-# SQLite DB lives in /tmp on Lambda (writable), fall back to root for local dev
+# SQLite lives in /tmp on Lambda (only writable dir), repo root locally
 if os.environ.get("AWS_LAMBDA_FUNCTION_NAME"):
     os.environ.setdefault("DB_PATH", "/tmp/barbershop.db")
 else:
     os.environ.setdefault("DB_PATH", os.path.join(ROOT, "barbershop.db"))
 
-# Import the Flask app and patch folder paths
+# Import Flask app and patch folder paths before any requests are handled
 from app import app as flask_app  # noqa: E402
 
 flask_app.template_folder = os.path.join(ROOT, "templates")
 flask_app.static_folder   = os.path.join(ROOT, "static")
+flask_app.static_url_path = "/static"
 
 import serverless_wsgi  # noqa: E402
 
 
 def handler(event, context):
-    """Called by Netlify on every incoming HTTP request."""
+    """Entry point called by Netlify on every HTTP request."""
+    # serverless_wsgi translates the Lambda event into a WSGI environ
+    # and converts the Flask response back to the Lambda response format
     return serverless_wsgi.handle_request(flask_app, event, context)
