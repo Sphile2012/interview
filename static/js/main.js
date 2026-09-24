@@ -270,7 +270,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (serviceInput) {
       summaryService.textContent = serviceInput.getAttribute('data-name') || serviceInput.value;
-      summaryPrice.textContent   = '£' + (serviceInput.getAttribute('data-price') || '—');
+      summaryPrice.textContent   = 'R' + (serviceInput.getAttribute('data-price') || '—');
     }
 
     if (barberInput) {
