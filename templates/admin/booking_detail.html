@@ -1,0 +1,54 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Booking #{{ booking.id }} — Admin{% endblock %}
+{% block page_title %}Booking #{{ booking.id }}{% endblock %}
+{% block content %}
+
+<div style="margin-bottom:18px">
+  <a href="{{ url_for('admin_bookings') }}" class="btn btn-o btn-sm">&larr; Back to Bookings</a>
+</div>
+
+<div class="dg">
+  <div class="dc">
+    <p class="dc-t">Client Information</p>
+    <div class="dr"><span class="dr-l">Full Name</span><span class="dr-v">{{ booking.first_name }} {{ booking.last_name }}</span></div>
+    <div class="dr"><span class="dr-l">Email</span><span class="dr-v"><a href="mailto:{{ booking.email }}">{{ booking.email }}</a></span></div>
+    <div class="dr"><span class="dr-l">Phone</span><span class="dr-v"><a href="tel:{{ booking.phone }}">{{ booking.phone }}</a></span></div>
+    {% if booking.notes %}
+    <div class="dr"><span class="dr-l">Notes</span><span class="dr-v" style="font-style:italic;color:var(--body)">{{ booking.notes }}</span></div>
+    {% endif %}
+    <div class="dr"><span class="dr-l">Booked At</span><span class="dr-v" style="color:var(--m);font-size:.875rem">{{ booking.created_at }}</span></div>
+  </div>
+
+  <div class="dc">
+    <p class="dc-t">Appointment Details</p>
+    <div class="dr"><span class="dr-l">Service</span><span class="dr-v">{{ booking.service_name }}</span></div>
+    <div class="dr"><span class="dr-l">Barber</span><span class="dr-v">{{ booking.barber_name }}</span></div>
+    <div class="dr"><span class="dr-l">Date</span><span class="dr-v">{{ booking.date }}</span></div>
+    <div class="dr"><span class="dr-l">Time</span><span class="dr-v">{{ booking.time }} &bull; {{ booking.duration }} min</span></div>
+    <div class="dr"><span class="dr-l">Price</span><span class="dr-v" style="color:var(--g);font-size:1.25rem;font-weight:700">R{{ booking.price }}</span></div>
+    <div class="dr"><span class="dr-l">Status</span><span class="dr-v"><span class="badge b-{{ booking.status }}">{{ booking.status }}</span></span></div>
+  </div>
+</div>
+
+<div class="dc">
+  <p class="dc-t">Update Status</p>
+  <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px">
+    <form method="POST" action="{{ url_for('admin_update_status', booking_id=booking.id) }}" style="display:inline">
+      <input type="hidden" name="status" value="confirmed">
+      <button class="btn {% if booking.status=='confirmed' %}btn-g{% else %}btn-o{% endif %}">Confirmed</button>
+    </form>
+    <form method="POST" action="{{ url_for('admin_update_status', booking_id=booking.id) }}" style="display:inline">
+      <input type="hidden" name="status" value="completed">
+      <button class="btn {% if booking.status=='completed' %}btn-g{% else %}btn-o{% endif %}">Completed</button>
+    </form>
+    <form method="POST" action="{{ url_for('admin_update_status', booking_id=booking.id) }}" style="display:inline">
+      <input type="hidden" name="status" value="cancelled">
+      <button class="btn btn-d {% if booking.status=='cancelled' %}active{% endif %}" onclick="return confirm('Cancel this booking?')">Cancelled</button>
+    </form>
+    <form method="POST" action="{{ url_for('admin_delete_booking', booking_id=booking.id) }}" style="display:inline;margin-left:auto">
+      <button class="btn btn-d" onclick="return confirm('Permanently delete booking #{{ booking.id }}? Cannot be undone.')">&#x2715; Delete</button>
+    </form>
+  </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Barbers — Blade & Bone Admin{% endblock %}
+{% block page_title %}Barbers{% endblock %}
+{% block content %}
+
+<div class="cg" style="margin-bottom:20px">
+  {% for b in barbers %}
+  <div class="ac">
+    <img src="{{ b.image }}" alt="{{ b.name }}" class="ac-img" />
+    <p class="ac-name">{{ b.name }}</p>
+    <p class="ac-role">{{ b.role }}</p>
+    <p class="ac-desc">{{ b.bio }}</p>
+    <span class="ac-spec">{{ b.speciality }}</span>
+    <div style="margin-top:14px;display:flex;gap:8px">
+      <a href="{{ url_for('booking') }}?barber={{ b.id }}" target="_blank" class="btn btn-g btn-sm">Book</a>
+      <a href="{{ url_for('admin_bookings') }}?barber={{ b.id }}" class="btn btn-o btn-sm">View Bookings</a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<div class="dc">
+  <p class="dc-t">How to Edit Barbers</p>
+  <div style="padding-top:12px">
+    <p style="font-size:.875rem;color:var(--m);line-height:1.7">
+      Barbers are defined in the <strong style="color:var(--w)">BARBERS</strong> list in
+      <strong style="color:var(--g)">app.py</strong>. Each barber has an
+      <code style="color:var(--g)">id</code>, <code style="color:var(--g)">name</code>,
+      <code style="color:var(--g)">role</code>, <code style="color:var(--g)">bio</code>,
+      <code style="color:var(--g)">speciality</code> and <code style="color:var(--g)">image</code> URL.
+      Edit app.py to add, remove or update barbers.
+    </p>
+  </div>
+</div>
+{% endblock %}

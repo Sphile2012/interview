@@ -1,0 +1,79 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}All Bookings — Blade & Bone Admin{% endblock %}
+{% block page_title %}All Bookings{% endblock %}
+{% block content %}
+
+<div class="tw" style="margin-bottom:18px">
+  <div class="th"><span class="th-title">Filter</span></div>
+  <div style="padding:14px 22px">
+    <form method="GET" action="{{ url_for('admin_bookings') }}" class="fb">
+      <select name="status" class="fs">
+        <option value="" {% if not filter_status %}selected{% endif %}>All Statuses</option>
+        <option value="confirmed" {% if filter_status=='confirmed' %}selected{% endif %}>Confirmed</option>
+        <option value="completed" {% if filter_status=='completed' %}selected{% endif %}>Completed</option>
+        <option value="cancelled" {% if filter_status=='cancelled' %}selected{% endif %}>Cancelled</option>
+      </select>
+      <select name="barber" class="fs">
+        <option value="" {% if not filter_barber %}selected{% endif %}>All Barbers</option>
+        {% for b in barbers %}
+        <option value="{{ b.id }}" {% if filter_barber==b.id %}selected{% endif %}>{{ b.name }}</option>
+        {% endfor %}
+      </select>
+      <input type="date" name="date" class="fi" value="{{ filter_date }}" />
+      <button type="submit" class="btn btn-g btn-sm">Filter</button>
+      <a href="{{ url_for('admin_bookings') }}" class="btn btn-o btn-sm">Clear</a>
+    </form>
+  </div>
+</div>
+
+<div class="tw">
+  <div class="th">
+    <span class="th-title">{{ bookings|length }} booking{{ 's' if bookings|length != 1 }}</span>
+  </div>
+  {% if bookings %}
+  <table>
+    <thead><tr>
+      <th>#</th><th>Date Booked</th><th>Client</th><th>Phone</th><th>Service</th><th>Barber</th><th>Date</th><th>Time</th><th>Price</th><th>Status</th><th>Actions</th>
+    </tr></thead>
+    <tbody>
+    {% for b in bookings %}
+    <tr>
+      <td style="color:var(--m);font-size:.78rem">#{{ b.id }}</td>
+      <td style="font-size:.78rem;color:var(--m)">{{ (b.created_at or '')[:16] }}</td>
+      <td><strong>{{ b.first_name }} {{ b.last_name }}</strong><br><span style="font-size:.78rem;color:var(--m)">{{ b.email }}</span></td>
+      <td style="font-size:.875rem">{{ b.phone }}</td>
+      <td>{{ b.service_name }}<br><span style="font-size:.75rem;color:var(--m)">{{ b.duration }} min</span></td>
+      <td>{{ b.barber_name }}</td>
+      <td>{{ b.date }}</td>
+      <td>{{ b.time }}</td>
+      <td style="color:var(--g);font-weight:600">R{{ b.price }}</td>
+      <td><span class="badge b-{{ b.status }}">{{ b.status }}</span></td>
+      <td>
+        <div class="ar">
+          <a href="{{ url_for('admin_booking_detail', booking_id=b.id) }}" class="btn btn-o btn-sm">View</a>
+          <form method="POST" action="{{ url_for('admin_update_status', booking_id=b.id) }}" style="display:inline">
+            {% if b.status == 'confirmed' %}
+              <input type="hidden" name="status" value="cancelled">
+              <button class="btn btn-d btn-sm" onclick="return confirm('Cancel booking #{{ b.id }}?')">Cancel</button>
+            {% elif b.status == 'cancelled' %}
+              <input type="hidden" name="status" value="confirmed">
+              <button class="btn btn-o btn-sm">Restore</button>
+            {% elif b.status == 'completed' %}
+              <input type="hidden" name="status" value="confirmed">
+              <button class="btn btn-o btn-sm">Reopen</button>
+            {% endif %}
+          </form>
+          <form method="POST" action="{{ url_for('admin_delete_booking', booking_id=b.id) }}" style="display:inline">
+            <button class="btn btn-d btn-sm" onclick="return confirm('Delete booking #{{ b.id }}?')">&#x2715;</button>
+          </form>
+        </div>
+      </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div class="empty"><p>No bookings match your filter.</p></div>
+  {% endif %}
+</div>
+{% endblock %}

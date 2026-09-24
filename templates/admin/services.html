@@ -1,0 +1,45 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Services — Blade & Bone Admin{% endblock %}
+{% block page_title %}Services{% endblock %}
+{% block content %}
+
+<div class="tw" style="margin-bottom:20px">
+  <div class="th">
+    <span class="th-title">{{ services|length }} Services</span>
+    <span style="font-size:.8rem;color:var(--m)">To edit prices, update SERVICES in app.py</span>
+  </div>
+  <table>
+    <thead><tr>
+      <th>#</th><th>Service Name</th><th>Duration</th><th>Price</th><th>Description</th><th>Book Link</th>
+    </tr></thead>
+    <tbody>
+    {% for s in services %}
+    <tr>
+      <td style="color:var(--m);font-size:.78rem">{{ loop.index }}</td>
+      <td><strong>{{ s.name }}</strong></td>
+      <td>{{ s.duration }} min</td>
+      <td style="color:var(--g);font-weight:700;font-size:1rem">R{{ s.price }}</td>
+      <td style="color:var(--m);font-size:.8rem;max-width:280px">{{ s.desc }}</td>
+      <td><a href="{{ url_for('booking') }}?service={{ s.id }}" target="_blank" class="btn btn-o btn-sm">Book</a></td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<div class="dc">
+  <p class="dc-t">How to Edit Services</p>
+  <div style="padding-top:12px">
+    <p style="font-size:.875rem;color:var(--m);line-height:1.7;margin-bottom:8px">
+      Services are defined in the <strong style="color:var(--w)">SERVICES</strong> list in
+      <strong style="color:var(--g)">app.py</strong>. Each service has an
+      <code style="color:var(--g)">id</code>, <code style="color:var(--g)">name</code>,
+      <code style="color:var(--g)">duration</code> (minutes),
+      <code style="color:var(--g)">price</code> (Rand) and <code style="color:var(--g)">desc</code>.
+    </p>
+    <p style="font-size:.875rem;color:var(--m);line-height:1.7">
+      To add or change a service: edit app.py, save, and the changes reflect immediately on the website.
+    </p>
+  </div>
+</div>
+{% endblock %}

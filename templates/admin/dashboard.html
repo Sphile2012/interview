@@ -1,0 +1,58 @@
+{% extends "admin/base_admin.html" %}
+{% block title %}Dashboard — Blade & Bone Admin{% endblock %}
+{% block page_title %}Dashboard{% endblock %}
+{% block content %}
+
+<div class="stats">
+  <div class="sc"><p class="sc-lbl">Total Bookings</p><p class="sc-val">{{ stats.total }}</p><p class="sc-sub">All time</p></div>
+  <div class="sc"><p class="sc-lbl">Today</p><p class="sc-val">{{ stats.today }}</p><p class="sc-sub">Appointments</p></div>
+  <div class="sc"><p class="sc-lbl">Confirmed</p><p class="sc-val">{{ stats.confirmed }}</p><p class="sc-sub">Active</p></div>
+  <div class="sc"><p class="sc-lbl">Completed</p><p class="sc-val">{{ stats.completed }}</p><p class="sc-sub">Done</p></div>
+  <div class="sc"><p class="sc-lbl">Revenue</p><p class="sc-val" style="font-size:1.4rem">R{{ stats.revenue }}</p><p class="sc-sub">Excl. cancelled</p></div>
+</div>
+
+<div class="tw">
+  <div class="th">
+    <span class="th-title">Recent Bookings</span>
+    <a href="{{ url_for('admin_bookings') }}" class="btn btn-o btn-sm">View All</a>
+  </div>
+  {% if bookings %}
+  <table>
+    <thead><tr>
+      <th>#</th><th>Client</th><th>Service</th><th>Barber</th><th>Date</th><th>Time</th><th>Price</th><th>Status</th><th>Actions</th>
+    </tr></thead>
+    <tbody>
+    {% for b in bookings[:15] %}
+    <tr>
+      <td style="color:var(--m);font-size:.8rem">#{{ b.id }}</td>
+      <td><strong>{{ b.first_name }} {{ b.last_name }}</strong><br><span style="font-size:.78rem;color:var(--m)">{{ b.email }}</span></td>
+      <td>{{ b.service_name }}</td>
+      <td>{{ b.barber_name }}</td>
+      <td>{{ b.date }}</td>
+      <td>{{ b.time }}</td>
+      <td style="color:var(--g);font-weight:600">R{{ b.price }}</td>
+      <td><span class="badge b-{{ b.status }}">{{ b.status }}</span></td>
+      <td>
+        <div class="ar">
+          <a href="{{ url_for('admin_booking_detail', booking_id=b.id) }}" class="btn btn-o btn-sm">View</a>
+          {% if b.status == 'confirmed' %}
+          <form method="POST" action="{{ url_for('admin_update_status', booking_id=b.id) }}" style="display:inline">
+            <input type="hidden" name="status" value="completed">
+            <button class="btn btn-sm" style="background:rgba(76,157,224,.12);color:var(--info);border-color:rgba(76,157,224,.3)">Done</button>
+          </form>
+          {% endif %}
+        </div>
+      </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div class="empty">
+    <p class="empty-icon">📅</p>
+    <p>No bookings yet — they'll appear here once customers book.</p>
+    <a href="{{ url_for('booking') }}" target="_blank" class="btn btn-g" style="margin-top:14px">Test Booking Flow</a>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

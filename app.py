@@ -1,25 +1,42 @@
 import os
-from flask import Flask, render_template, request, redirect, url_for, session, make_response
+import sqlite3
+from flask import (
+    Flask, render_template, request, redirect,
+    url_for, session, make_response, g, flash
+)
 from datetime import datetime, timedelta
+from functools import wraps
 import urllib.parse
 
 app = Flask(__name__)
-# Secret key needed for session management - keep this private in production
-app.secret_key = os.environ.get("SECRET_KEY", "blade-and-bone-secret-2024")
+app.secret_key = os.environ.get("SECRET_KEY", "blade-bone-2024-xk9q")
+
+# Path to SQLite database
+DATABASE = os.path.join(os.path.dirname(__file__), "barbershop.db")
+
+# Admin email — no password needed, just enter this email to get in
+ADMIN_EMAIL = "poomeigh503@gmail.com"
 
 
-# ---------------------------------------------------------------------------
-# Data - all the shop content lives here so templates stay clean
-# ---------------------------------------------------------------------------
+# ─────────────────────────────────────────────────────────────────────────────
+# SHOP DATA
+# ─────────────────────────────────────────────────────────────────────────────
 
 SERVICES = [
-    {"id": "classic-cut",    "name": "Classic Cut",         "duration": 45, "price": 18, "desc": "A timeless scissor cut tailored to your head shape and lifestyle."},
-    {"id": "skin-fade",      "name": "Skin Fade",           "duration": 45, "price": 22, "desc": "Clean, sharp fade from skin to your preferred length on top."},
-    {"id": "beard-trim",     "name": "Beard Trim",          "duration": 30, "price": 12, "desc": "Shaped, lined up and conditioned so your beard looks its best."},
-    {"id": "cut-and-beard",  "name": "Cut & Beard",         "duration": 60, "price": 28, "desc": "The full package — haircut and beard trim in one sitting."},
-    {"id": "kids-cut",       "name": "Kids Cut",            "duration": 30, "price": 14, "desc": "Patient, friendly cuts for kids under 12. No fuss guaranteed."},
-    {"id": "hot-towel-shave","name": "Hot Towel Shave",     "duration": 45, "price": 20, "desc": "Traditional straight-razor shave with hot towel prep and cold finish."},
-    {"id": "full-groom",     "name": "Full Groom Package",  "duration": 90, "price": 38, "desc": "Cut, beard trim and hot towel finish — the full Blade & Bone experience."},
+    {"id": "classic-cut",     "name": "Classic Cut",       "duration": 45, "price": 180,
+     "desc": "A timeless scissor cut tailored to your head shape and lifestyle."},
+    {"id": "skin-fade",       "name": "Skin Fade",          "duration": 45, "price": 220,
+     "desc": "Clean, sharp fade from skin to your preferred length on top."},
+    {"id": "beard-trim",      "name": "Beard Trim",         "duration": 30, "price": 120,
+     "desc": "Shaped, lined up and conditioned so your beard looks its best."},
+    {"id": "cut-and-beard",   "name": "Cut & Beard",        "duration": 60, "price": 280,
+     "desc": "The full package — haircut and beard trim in one sitting."},
+    {"id": "kids-cut",        "name": "Kids Cut",           "duration": 30, "price": 140,
+     "desc": "Patient, friendly cuts for kids under 12. No fuss guaranteed."},
+    {"id": "hot-towel-shave", "name": "Hot Towel Shave",    "duration": 45, "price": 200,
+     "desc": "Traditional straight-razor shave with hot towel prep and cold finish."},
+    {"id": "full-groom",      "name": "Full Groom Package", "duration": 90, "price": 380,
+     "desc": "Cut, beard trim and hot towel finish — the full Blade & Bone experience."},
 ]
 
 BARBERS = [
@@ -28,9 +45,9 @@ BARBERS = [
         "name": "Marcus Reid",
         "role": "Owner & Master Barber",
         "bio": (
-            "Marcus opened Blade & Bone in 2016 after a decade cutting hair in Johannesburg and Durban. "
-            "He trained under some of the best in the business before bringing his craft back home. "
-            "His eye for precision and his ability to read a face are second to none."
+            "Marcus opened Blade & Bone in 2016 after a decade cutting hair in "
+            "Johannesburg and Durban. His eye for precision and his ability to read "
+            "a face are second to none."
         ),
         "speciality": "Precision cuts, tapers and classic barbering",
         "image": "https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=400&h=500&fit=crop&q=80",
@@ -40,9 +57,8 @@ BARBERS = [
         "name": "Jordan Cole",
         "role": "Fade Specialist",
         "bio": (
-            "Jordan grew up watching his uncle cut hair in Salford and never looked back. "
-            "He joined Blade & Bone in 2019 and quickly built a loyal following for his razor-sharp fades. "
-            "If you want a skin fade that turns heads, book Jordan."
+            "Jordan joined Blade & Bone in 2019 and quickly built a loyal following "
+            "for his razor-sharp fades. If you want a skin fade that turns heads, book Jordan."
         ),
         "speciality": "Skin fades, high fades and fresh line-ups",
         "image": "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=400&h=500&fit=crop&q=80",
@@ -52,16 +68,14 @@ BARBERS = [
         "name": "Priya Nair",
         "role": "Texture & Styling Expert",
         "bio": (
-            "Priya came to barbering from a background in fashion styling and it shows in every cut she does. "
-            "She has a gift for working with natural texture and curl patterns, giving every client a shape "
-            "that actually works with their hair rather than against it."
+            "Priya has a gift for working with natural texture and curl patterns, "
+            "giving every client a shape that actually works with their hair."
         ),
         "speciality": "Textured hair, curls and creative styling",
         "image": "https://images.unsplash.com/photo-1559599101-f09722fb4948?w=400&h=500&fit=crop&q=80",
     },
 ]
 
-# Time slots available each day
 TIME_SLOTS = [
     "09:00", "09:30", "10:00", "10:30", "11:00", "11:30",
     "12:00", "12:30", "13:00", "13:30", "14:00", "14:30",
@@ -87,114 +101,158 @@ SHOP = {
 }
 
 
-# ---------------------------------------------------------------------------
-# Helper - build Google Calendar URL from booking details
-# ---------------------------------------------------------------------------
+# ─────────────────────────────────────────────────────────────────────────────
+# DATABASE
+# ─────────────────────────────────────────────────────────────────────────────
+
+def get_db():
+    if "db" not in g:
+        g.db = sqlite3.connect(DATABASE)
+        g.db.row_factory = sqlite3.Row
+    return g.db
+
+
+@app.teardown_appcontext
+def close_db(exc):
+    db = g.pop("db", None)
+    if db:
+        db.close()
+
+
+def init_db():
+    db = get_db()
+    db.execute("""
+        CREATE TABLE IF NOT EXISTS bookings (
+            id           INTEGER PRIMARY KEY AUTOINCREMENT,
+            created_at   TEXT    DEFAULT (datetime('now','localtime')),
+            service_id   TEXT    NOT NULL,
+            service_name TEXT    NOT NULL,
+            duration     INTEGER NOT NULL,
+            price        INTEGER NOT NULL,
+            barber_id    TEXT    NOT NULL,
+            barber_name  TEXT    NOT NULL,
+            date         TEXT    NOT NULL,
+            time         TEXT    NOT NULL,
+            first_name   TEXT    NOT NULL,
+            last_name    TEXT    NOT NULL,
+            email        TEXT    NOT NULL,
+            phone        TEXT    NOT NULL,
+            notes        TEXT    DEFAULT '',
+            status       TEXT    DEFAULT 'confirmed'
+        )
+    """)
+    db.commit()
+
+
+def save_booking(b):
+    db = get_db()
+    cur = db.execute(
+        """INSERT INTO bookings
+           (service_id,service_name,duration,price,barber_id,barber_name,
+            date,time,first_name,last_name,email,phone,notes)
+           VALUES
+           (:service_id,:service_name,:duration,:price,:barber_id,:barber_name,
+            :date,:time,:first_name,:last_name,:email,:phone,:notes)""",
+        b,
+    )
+    db.commit()
+    return cur.lastrowid
+
+
+def get_all_bookings():
+    rows = get_db().execute(
+        "SELECT * FROM bookings ORDER BY date DESC, time DESC"
+    ).fetchall()
+    return [dict(r) for r in rows]
+
+
+def get_booking_by_id(bid):
+    row = get_db().execute(
+        "SELECT * FROM bookings WHERE id=?", (bid,)
+    ).fetchone()
+    return dict(row) if row else None
+
+
+def update_booking_status(bid, status):
+    db = get_db()
+    db.execute("UPDATE bookings SET status=? WHERE id=?", (status, bid))
+    db.commit()
+
+
+def delete_booking(bid):
+    db = get_db()
+    db.execute("DELETE FROM bookings WHERE id=?", (bid,))
+    db.commit()
+
+
+# Create tables on startup
+with app.app_context():
+    init_db()
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# ADMIN AUTH DECORATOR
+# ─────────────────────────────────────────────────────────────────────────────
+
+def admin_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        if not session.get("admin_logged_in"):
+            return redirect(url_for("admin_login"))
+        return f(*args, **kwargs)
+    return decorated
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# CALENDAR HELPERS
+# ─────────────────────────────────────────────────────────────────────────────
 
 def build_google_cal_url(booking):
-    """
-    Takes a booking dictionary and returns a Google Calendar 'add event' URL.
-    All the appointment details get packed into the URL so the user's calendar
-    is pre-filled with exactly what they booked.
-    """
-    service_name = booking["service_name"]
-    barber_name  = booking["barber_name"]
-    date_str     = booking["date"]          # YYYY-MM-DD
-    time_str     = booking["time"]          # HH:MM
-    duration     = int(booking["duration"]) # minutes
-
-    # Parse the start datetime and work out the end time
-    start_dt = datetime.strptime(f"{date_str} {time_str}", "%Y-%m-%d %H:%M")
-    end_dt   = start_dt + timedelta(minutes=duration)
-
-    # Google Calendar wants times in UTC format: YYYYMMDDTHHMMSSZ
-    # The shop is in the UK so we keep it simple and use local time here;
-    # for a production system you'd convert to UTC properly.
-    start_fmt = start_dt.strftime("%Y%m%dT%H%M%S")
-    end_fmt   = end_dt.strftime("%Y%m%dT%H%M%S")
-
-    title   = f"{service_name} at Blade & Bone Barbershop"
-    details = (
-        f"Appointment: {service_name}\n"
-        f"Barber: {barber_name}\n"
-        f"Duration: {duration} minutes\n"
-        f"Address: Waterloo, Durban\n"
-        f"Phone: 082 356 2239\n\n"
-        f"Please arrive 5 minutes before your appointment."
-    )
-
+    start_dt  = datetime.strptime(f"{booking['date']} {booking['time']}", "%Y-%m-%d %H:%M")
+    end_dt    = start_dt + timedelta(minutes=int(booking["duration"]))
     params = {
         "action":   "TEMPLATE",
-        "text":     title,
-        "dates":    f"{start_fmt}/{end_fmt}",
-        "details":  details,
+        "text":     f"{booking['service_name']} at Blade & Bone Barbershop",
+        "dates":    f"{start_dt.strftime('%Y%m%dT%H%M%S')}/{end_dt.strftime('%Y%m%dT%H%M%S')}",
+        "details":  (
+            f"Service: {booking['service_name']}\n"
+            f"Barber: {booking['barber_name']}\n"
+            f"Duration: {booking['duration']} minutes\n"
+            f"Address: Waterloo, Durban\n"
+            f"Phone: 082 356 2239\n\n"
+            f"Please arrive 5 minutes before your appointment."
+        ),
         "location": "Waterloo, Durban",
     }
-
     return "https://calendar.google.com/calendar/render?" + urllib.parse.urlencode(params)
 
 
 def build_ics_content(booking):
-    """
-    Builds an .ics file string so the customer can add the appointment to
-    Apple Calendar, Outlook, or any calendar that understands the iCal format.
-    """
-    service_name = booking["service_name"]
-    barber_name  = booking["barber_name"]
-    date_str     = booking["date"]
-    time_str     = booking["time"]
-    duration     = int(booking["duration"])
-
-    start_dt = datetime.strptime(f"{date_str} {time_str}", "%Y-%m-%d %H:%M")
-    end_dt   = start_dt + timedelta(minutes=duration)
-
-    # iCal datetime format
-    start_fmt = start_dt.strftime("%Y%m%dT%H%M%S")
-    end_fmt   = end_dt.strftime("%Y%m%dT%H%M%S")
-    now_fmt   = datetime.utcnow().strftime("%Y%m%dT%H%M%SZ")
-
-    # A unique identifier for this event - combining timestamp + service keeps it distinct
-    uid = f"{start_fmt}-{service_name.lower().replace(' ', '-')}@bladeandbonebarber.co.uk"
-
-    description = (
-        f"Appointment: {service_name}\\n"
-        f"Barber: {barber_name}\\n"
-        f"Duration: {duration} minutes\\n"
-        f"Address: Waterloo\\, Durban\\n"
-        f"Phone: 082 356 2239\\n\\n"
-        f"Please arrive 5 minutes before your appointment."
-    )
-
-    # Build the .ics content following RFC 5545
-    ics = (
-        "BEGIN:VCALENDAR\r\n"
-        "VERSION:2.0\r\n"
+    start_dt  = datetime.strptime(f"{booking['date']} {booking['time']}", "%Y-%m-%d %H:%M")
+    end_dt    = start_dt + timedelta(minutes=int(booking["duration"]))
+    uid       = f"{start_dt.strftime('%Y%m%dT%H%M%S')}-{booking['service_id']}@bladeandbonebarber.co.za"
+    return (
+        "BEGIN:VCALENDAR\r\nVERSION:2.0\r\n"
         "PRODID:-//Blade & Bone Barbershop//EN\r\n"
-        "CALSCALE:GREGORIAN\r\n"
-        "METHOD:PUBLISH\r\n"
+        "CALSCALE:GREGORIAN\r\nMETHOD:PUBLISH\r\n"
         "BEGIN:VEVENT\r\n"
         f"UID:{uid}\r\n"
-        f"DTSTAMP:{now_fmt}\r\n"
-        f"DTSTART:{start_fmt}\r\n"
-        f"DTEND:{end_fmt}\r\n"
-        f"SUMMARY:{service_name} at Blade & Bone Barbershop\r\n"
-        f"DESCRIPTION:{description}\r\n"
+        f"DTSTAMP:{datetime.utcnow().strftime('%Y%m%dT%H%M%SZ')}\r\n"
+        f"DTSTART:{start_dt.strftime('%Y%m%dT%H%M%S')}\r\n"
+        f"DTEND:{end_dt.strftime('%Y%m%dT%H%M%S')}\r\n"
+        f"SUMMARY:{booking['service_name']} at Blade & Bone Barbershop\r\n"
+        f"DESCRIPTION:Service: {booking['service_name']}\\nBarber: {booking['barber_name']}\\n"
+        f"Duration: {booking['duration']} mins\\nAddress: Waterloo\\, Durban\\nPhone: 082 356 2239\r\n"
         "LOCATION:Waterloo\\, Durban\r\n"
-        "BEGIN:VALARM\r\n"
-        "TRIGGER:-PT60M\r\n"
-        "ACTION:DISPLAY\r\n"
-        f"DESCRIPTION:Reminder: {service_name} at Blade & Bone in 1 hour\r\n"
-        "END:VALARM\r\n"
-        "END:VEVENT\r\n"
-        "END:VCALENDAR\r\n"
+        "BEGIN:VALARM\r\nTRIGGER:-PT60M\r\nACTION:DISPLAY\r\n"
+        f"DESCRIPTION:Reminder: {booking['service_name']} at Blade & Bone in 1 hour\r\n"
+        "END:VALARM\r\nEND:VEVENT\r\nEND:VCALENDAR\r\n"
     )
 
-    return ics
 
-
-# ---------------------------------------------------------------------------
-# Routes
-# ---------------------------------------------------------------------------
+# ─────────────────────────────────────────────────────────────────────────────
+# CUSTOMER ROUTES
+# ─────────────────────────────────────────────────────────────────────────────
 
 @app.route("/")
 def home():
@@ -213,58 +271,37 @@ def about():
 
 @app.route("/booking", methods=["GET", "POST"])
 def booking():
-    """
-    Handles the booking form. On GET it shows the form; on POST it validates
-    the submitted data and stores it in the session before redirecting to
-    the confirmation page.
-    """
     if request.method == "POST":
-        service_id  = request.form.get("service")
-        barber_id   = request.form.get("barber")
-        date_str    = request.form.get("date")
-        time_str    = request.form.get("time")
-        first_name  = request.form.get("first_name", "").strip()
-        last_name   = request.form.get("last_name", "").strip()
-        email       = request.form.get("email", "").strip()
-        phone       = request.form.get("phone", "").strip()
-        notes       = request.form.get("notes", "").strip()
+        service_id = request.form.get("service", "").strip()
+        barber_id  = request.form.get("barber",  "").strip()
+        date_str   = request.form.get("date",    "").strip()
+        time_str   = request.form.get("time",    "").strip()
+        first_name = request.form.get("first_name", "").strip()
+        last_name  = request.form.get("last_name",  "").strip()
+        email      = request.form.get("email",      "").strip()
+        phone      = request.form.get("phone",      "").strip()
+        notes      = request.form.get("notes",      "").strip()
 
-        # Find the matching service and barber from our data
         service = next((s for s in SERVICES if s["id"] == service_id), None)
         barber  = next((b for b in BARBERS  if b["id"] == barber_id),  None)
 
-        # Basic server-side validation - the form also validates on the client
         errors = []
-        if not service:
-            errors.append("Please select a valid service.")
-        if not barber:
-            errors.append("Please select a barber.")
-        if not date_str:
-            errors.append("Please choose a date.")
-        if not time_str:
-            errors.append("Please choose a time.")
-        if not first_name:
-            errors.append("Please enter your first name.")
-        if not last_name:
-            errors.append("Please enter your last name.")
-        if not email or "@" not in email:
-            errors.append("Please enter a valid email address.")
-        if not phone:
-            errors.append("Please enter your phone number.")
+        if not service:               errors.append("Please select a service.")
+        if not barber:                errors.append("Please select a barber.")
+        if not date_str:              errors.append("Please choose a date.")
+        if not time_str:              errors.append("Please choose a time slot.")
+        if not first_name:            errors.append("Please enter your first name.")
+        if not last_name:             errors.append("Please enter your last name.")
+        if not email or "@" not in email: errors.append("Please enter a valid email.")
+        if not phone:                 errors.append("Please enter your phone number.")
 
         if errors:
             return render_template(
-                "booking.html",
-                shop=SHOP,
-                services=SERVICES,
-                barbers=BARBERS,
-                time_slots=TIME_SLOTS,
-                errors=errors,
-                form_data=request.form,
+                "booking.html", shop=SHOP, services=SERVICES, barbers=BARBERS,
+                time_slots=TIME_SLOTS, errors=errors, form_data=request.form,
             )
 
-        # Store everything in the session so the confirmation page can read it
-        session["booking"] = {
+        booking_data = {
             "service_id":   service["id"],
             "service_name": service["name"],
             "duration":     service["duration"],
@@ -280,71 +317,42 @@ def booking():
             "notes":        notes,
         }
 
+        booking_data["id"] = save_booking(booking_data)
+        session["booking"] = booking_data
         return redirect(url_for("confirmation"))
 
-    # GET - show the empty booking form
     return render_template(
-        "booking.html",
-        shop=SHOP,
-        services=SERVICES,
-        barbers=BARBERS,
-        time_slots=TIME_SLOTS,
-        errors=[],
-        form_data={},
+        "booking.html", shop=SHOP, services=SERVICES, barbers=BARBERS,
+        time_slots=TIME_SLOTS, errors=[], form_data={},
     )
 
 
 @app.route("/confirmation")
 def confirmation():
-    """
-    Shows the booking confirmation and provides both Google Calendar and
-    Apple Calendar download links built from the customer's actual booking.
-    """
     booking = session.get("booking")
-
     if not booking:
-        # If someone lands here without a booking, send them to the booking page
         return redirect(url_for("booking"))
-
-    # Format the date nicely for display
     try:
         display_date = datetime.strptime(booking["date"], "%Y-%m-%d").strftime("%A, %d %B %Y")
-    except ValueError:
-        display_date = booking["date"]
-
-    google_cal_url = build_google_cal_url(booking)
-
+    except (ValueError, KeyError):
+        display_date = booking.get("date", "")
     return render_template(
-        "confirmation.html",
-        shop=SHOP,
-        booking=booking,
+        "confirmation.html", shop=SHOP, booking=booking,
         display_date=display_date,
-        google_cal_url=google_cal_url,
+        google_cal_url=build_google_cal_url(booking),
     )
 
 
 @app.route("/download-ics")
 def download_ics():
-    """
-    Generates and serves an .ics file for the customer's booking.
-    This is what Apple Calendar, Outlook and other apps download.
-    """
     booking = session.get("booking")
-
     if not booking:
         return redirect(url_for("booking"))
-
-    ics_content = build_ics_content(booking)
-
-    # Build a sensible filename from the booking details
-    safe_service = booking["service_name"].lower().replace(" ", "-").replace("&", "and")
-    filename = f"blade-and-bone-{safe_service}-{booking['date']}.ics"
-
-    response = make_response(ics_content)
-    response.headers["Content-Type"]        = "text/calendar; charset=utf-8"
-    response.headers["Content-Disposition"] = f"attachment; filename={filename}"
-
-    return response
+    safe = booking["service_name"].lower().replace(" ", "-").replace("&", "and")
+    resp = make_response(build_ics_content(booking))
+    resp.headers["Content-Type"]        = "text/calendar; charset=utf-8"
+    resp.headers["Content-Disposition"] = f"attachment; filename=blade-and-bone-{safe}-{booking['date']}.ics"
+    return resp
 
 
 @app.route("/contact")
@@ -362,12 +370,131 @@ def privacy():
     return render_template("privacy.html", shop=SHOP)
 
 
-# ---------------------------------------------------------------------------
-# Run
-# ---------------------------------------------------------------------------
+# ─────────────────────────────────────────────────────────────────────────────
+# ADMIN ROUTES  —  Login is email only, no password
+# ─────────────────────────────────────────────────────────────────────────────
+
+@app.route("/admin/login", methods=["GET", "POST"])
+def admin_login():
+    if session.get("admin_logged_in"):
+        return redirect(url_for("admin_dashboard"))
+
+    error = None
+    if request.method == "POST":
+        email = request.form.get("email", "").strip().lower()
+        if email == ADMIN_EMAIL.lower():
+            session["admin_logged_in"] = True
+            session["admin_email"]     = ADMIN_EMAIL
+            return redirect(url_for("admin_dashboard"))
+        else:
+            error = "Unauthorised email address. Please use the admin email."
+
+    return render_template("admin/login.html", error=error)
+
+
+@app.route("/admin/logout")
+def admin_logout():
+    session.pop("admin_logged_in", None)
+    session.pop("admin_email",     None)
+    return redirect(url_for("admin_login"))
+
+
+@app.route("/admin")
+@app.route("/admin/dashboard")
+@admin_required
+def admin_dashboard():
+    bookings  = get_all_bookings()
+    today_str = datetime.now().strftime("%Y-%m-%d")
+    stats = {
+        "total":     len(bookings),
+        "today":     sum(1 for b in bookings if b["date"] == today_str),
+        "confirmed": sum(1 for b in bookings if b["status"] == "confirmed"),
+        "cancelled": sum(1 for b in bookings if b["status"] == "cancelled"),
+        "completed": sum(1 for b in bookings if b["status"] == "completed"),
+        "revenue":   sum(b["price"] for b in bookings if b["status"] != "cancelled"),
+    }
+    return render_template(
+        "admin/dashboard.html",
+        bookings=bookings, stats=stats,
+        services=SERVICES, barbers=BARBERS, shop=SHOP,
+        admin_email=session.get("admin_email"),
+    )
+
+
+@app.route("/admin/bookings")
+@admin_required
+def admin_bookings():
+    filter_status = request.args.get("status", "")
+    filter_barber = request.args.get("barber", "")
+    filter_date   = request.args.get("date",   "")
+
+    bookings = get_all_bookings()
+    if filter_status: bookings = [b for b in bookings if b["status"]    == filter_status]
+    if filter_barber: bookings = [b for b in bookings if b["barber_id"] == filter_barber]
+    if filter_date:   bookings = [b for b in bookings if b["date"]      == filter_date]
+
+    return render_template(
+        "admin/bookings.html",
+        bookings=bookings, barbers=BARBERS, shop=SHOP,
+        filter_status=filter_status, filter_barber=filter_barber,
+        filter_date=filter_date, admin_email=session.get("admin_email"),
+    )
+
+
+@app.route("/admin/booking/<int:booking_id>")
+@admin_required
+def admin_booking_detail(booking_id):
+    b = get_booking_by_id(booking_id)
+    if not b:
+        flash("Booking not found.", "error")
+        return redirect(url_for("admin_bookings"))
+    return render_template(
+        "admin/booking_detail.html", booking=b, shop=SHOP,
+        admin_email=session.get("admin_email"),
+    )
+
+
+@app.route("/admin/booking/<int:booking_id>/status", methods=["POST"])
+@admin_required
+def admin_update_status(booking_id):
+    status = request.form.get("status", "confirmed")
+    if status in ("confirmed", "cancelled", "completed"):
+        update_booking_status(booking_id, status)
+        flash(f"Booking #{booking_id} updated to {status}.", "success")
+    return redirect(request.referrer or url_for("admin_bookings"))
+
+
+@app.route("/admin/booking/<int:booking_id>/delete", methods=["POST"])
+@admin_required
+def admin_delete_booking(booking_id):
+    delete_booking(booking_id)
+    flash(f"Booking #{booking_id} deleted.", "info")
+    return redirect(url_for("admin_bookings"))
+
+
+@app.route("/admin/services")
+@admin_required
+def admin_services():
+    return render_template(
+        "admin/services.html", services=SERVICES, shop=SHOP,
+        admin_email=session.get("admin_email"),
+    )
+
+
+@app.route("/admin/barbers")
+@admin_required
+def admin_barbers():
+    return render_template(
+        "admin/barbers.html", barbers=BARBERS, shop=SHOP,
+        admin_email=session.get("admin_email"),
+    )
+
+
+# ─────────────────────────────────────────────────────────────────────────────
+# RUN
+# ─────────────────────────────────────────────────────────────────────────────
 
 if __name__ == "__main__":
-    # Debug mode is off by default - only turn it on locally while developing
-    debug_mode = os.environ.get("FLASK_DEBUG", "false").lower() == "true"
-    port = int(os.environ.get("PORT", 5000))
-    app.run(debug=debug_mode, host="0.0.0.0", port=port)
+    debug = os.environ.get("FLASK_DEBUG", "false").lower() == "true"
+    port  = int(os.environ.get("PORT", 5000))
+    app.run(debug=debug, host="0.0.0.0", port=port)

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login — Blade &amp; Bone</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{--c:#121212;--s:#1a1a1a;--b:#2e2e2e;--g:#C5A46A;--w:#F5F3EF;--m:#7a7670;--e:#e05c5c}
+    body{font-family:'Inter',system-ui,sans-serif;background:var(--c);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px}
+    .wrap{width:100%;max-width:400px}
+    .brand{text-align:center;margin-bottom:32px}
+    .brand-name{font-family:'Bebas Neue',sans-serif;font-size:2.25rem;color:var(--w);letter-spacing:.06em;display:block}
+    .brand-sub{font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--g);display:block;margin-top:3px}
+    .card{background:var(--s);border:1px solid var(--b);border-top:2px solid var(--g);border-radius:12px;padding:36px 32px}
+    .card-title{font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--m);margin-bottom:24px;text-align:center}
+    .hint{background:rgba(197,164,106,.08);border:1px solid rgba(197,164,106,.2);border-radius:6px;padding:12px 16px;font-size:.8125rem;color:var(--m);margin-bottom:20px;text-align:center;line-height:1.65}
+    .hint strong{color:var(--g)}
+    .err{background:rgba(224,92,92,.1);border:1px solid rgba(224,92,92,.3);border-radius:6px;padding:11px 14px;font-size:.875rem;color:var(--e);margin-bottom:18px}
+    .field{margin-bottom:18px}
+    label{display:block;font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--m);margin-bottom:7px}
+    input{width:100%;padding:12px 14px;background:#242424;border:1.5px solid var(--b);border-radius:5px;font-family:'Inter',sans-serif;font-size:.9375rem;color:var(--w);transition:border-color .2s}
+    input:focus{outline:none;border-color:var(--g)}
+    input::placeholder{color:#55504a}
+    .submit{width:100%;padding:13px;background:var(--g);color:var(--c);border:none;border-radius:5px;font-family:'Inter',sans-serif;font-size:.8125rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:background .2s;margin-top:4px}
+    .submit:hover{background:#d4b87e}
+    .foot{text-align:center;margin-top:18px;font-size:.8rem;color:var(--m)}
+    .foot a{color:var(--g)}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">
+    <span class="brand-name">Blade &amp; Bone</span>
+    <span class="brand-sub">Admin Panel</span>
+  </div>
+  <div class="card">
+    <p class="card-title">Sign In</p>
+    <div class="hint">
+      Enter your admin email to access the dashboard.<br />
+      <strong>poomeigh503@gmail.com</strong>
+    </div>
+    {% if error %}<div class="err">{{ error }}</div>{% endif %}
+    <form method="POST" action="{{ url_for('admin_login') }}">
+      <div class="field">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="poomeigh503@gmail.com" autocomplete="email" required />
+      </div>
+      <button type="submit" class="submit">Access Dashboard &rarr;</button>
+    </form>
+  </div>
+  <div class="foot"><a href="{{ url_for('home') }}">&larr; Back to Website</a></div>
+</div>
+</body>
+</html>
