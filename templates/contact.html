@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+
+{% block title %}Contact Us — Blade &amp; Bone Barbershop Manchester{% endblock %}
+
+{% block content %}
+
+<section class="page-hero" aria-label="Contact page header">
+  <div class="container">
+    <p class="section-eyebrow">Get in Touch</p>
+    <h1 class="page-hero-heading">Contact &amp; Location</h1>
+    <p class="page-hero-sub">We're on King Street, Manchester. Pop in, call us or drop an email.</p>
+  </div>
+</section>
+
+
+<section class="section contact-section" aria-labelledby="contact-heading">
+  <div class="container contact-grid">
+
+    <!-- Contact info panel -->
+    <div class="contact-info-panel">
+      <h2 id="contact-heading" class="section-heading">Find Us</h2>
+
+      <div class="contact-details">
+        <div class="contact-detail-item">
+          <div class="contact-detail-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          </div>
+          <div>
+            <strong>Address</strong>
+            <p>47 King Street<br />Manchester, M2 4LQ</p>
+            <a href="https://maps.google.com/?q=47+King+Street+Manchester+M2+4LQ" target="_blank" rel="noopener noreferrer" class="inline-link">Get directions on Google Maps &rarr;</a>
+          </div>
+        </div>
+
+        <div class="contact-detail-item">
+          <div class="contact-detail-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+          </div>
+          <div>
+            <strong>Phone</strong>
+            <p><a href="tel:+441618347720">{{ shop.phone }}</a></p>
+          </div>
+        </div>
+
+        <div class="contact-detail-item">
+          <div class="contact-detail-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          </div>
+          <div>
+            <strong>Email</strong>
+            <p><a href="mailto:{{ shop.email }}">{{ shop.email }}</a></p>
+          </div>
+        </div>
+
+        <div class="contact-detail-item">
+          <div class="contact-detail-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          </div>
+          <div>
+            <strong>Opening Hours</strong>
+            <ul class="contact-hours-list">
+              {% for day, hours in shop.hours.items() %}
+              <li><span>{{ day }}</span><span>{{ hours }}</span></li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <a href="{{ url_for('booking') }}" class="btn btn-gold contact-book-btn">Book an Appointment</a>
+    </div>
+
+    <!-- Map embed placeholder + contact message form -->
+    <div class="contact-right-panel">
+
+      <!-- Google Maps embed for King Street Manchester -->
+      <div class="map-embed-wrap">
+        <iframe
+          title="Blade and Bone Barbershop location on Google Maps"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2374.0!2d-2.2439!3d53.4808!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x487bb1bcb3f5b2f5%3A0x0!2sKing%20St%2C%20Manchester!5e0!3m2!1sen!2suk!4v1"
+          width="100%"
+          height="300"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+
+      <!-- Quick message form -->
+      <div class="contact-form-wrap">
+        <h3 class="contact-form-heading">Send Us a Message</h3>
+        <form class="contact-form" id="contact-form" novalidate>
+          <div class="fields-row">
+            <div class="field-group">
+              <label for="contact-name" class="field-label">Your name</label>
+              <input type="text" id="contact-name" name="name" class="field-input" required aria-required="true" />
+            </div>
+            <div class="field-group">
+              <label for="contact-email" class="field-label">Email address</label>
+              <input type="email" id="contact-email" name="email" class="field-input" required aria-required="true" />
+            </div>
+          </div>
+          <div class="field-group">
+            <label for="contact-message" class="field-label">Message</label>
+            <textarea id="contact-message" name="message" class="field-input field-textarea" rows="4" required aria-required="true" placeholder="Ask us anything..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-gold">Send Message</button>
+          <p class="contact-form-note" id="contact-success" hidden aria-live="polite">
+            &#10003; Message sent — we'll get back to you within 24 hours.
+          </p>
+        </form>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}

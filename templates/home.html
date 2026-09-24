@@ -1,0 +1,256 @@
+{% extends "base.html" %}
+
+{% block title %}Blade & Bone Barbershop — Precision Cuts in Manchester{% endblock %}
+
+{% block content %}
+
+<!-- =========================================================
+     HERO SECTION
+     Full-height opening section with background image overlay,
+     headline, subline and two calls to action.
+========================================================== -->
+<section class="hero" aria-label="Welcome to Blade and Bone">
+  <div class="hero-bg" aria-hidden="true"></div>
+  <div class="hero-overlay" aria-hidden="true"></div>
+  <div class="container hero-content">
+    <p class="hero-eyebrow">Manchester City Centre</p>
+    <h1 class="hero-heading">
+      Where Sharp Cuts<br />Meet Serious Craft
+    </h1>
+    <p class="hero-subline">
+      Premium barbering on King Street since 2016. Walk in sharp, walk out sharper.
+    </p>
+    <div class="hero-actions">
+      <a href="{{ url_for('booking') }}" class="btn btn-gold btn-lg">Book Your Cut</a>
+      <a href="{{ url_for('services') }}" class="btn btn-outline-light btn-lg">See Services &amp; Prices</a>
+    </div>
+    <!-- Quick trust signals under the CTAs -->
+    <div class="hero-badges">
+      <span class="hero-badge">&#x2713; Walk-ins welcome</span>
+      <span class="hero-badge">&#x2713; 3 expert barbers</span>
+      <span class="hero-badge">&#x2713; Open 7 days</span>
+    </div>
+  </div>
+  <!-- Scroll indicator -->
+  <div class="hero-scroll-hint" aria-hidden="true">
+    <span class="scroll-text">Scroll</span>
+    <span class="scroll-arrow">&#x2193;</span>
+  </div>
+</section>
+
+
+<!-- =========================================================
+     INTRODUCTION STRIP
+     Three value-proposition tiles across the page.
+========================================================== -->
+<section class="intro-strip" aria-label="Why choose Blade and Bone">
+  <div class="container intro-grid">
+
+    <div class="intro-tile">
+      <div class="intro-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+      </div>
+      <h2 class="intro-tile-heading">Master Barbers</h2>
+      <p>Three skilled specialists, each with their own area of expertise. You'll always leave looking your best.</p>
+    </div>
+
+    <div class="intro-tile">
+      <div class="intro-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <h2 class="intro-tile-heading">Easy Online Booking</h2>
+      <p>Pick your service, choose your barber and lock in your time — takes under two minutes on any device.</p>
+    </div>
+
+    <div class="intro-tile">
+      <div class="intro-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+      </div>
+      <h2 class="intro-tile-heading">Regulars for a Reason</h2>
+      <p>A relaxed, no-fuss atmosphere where the coffee is good and the conversation is optional.</p>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- =========================================================
+     FEATURED SERVICES PREVIEW
+     Shows four services with a link to the full services page.
+========================================================== -->
+<section class="section services-preview" aria-labelledby="services-preview-heading">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-eyebrow">What We Do</p>
+      <h2 id="services-preview-heading" class="section-heading">Popular Services</h2>
+      <p class="section-subline">From a clean fade to the full groom — we've got you covered.</p>
+    </div>
+
+    <div class="services-preview-grid">
+      {% for service in services %}
+      <div class="service-preview-card">
+        <div class="service-card-top">
+          <h3 class="service-card-name">{{ service.name }}</h3>
+          <span class="service-card-price">&pound;{{ service.price }}</span>
+        </div>
+        <p class="service-card-desc">{{ service.desc }}</p>
+        <p class="service-card-duration">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          {{ service.duration }} mins
+        </p>
+        <a href="{{ url_for('booking') }}?service={{ service.id }}" class="btn btn-outline-dark service-book-btn">Book This</a>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="section-footer-link">
+      <a href="{{ url_for('services') }}" class="btn btn-gold">View All Services &amp; Prices</a>
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================================================
+     GALLERY / ATMOSPHERE SECTION
+     Uses real Unsplash images of barbershops and cuts.
+========================================================== -->
+<section class="gallery-section" aria-labelledby="gallery-heading">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-eyebrow">The Experience</p>
+      <h2 id="gallery-heading" class="section-heading">Craftsmanship You Can See</h2>
+    </div>
+  </div>
+  <div class="gallery-grid" aria-label="Gallery of barbershop photos">
+    <div class="gallery-item gallery-item--large">
+      <img
+        src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=800&h=600&fit=crop&q=80"
+        alt="Barber styling a client's hair with precision"
+        loading="lazy"
+      />
+    </div>
+    <div class="gallery-item">
+      <img
+        src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=500&h=400&fit=crop&q=80"
+        alt="Clean skin fade close-up"
+        loading="lazy"
+      />
+    </div>
+    <div class="gallery-item">
+      <img
+        src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=500&h=400&fit=crop&q=80"
+        alt="Barber using scissors for a precise cut"
+        loading="lazy"
+      />
+    </div>
+    <div class="gallery-item">
+      <img
+        src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=500&h=400&fit=crop&q=80"
+        alt="Hot towel shave in progress"
+        loading="lazy"
+      />
+    </div>
+    <div class="gallery-item">
+      <img
+        src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=500&h=400&fit=crop&q=80"
+        alt="Interior of the barbershop with leather chairs"
+        loading="lazy"
+      />
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================================================
+     SOCIAL PROOF / TESTIMONIALS
+========================================================== -->
+<section class="section testimonials-section" aria-labelledby="testimonials-heading">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-eyebrow">What Clients Say</p>
+      <h2 id="testimonials-heading" class="section-heading">Heard on the Street</h2>
+    </div>
+
+    <div class="testimonials-grid">
+      <blockquote class="testimonial-card">
+        <div class="stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonial-text">"Best fade I've had in Manchester. Jordan knew exactly what I wanted from about four words. The place has a great atmosphere too."</p>
+        <footer class="testimonial-author">
+          <strong>Callum B.</strong>
+          <span>Regular client since 2021</span>
+        </footer>
+      </blockquote>
+
+      <blockquote class="testimonial-card">
+        <div class="stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonial-text">"Priya is an absolute genius with curly hair. First time I've ever walked out of a barbershop genuinely happy with how my hair looks. Already booked my next one."</p>
+        <footer class="testimonial-author">
+          <strong>Theo M.</strong>
+          <span>Regular client since 2022</span>
+        </footer>
+      </blockquote>
+
+      <blockquote class="testimonial-card">
+        <div class="stars" aria-label="5 out of 5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonial-text">"Marcus does my son's hair now too. Both of us happy every single time. Easy booking, they're always on time and the shop is spotless."</p>
+        <footer class="testimonial-author">
+          <strong>David K.</strong>
+          <span>Regular client since 2019</span>
+        </footer>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================================================
+     BOOKING CTA BANNER
+     A bold full-width section pushing visitors to book.
+========================================================== -->
+<section class="cta-banner" aria-labelledby="cta-heading">
+  <div class="container cta-inner">
+    <h2 id="cta-heading" class="cta-heading">Ready for a Fresh Cut?</h2>
+    <p class="cta-subline">Book online in under 2 minutes. Choose your service, pick your barber, lock in your time.</p>
+    <a href="{{ url_for('booking') }}" class="btn btn-gold btn-lg">Book Your Appointment</a>
+  </div>
+</section>
+
+
+<!-- =========================================================
+     QUICK INFO STRIP — opening hours + location snapshot
+========================================================== -->
+<section class="info-strip" aria-label="Shop information">
+  <div class="container info-strip-grid">
+    <div class="info-block">
+      <div class="info-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <div>
+        <h3 class="info-block-heading">Opening Hours</h3>
+        <ul class="info-hours-list">
+          {% for day, hours in shop.hours.items() %}
+          <li><span>{{ day }}</span><span>{{ hours }}</span></li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <div class="info-block">
+      <div class="info-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      </div>
+      <div>
+        <h3 class="info-block-heading">Find Us</h3>
+        <p>{{ shop.address }}</p>
+        <p><a href="tel:+441618347720">{{ shop.phone }}</a></p>
+        <a
+          href="https://maps.google.com/?q=47+King+Street+Manchester+M2+4LQ"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="map-link"
+        >Get directions &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+
+{% block title %}Terms &amp; Conditions — Blade &amp; Bone Barbershop{% endblock %}
+
+{% block content %}
+
+<section class="page-hero" aria-label="Terms page header">
+  <div class="container">
+    <p class="section-eyebrow">Legal</p>
+    <h1 class="page-hero-heading">Terms &amp; Conditions</h1>
+    <p class="page-hero-sub">Last updated: September 2024</p>
+  </div>
+</section>
+
+<section class="section legal-section" aria-labelledby="terms-heading">
+  <div class="container legal-container">
+
+    <h2 id="terms-heading" class="sr-only">Full Terms and Conditions</h2>
+
+    <div class="legal-content">
+
+      <h2>1. Introduction</h2>
+      <p>
+        These Terms and Conditions govern your use of the Blade &amp; Bone Barbershop website at
+        <strong>bladeandbonebarber.co.uk</strong> and any bookings you make with us. By using our website
+        or booking a service, you agree to be bound by these terms. Please read them carefully before
+        proceeding.
+      </p>
+      <p>
+        Blade &amp; Bone Barbershop is a trading name of Blade &amp; Bone Ltd, registered in England and Wales.
+        Our registered address is 47 King Street, Manchester, M2 4LQ.
+      </p>
+
+      <h2>2. Booking and Appointments</h2>
+      <h3>2.1 Online Bookings</h3>
+      <p>
+        Bookings made through our website are subject to availability. A booking is only confirmed once
+        you receive a confirmation page or email from us. We reserve the right to decline or cancel any
+        booking at our discretion with reasonable notice.
+      </p>
+      <h3>2.2 Accurate Information</h3>
+      <p>
+        You must provide accurate personal information when making a booking, including a valid name,
+        email address and phone number. We will use these details to confirm and manage your appointment.
+      </p>
+      <h3>2.3 Age</h3>
+      <p>
+        Clients under the age of 16 must be accompanied by a parent or guardian for their appointment.
+        By booking on behalf of a minor, you confirm that you have the authority to do so.
+      </p>
+
+      <h2>3. Cancellation and No-Show Policy</h2>
+      <h3>3.1 Cancellations by You</h3>
+      <p>
+        We ask for a minimum of <strong>24 hours notice</strong> if you need to cancel or reschedule your
+        appointment. Cancellations can be made by calling <a href="tel:+441618347720">0161 834 7720</a> or
+        emailing <a href="mailto:hello@bladeandbonebarber.co.uk">hello@bladeandbonebarber.co.uk</a>.
+      </p>
+      <h3>3.2 Late Cancellations</h3>
+      <p>
+        Cancellations made within 24 hours of the appointment time, or failure to attend without notice,
+        may result in a cancellation fee of up to 50% of the booked service price. We will always try to
+        be reasonable with genuine emergencies.
+      </p>
+      <h3>3.3 Cancellations by Us</h3>
+      <p>
+        In the rare event that we need to cancel your appointment, we will contact you as soon as possible
+        and offer an alternative time. No charge will be made for cancellations initiated by us.
+      </p>
+
+      <h2>4. Services and Pricing</h2>
+      <p>
+        All prices displayed on our website are in pound sterling (GBP) and are inclusive of VAT where
+        applicable. Prices are subject to change and the price applicable to your booking is the price
+        shown at the time of booking confirmation.
+      </p>
+      <p>
+        Service durations shown are estimates. Actual appointment length may vary depending on the
+        complexity of the service required.
+      </p>
+
+      <h2>5. Promotional Codes and Discounts</h2>
+      <p>
+        Promotional codes (such as the first-visit discount code NEWCUT10) are subject to the following conditions:
+      </p>
+      <ul>
+        <li>One use per customer per lifetime.</li>
+        <li>Cannot be combined with any other offer or discount.</li>
+        <li>Must be presented at the time of the appointment and may be verified.</li>
+        <li>Blade &amp; Bone reserves the right to withdraw any promotion at any time without notice.</li>
+      </ul>
+
+      <h2>6. Payment</h2>
+      <p>
+        Payment for services is due at the time of the appointment. We accept cash and all major credit
+        and debit cards. Our booking system does not process card payments in advance; payment is settled
+        in person at the shop.
+      </p>
+
+      <h2>7. Health and Safety</h2>
+      <p>
+        Clients are asked to inform their barber of any skin conditions, allergies or sensitivities that
+        may be relevant before any service begins. We cannot be held liable for reactions arising from
+        undisclosed conditions.
+      </p>
+      <p>
+        We maintain high standards of hygiene throughout our shop. All tools are sterilised between clients
+        and clean towels and capes are used for every appointment.
+      </p>
+
+      <h2>8. Website Use</h2>
+      <h3>8.1 Accuracy of Information</h3>
+      <p>
+        We make every effort to ensure the information on our website is accurate and up to date. However,
+        we do not warrant that the content is always accurate, complete or current. Service information
+        and pricing should be confirmed directly with the shop if in any doubt.
+      </p>
+      <h3>8.2 Intellectual Property</h3>
+      <p>
+        All content on this website — including text, images, logos and design — is owned by or licensed
+        to Blade &amp; Bone Barbershop. You may not reproduce, redistribute or otherwise use our content
+        without our prior written permission.
+      </p>
+
+      <h2>9. Liability</h2>
+      <p>
+        To the fullest extent permitted by law, Blade &amp; Bone Barbershop shall not be liable for any
+        indirect, incidental or consequential loss arising from your use of our services or website.
+        Our total liability to you shall not exceed the amount paid for the service in question.
+      </p>
+      <p>
+        Nothing in these terms limits or excludes liability for death or personal injury caused by
+        negligence, fraud or any other matter that cannot be excluded under applicable law.
+      </p>
+
+      <h2>10. Data Protection</h2>
+      <p>
+        Your personal data is processed in accordance with our
+        <a href="{{ url_for('privacy') }}">Privacy Policy</a>. By using our website and booking services,
+        you consent to that processing. We take your privacy seriously and will never sell your data to
+        third parties.
+      </p>
+
+      <h2>11. Governing Law</h2>
+      <p>
+        These Terms and Conditions are governed by and construed in accordance with the laws of England
+        and Wales. Any disputes will be subject to the exclusive jurisdiction of the courts of England
+        and Wales.
+      </p>
+
+      <h2>12. Changes to These Terms</h2>
+      <p>
+        We may update these Terms and Conditions from time to time. The date of the most recent revision
+        appears at the top of this page. Continued use of our website or booking services after any
+        changes constitutes your acceptance of the revised terms.
+      </p>
+
+      <h2>13. Contact</h2>
+      <p>
+        If you have any questions about these Terms and Conditions, please contact us:
+      </p>
+      <ul>
+        <li><strong>Address:</strong> 47 King Street, Manchester, M2 4LQ</li>
+        <li><strong>Phone:</strong> <a href="tel:+441618347720">0161 834 7720</a></li>
+        <li><strong>Email:</strong> <a href="mailto:hello@bladeandbonebarber.co.uk">hello@bladeandbonebarber.co.uk</a></li>
+      </ul>
+
+    </div><!-- /.legal-content -->
+
+    <div class="legal-back-link">
+      <a href="{{ url_for('home') }}" class="btn btn-outline-dark">&larr; Back to Home</a>
+      <a href="{{ url_for('privacy') }}" class="btn btn-outline-dark">Privacy Policy &rarr;</a>
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}

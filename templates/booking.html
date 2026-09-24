@@ -1,0 +1,354 @@
+{% extends "base.html" %}
+
+{% block title %}Book an Appointment — Blade &amp; Bone Barbershop{% endblock %}
+
+{% block extra_head %}
+<!-- Flatpickr date picker — lightweight, no jQuery needed -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+{% endblock %}
+
+{% block content %}
+
+<section class="page-hero" aria-label="Booking page header">
+  <div class="container">
+    <p class="section-eyebrow">Reserve Your Chair</p>
+    <h1 class="page-hero-heading">Book an Appointment</h1>
+    <p class="page-hero-sub">Pick your service, choose your barber, lock in your time. Done in two minutes.</p>
+  </div>
+</section>
+
+
+<!-- =========================================================
+     BOOKING FORM — four steps, shown one at a time
+     Step 1: Choose service
+     Step 2: Choose barber
+     Step 3: Choose date & time
+     Step 4: Your details + submit
+========================================================== -->
+<section class="section booking-section" aria-labelledby="booking-form-heading">
+  <div class="container booking-container">
+
+    <!-- Progress indicator across the top -->
+    <div class="booking-progress" aria-label="Booking steps">
+      <div class="progress-step active" id="progress-1" data-step="1">
+        <div class="progress-dot">1</div>
+        <span class="progress-label">Service</span>
+      </div>
+      <div class="progress-line"></div>
+      <div class="progress-step" id="progress-2" data-step="2">
+        <div class="progress-dot">2</div>
+        <span class="progress-label">Barber</span>
+      </div>
+      <div class="progress-line"></div>
+      <div class="progress-step" id="progress-3" data-step="3">
+        <div class="progress-dot">3</div>
+        <span class="progress-label">Date &amp; Time</span>
+      </div>
+      <div class="progress-line"></div>
+      <div class="progress-step" id="progress-4" data-step="4">
+        <div class="progress-dot">4</div>
+        <span class="progress-label">Your Details</span>
+      </div>
+    </div>
+
+    <!-- Server-side validation errors — only shown if the form was submitted with problems -->
+    {% if errors %}
+    <div class="form-errors" role="alert" aria-live="assertive">
+      <strong>Please fix the following:</strong>
+      <ul>
+        {% for error in errors %}
+        <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endif %}
+
+    <form
+      id="booking-form"
+      method="POST"
+      action="{{ url_for('booking') }}"
+      novalidate
+      aria-labelledby="booking-form-heading"
+    >
+      <h2 id="booking-form-heading" class="sr-only">Booking form</h2>
+
+      <!-- -------------------------------------------------------
+           STEP 1 — Choose your service
+      ------------------------------------------------------- -->
+      <div class="booking-step" id="step-1" data-step="1">
+        <h3 class="step-heading">What service would you like?</h3>
+        <p class="step-sub">Select one service to continue.</p>
+
+        <div class="service-choice-grid" role="radiogroup" aria-label="Choose a service">
+          {% for service in services %}
+          <label
+            class="service-choice-card {% if form_data.get('service') == service.id %}selected{% endif %}"
+            for="svc-{{ service.id }}"
+          >
+            <input
+              type="radio"
+              name="service"
+              id="svc-{{ service.id }}"
+              value="{{ service.id }}"
+              data-duration="{{ service.duration }}"
+              data-price="{{ service.price }}"
+              data-name="{{ service.name }}"
+              {% if form_data.get('service') == service.id %}checked{% endif %}
+              required
+            />
+            <div class="choice-card-body">
+              <div class="choice-card-header">
+                <span class="choice-name">{{ service.name }}</span>
+                <span class="choice-price">&pound;{{ service.price }}</span>
+              </div>
+              <p class="choice-desc">{{ service.desc }}</p>
+              <p class="choice-duration">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                {{ service.duration }} mins
+              </p>
+            </div>
+          </label>
+          {% endfor %}
+        </div>
+
+        <div class="step-actions">
+          <button type="button" class="btn btn-gold step-next-btn" data-next="2">
+            Continue — Choose Barber &rarr;
+          </button>
+        </div>
+      </div>
+
+
+      <!-- -------------------------------------------------------
+           STEP 2 — Choose your barber
+      ------------------------------------------------------- -->
+      <div class="booking-step hidden" id="step-2" data-step="2">
+        <h3 class="step-heading">Who would you like to see?</h3>
+        <p class="step-sub">All three are great — pick based on what you're after.</p>
+
+        <div class="barber-choice-grid" role="radiogroup" aria-label="Choose a barber">
+          {% for barber in barbers %}
+          <label
+            class="barber-choice-card {% if form_data.get('barber') == barber.id %}selected{% endif %}"
+            for="brb-{{ barber.id }}"
+          >
+            <input
+              type="radio"
+              name="barber"
+              id="brb-{{ barber.id }}"
+              value="{{ barber.id }}"
+              data-name="{{ barber.name }}"
+              {% if form_data.get('barber') == barber.id %}checked{% endif %}
+              required
+            />
+            <img
+              src="{{ barber.image }}"
+              alt="{{ barber.name }}"
+              class="barber-choice-img"
+              loading="lazy"
+            />
+            <div class="barber-choice-body">
+              <span class="barber-choice-name">{{ barber.name }}</span>
+              <span class="barber-choice-role">{{ barber.role }}</span>
+              <p class="barber-choice-spec">{{ barber.speciality }}</p>
+            </div>
+          </label>
+          {% endfor %}
+        </div>
+
+        <div class="step-actions step-actions--split">
+          <button type="button" class="btn btn-outline-dark step-back-btn" data-back="1">&larr; Back</button>
+          <button type="button" class="btn btn-gold step-next-btn" data-next="3">
+            Continue — Pick Date &amp; Time &rarr;
+          </button>
+        </div>
+      </div>
+
+
+      <!-- -------------------------------------------------------
+           STEP 3 — Date and time
+      ------------------------------------------------------- -->
+      <div class="booking-step hidden" id="step-3" data-step="3">
+        <h3 class="step-heading">When would you like to come in?</h3>
+        <p class="step-sub">Select a date from the calendar, then pick an available time.</p>
+
+        <div class="datetime-grid">
+          <div class="date-picker-wrap">
+            <label for="date-input" class="field-label">Choose a date</label>
+            <input
+              type="text"
+              id="date-input"
+              name="date"
+              class="field-input date-flatpickr"
+              placeholder="Select a date"
+              value="{{ form_data.get('date', '') }}"
+              readonly
+              required
+              aria-required="true"
+            />
+          </div>
+
+          <div class="time-slots-wrap">
+            <p class="field-label">Choose a time</p>
+            <div class="time-slots-grid" id="time-slots-grid" role="radiogroup" aria-label="Available time slots">
+              {% for slot in time_slots %}
+              <label class="time-slot-label {% if form_data.get('time') == slot %}selected{% endif %}" for="time-{{ loop.index }}">
+                <input
+                  type="radio"
+                  name="time"
+                  id="time-{{ loop.index }}"
+                  value="{{ slot }}"
+                  {% if form_data.get('time') == slot %}checked{% endif %}
+                  required
+                />
+                {{ slot }}
+              </label>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+
+        <div class="step-actions step-actions--split">
+          <button type="button" class="btn btn-outline-dark step-back-btn" data-back="2">&larr; Back</button>
+          <button type="button" class="btn btn-gold step-next-btn" data-next="4">
+            Continue — Your Details &rarr;
+          </button>
+        </div>
+      </div>
+
+
+      <!-- -------------------------------------------------------
+           STEP 4 — Personal details + review + submit
+      ------------------------------------------------------- -->
+      <div class="booking-step hidden" id="step-4" data-step="4">
+        <h3 class="step-heading">Almost there — just a few details</h3>
+        <p class="step-sub">We'll use these to confirm your booking.</p>
+
+        <!-- Booking summary — shows what the customer chose in steps 1-3 -->
+        <div class="booking-summary" id="booking-summary" aria-label="Booking summary">
+          <h4 class="summary-heading">Your Booking Summary</h4>
+          <div class="summary-grid">
+            <div class="summary-item">
+              <span class="summary-label">Service</span>
+              <span class="summary-value" id="summary-service">—</span>
+            </div>
+            <div class="summary-item">
+              <span class="summary-label">Price</span>
+              <span class="summary-value" id="summary-price">—</span>
+            </div>
+            <div class="summary-item">
+              <span class="summary-label">Barber</span>
+              <span class="summary-value" id="summary-barber">—</span>
+            </div>
+            <div class="summary-item">
+              <span class="summary-label">Date &amp; Time</span>
+              <span class="summary-value" id="summary-datetime">—</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Personal info fields -->
+        <div class="personal-fields">
+          <div class="fields-row">
+            <div class="field-group">
+              <label for="first_name" class="field-label">First name <span class="required-mark" aria-hidden="true">*</span></label>
+              <input
+                type="text"
+                id="first_name"
+                name="first_name"
+                class="field-input"
+                value="{{ form_data.get('first_name', '') }}"
+                autocomplete="given-name"
+                required
+                aria-required="true"
+              />
+            </div>
+            <div class="field-group">
+              <label for="last_name" class="field-label">Last name <span class="required-mark" aria-hidden="true">*</span></label>
+              <input
+                type="text"
+                id="last_name"
+                name="last_name"
+                class="field-input"
+                value="{{ form_data.get('last_name', '') }}"
+                autocomplete="family-name"
+                required
+                aria-required="true"
+              />
+            </div>
+          </div>
+
+          <div class="fields-row">
+            <div class="field-group">
+              <label for="email" class="field-label">Email address <span class="required-mark" aria-hidden="true">*</span></label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                class="field-input"
+                value="{{ form_data.get('email', '') }}"
+                autocomplete="email"
+                required
+                aria-required="true"
+              />
+            </div>
+            <div class="field-group">
+              <label for="phone" class="field-label">Phone number <span class="required-mark" aria-hidden="true">*</span></label>
+              <input
+                type="tel"
+                id="phone"
+                name="phone"
+                class="field-input"
+                value="{{ form_data.get('phone', '') }}"
+                autocomplete="tel"
+                required
+                aria-required="true"
+              />
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="notes" class="field-label">Anything else we should know? <span class="optional-mark">(optional)</span></label>
+            <textarea
+              id="notes"
+              name="notes"
+              class="field-input field-textarea"
+              rows="3"
+              placeholder="e.g. specific style, first-time discount code NEWCUT10, hair concerns..."
+            >{{ form_data.get('notes', '') }}</textarea>
+          </div>
+        </div>
+
+        <!-- Terms agreement -->
+        <div class="field-group terms-checkbox-group">
+          <label class="checkbox-label" for="agree-terms">
+            <input type="checkbox" id="agree-terms" name="agree_terms" required aria-required="true" />
+            <span>
+              I agree to the
+              <a href="{{ url_for('terms') }}" target="_blank" class="inline-link">Terms &amp; Conditions</a>
+              and
+              <a href="{{ url_for('privacy') }}" target="_blank" class="inline-link">Privacy Policy</a>.
+              I understand the 24-hour cancellation policy.
+            </span>
+          </label>
+        </div>
+
+        <div class="step-actions step-actions--split">
+          <button type="button" class="btn btn-outline-dark step-back-btn" data-back="3">&larr; Back</button>
+          <button type="submit" class="btn btn-gold btn-lg submit-btn" id="submit-btn">
+            Confirm Booking
+          </button>
+        </div>
+
+      </div><!-- /step-4 -->
+
+    </form>
+
+  </div><!-- /.booking-container -->
+</section>
+
+{% endblock %}
+
+{% block extra_scripts %}
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+{% endblock %}

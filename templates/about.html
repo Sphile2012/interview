@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+
+{% block title %}About Us — Blade &amp; Bone Barbershop Manchester{% endblock %}
+
+{% block content %}
+
+<!-- Page header -->
+<section class="page-hero" aria-label="About page header">
+  <div class="container">
+    <p class="section-eyebrow">Our Story</p>
+    <h1 class="page-hero-heading">About Blade &amp; Bone</h1>
+    <p class="page-hero-sub">A Manchester barbershop built on craft, consistency and good conversation.</p>
+  </div>
+</section>
+
+
+<!-- =========================================================
+     SHOP STORY SECTION
+========================================================== -->
+<section class="section about-story-section" aria-labelledby="story-heading">
+  <div class="container about-story-grid">
+
+    <div class="about-story-image">
+      <img
+        src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=700&h=550&fit=crop&q=80"
+        alt="Interior of Blade and Bone Barbershop — leather chairs and warm lighting"
+        loading="lazy"
+      />
+    </div>
+
+    <div class="about-story-text">
+      <p class="section-eyebrow">Est. 2016, Manchester</p>
+      <h2 id="story-heading" class="section-heading">Built for the Craft</h2>
+      <p>
+        Blade &amp; Bone opened on a quiet stretch of King Street in 2016 with one chair, one barber
+        and a very clear idea of what a good barbershop should feel like. No attitude, no rush,
+        no cutting corners. Just honest work done properly.
+      </p>
+      <p>
+        Eight years later we have three chairs, three exceptional barbers and a reputation that
+        keeps clients coming back. The coffee is still the same brand. The chairs have been reupholstered
+        twice. The standard hasn't changed once.
+      </p>
+      <p>
+        We're not a chain, not a franchise and not a trendy pop-up. We're a proper barbershop
+        that happens to be good at what we do — and we intend to keep it that way.
+      </p>
+      <div class="about-stats">
+        <div class="stat">
+          <span class="stat-number">8+</span>
+          <span class="stat-label">Years in Manchester</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">3</span>
+          <span class="stat-label">Expert Barbers</span>
+        </div>
+        <div class="stat">
+          <span class="stat-number">4,000+</span>
+          <span class="stat-label">Happy Clients</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- =========================================================
+     BARBER PROFILES
+========================================================== -->
+<section class="section team-section" aria-labelledby="team-heading">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-eyebrow">The Team</p>
+      <h2 id="team-heading" class="section-heading">Meet Your Barbers</h2>
+      <p class="section-subline">Three specialists, one standard. Pick the barber that fits your style.</p>
+    </div>
+
+    <div class="team-grid">
+      {% for barber in barbers %}
+      <article class="barber-card" aria-label="{{ barber.name }}">
+        <div class="barber-card-image-wrap">
+          <img
+            src="{{ barber.image }}"
+            alt="Portrait of {{ barber.name }}, {{ barber.role }}"
+            loading="lazy"
+            class="barber-card-image"
+          />
+        </div>
+        <div class="barber-card-body">
+          <h3 class="barber-name">{{ barber.name }}</h3>
+          <p class="barber-role">{{ barber.role }}</p>
+          <p class="barber-bio">{{ barber.bio }}</p>
+          <div class="barber-speciality">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+            <span>{{ barber.speciality }}</span>
+          </div>
+          <a href="{{ url_for('booking') }}?barber={{ barber.id }}" class="btn btn-outline-dark barber-book-btn">
+            Book with {{ barber.name.split()[0] }}
+          </a>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+
+  </div>
+</section>
+
+
+<!-- =========================================================
+     VALUES STRIP
+========================================================== -->
+<section class="section values-section" aria-labelledby="values-heading">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-eyebrow">How We Work</p>
+      <h2 id="values-heading" class="section-heading">What We Believe In</h2>
+    </div>
+    <div class="values-grid">
+      <div class="value-item">
+        <div class="value-icon" aria-hidden="true">&#9998;</div>
+        <h3>Precision First</h3>
+        <p>Every cut is treated as if it's the only one of the day. We don't rush and we don't settle for close enough.</p>
+      </div>
+      <div class="value-item">
+        <div class="value-icon" aria-hidden="true">&#128172;</div>
+        <h3>Know Your Client</h3>
+        <p>A good barber listens. We take the time to understand your hair, your lifestyle and what actually works for you.</p>
+      </div>
+      <div class="value-item">
+        <div class="value-icon" aria-hidden="true">&#127775;</div>
+        <h3>Consistent Results</h3>
+        <p>Whether it's your first visit or your fiftieth, you'll leave looking as good as last time. That's the promise.</p>
+      </div>
+      <div class="value-item">
+        <div class="value-icon" aria-hidden="true">&#127968;</div>
+        <h3>Community Rooted</h3>
+        <p>We're a Manchester shop through and through. We support local, hire local and take pride in being part of this city.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- CTA -->
+<section class="cta-banner" aria-labelledby="about-cta-heading">
+  <div class="container cta-inner">
+    <h2 id="about-cta-heading" class="cta-heading">Come and See for Yourself</h2>
+    <p class="cta-subline">47 King Street, Manchester. Open seven days a week.</p>
+    <div class="cta-actions">
+      <a href="{{ url_for('booking') }}" class="btn btn-gold btn-lg">Book an Appointment</a>
+      <a href="{{ url_for('contact') }}" class="btn btn-outline-light btn-lg">Get Directions</a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

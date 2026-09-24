@@ -1,0 +1,100 @@
+{% extends "base.html" %}
+
+{% block title %}Services &amp; Pricing — Blade &amp; Bone Barbershop{% endblock %}
+
+{% block content %}
+
+<!-- Page header -->
+<section class="page-hero" aria-label="Services page header">
+  <div class="container">
+    <p class="section-eyebrow">What We Offer</p>
+    <h1 class="page-hero-heading">Services &amp; Pricing</h1>
+    <p class="page-hero-sub">No hidden charges. No surprises. Just honest prices for great work.</p>
+  </div>
+</section>
+
+
+<!-- =========================================================
+     SERVICE CARDS
+     One card per service. Each has a direct booking link
+     that pre-selects that service on the booking page.
+========================================================== -->
+<section class="section services-full" aria-labelledby="services-heading">
+  <div class="container">
+    <div class="services-full-grid">
+
+      {% for service in services %}
+      <article class="service-full-card" aria-label="{{ service.name }}">
+        <div class="service-full-top">
+          <div>
+            <h2 class="service-full-name">{{ service.name }}</h2>
+            <p class="service-full-desc">{{ service.desc }}</p>
+          </div>
+          <div class="service-full-meta">
+            <span class="service-full-price">&pound;{{ service.price }}</span>
+            <span class="service-full-duration">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              {{ service.duration }} mins
+            </span>
+          </div>
+        </div>
+        <a href="{{ url_for('booking') }}?service={{ service.id }}" class="btn btn-gold service-full-book">
+          Book {{ service.name }}
+        </a>
+      </article>
+      {% endfor %}
+
+    </div>
+  </div>
+</section>
+
+
+<!-- =========================================================
+     INFO NOTE — cancellation and walk-ins
+========================================================== -->
+<section class="section services-info-section" aria-label="Booking information">
+  <div class="container">
+    <div class="services-info-grid">
+
+      <div class="services-info-card">
+        <div class="services-info-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Cancellation Policy</h3>
+        <p>We ask for at least 24 hours notice if you need to cancel or reschedule. Late cancellations may incur a small fee to cover the barber's time.</p>
+      </div>
+
+      <div class="services-info-card">
+        <div class="services-info-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <h3>Walk-ins Welcome</h3>
+        <p>Don't want to book ahead? We always try to accommodate walk-in clients. Peak times are Saturday mornings — booking ahead guarantees your slot.</p>
+      </div>
+
+      <div class="services-info-card">
+        <div class="services-info-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
+        </div>
+        <h3>First Visit Discount</h3>
+        <p>New to Blade &amp; Bone? Use code <strong>NEWCUT10</strong> when booking online and get 10% off your first service. Welcome to the family.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- CTA banner -->
+<section class="cta-banner" aria-labelledby="services-cta-heading">
+  <div class="container cta-inner">
+    <h2 id="services-cta-heading" class="cta-heading">Not Sure Which Service?</h2>
+    <p class="cta-subline">Drop us a message or just come in — we're happy to chat through what'll suit you best.</p>
+    <div class="cta-actions">
+      <a href="{{ url_for('booking') }}" class="btn btn-gold btn-lg">Book Now</a>
+      <a href="{{ url_for('contact') }}" class="btn btn-outline-light btn-lg">Get in Touch</a>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
