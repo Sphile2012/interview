@@ -1,98 +1,205 @@
 {% extends "base.html" %}
-
 {% block title %}Services &amp; Pricing — Blade &amp; Bone Barbershop{% endblock %}
 
 {% block content %}
 
-<!-- Page header -->
 <section class="page-hero" aria-label="Services page header">
   <div class="container">
     <p class="section-eyebrow">What We Offer</p>
     <h1 class="page-hero-heading">Services &amp; Pricing</h1>
-    <p class="page-hero-sub">No hidden charges. No surprises. Just honest prices for great work.</p>
+    <p class="page-hero-sub">Transparent pricing. No hidden extras. Just great work at honest prices.</p>
   </div>
 </section>
 
 
-<!-- =========================================================
-     SERVICE CARDS
-     One card per service. Each has a direct booking link
-     that pre-selects that service on the booking page.
-========================================================== -->
-<section class="section services-full" aria-labelledby="services-heading">
+<!-- =====================================================================
+     SERVICE CARDS — 2-column grid with image, hover zoom, gold top border
+====================================================================== -->
+<section class="section" aria-labelledby="services-heading">
   <div class="container">
-    <div class="services-full-grid">
+    <h2 id="services-heading" class="sr-only">All services</h2>
 
-      {% for service in services %}
-      <article class="service-full-card" aria-label="{{ service.name }}">
-        <div class="service-full-top">
-          <div>
-            <h2 class="service-full-name">{{ service.name }}</h2>
-            <p class="service-full-desc">{{ service.desc }}</p>
+    <div class="services-grid">
+
+      <!-- Classic Cut -->
+      <article class="service-card" aria-label="Classic Cut">
+        <div class="service-card-img">
+          <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=700&h=340&fit=crop&q=80" alt="Barber giving a classic scissor cut" loading="lazy" />
+        </div>
+        <div class="service-card-body">
+          <div class="service-card-left">
+            <h2 class="service-card-name">Classic Cut</h2>
+            <p class="service-card-desc">A timeless scissor cut tailored to your head shape and lifestyle. Clean finish, every time.</p>
+            <p class="service-card-duration">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              45 min
+            </p>
           </div>
-          <div class="service-full-meta">
-            <span class="service-full-price">R{{ service.price }}</span>
-            <span class="service-full-duration">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              {{ service.duration }} mins
-            </span>
+          <div class="service-card-right">
+            <span class="service-card-price">R180</span>
+            <a href="{{ url_for('booking') }}?service=classic-cut" class="btn btn-gold service-card-book btn-sm">Book</a>
           </div>
         </div>
-        <a href="{{ url_for('booking') }}?service={{ service.id }}" class="btn btn-gold service-full-book">
-          Book {{ service.name }}
-        </a>
       </article>
-      {% endfor %}
+
+      <!-- Skin Fade -->
+      <article class="service-card" aria-label="Skin Fade">
+        <div class="service-card-img">
+          <img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=700&h=340&fit=crop&q=80" alt="Clean skin fade haircut" loading="lazy" />
+        </div>
+        <div class="service-card-body">
+          <div class="service-card-left">
+            <h2 class="service-card-name">Skin Fade</h2>
+            <p class="service-card-desc">Razor-sharp fade from skin to your preferred length on top. Our most booked service.</p>
+            <p class="service-card-duration">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              45 min
+            </p>
+          </div>
+          <div class="service-card-right">
+            <span class="service-card-price">R220</span>
+            <a href="{{ url_for('booking') }}?service=skin-fade" class="btn btn-gold service-card-book btn-sm">Book</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Beard Trim -->
+      <article class="service-card" aria-label="Beard Trim">
+        <div class="service-card-img">
+          <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=700&h=340&fit=crop&q=80" alt="Barber trimming and shaping a beard" loading="lazy" />
+        </div>
+        <div class="service-card-body">
+          <div class="service-card-left">
+            <h2 class="service-card-name">Beard Trim</h2>
+            <p class="service-card-desc">Shaped, lined up and conditioned so your beard looks its absolute best.</p>
+            <p class="service-card-duration">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              30 min
+            </p>
+          </div>
+          <div class="service-card-right">
+            <span class="service-card-price">R120</span>
+            <a href="{{ url_for('booking') }}?service=beard-trim" class="btn btn-gold service-card-book btn-sm">Book</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Cut & Beard -->
+      <article class="service-card" aria-label="Cut and Beard">
+        <div class="service-card-img">
+          <img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=700&h=340&fit=crop&q=80" alt="Barber doing a full cut and beard combo" loading="lazy" />
+        </div>
+        <div class="service-card-body">
+          <div class="service-card-left">
+            <h2 class="service-card-name">Cut &amp; Beard</h2>
+            <p class="service-card-desc">The full package — haircut and beard trim in one sitting. Best value combo.</p>
+            <p class="service-card-duration">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              60 min
+            </p>
+          </div>
+          <div class="service-card-right">
+            <span class="service-card-price">R280</span>
+            <a href="{{ url_for('booking') }}?service=cut-and-beard" class="btn btn-gold service-card-book btn-sm">Book</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Kids Cut -->
+      <article class="service-card" aria-label="Kids Cut">
+        <div class="service-card-img">
+          <img src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=700&h=340&fit=crop&q=80" alt="Friendly barber giving a kids haircut" loading="lazy" />
+        </div>
+        <div class="service-card-body">
+          <div class="service-card-left">
+            <h2 class="service-card-name">Kids Cut</h2>
+            <p class="service-card-desc">Patient, friendly cuts for children under 12. No fuss, great results every time.</p>
+            <p class="service-card-duration">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              30 min
+            </p>
+          </div>
+          <div class="service-card-right">
+            <span class="service-card-price">R140</span>
+            <a href="{{ url_for('booking') }}?service=kids-cut" class="btn btn-gold service-card-book btn-sm">Book</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Hot Towel Shave -->
+      <article class="service-card" aria-label="Hot Towel Shave">
+        <div class="service-card-img">
+          <img src="https://images.unsplash.com/photo-1622287162716-f311baa1a2b8?w=700&h=340&fit=crop&q=80" alt="Traditional hot towel straight razor shave" loading="lazy" />
+        </div>
+        <div class="service-card-body">
+          <div class="service-card-left">
+            <h2 class="service-card-name">Hot Towel Shave</h2>
+            <p class="service-card-desc">Traditional straight-razor shave with hot towel prep and cold finish. Pure luxury.</p>
+            <p class="service-card-duration">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              45 min
+            </p>
+          </div>
+          <div class="service-card-right">
+            <span class="service-card-price">R200</span>
+            <a href="{{ url_for('booking') }}?service=hot-towel-shave" class="btn btn-gold service-card-book btn-sm">Book</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Full Groom Package -->
+      <article class="service-card" aria-label="Full Groom Package" style="grid-column: span 2;">
+        <div class="service-card-img" style="aspect-ratio:21/7;">
+          <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=1200&h=400&fit=crop&q=80" alt="Full groom package — cut, beard and hot towel" loading="lazy" />
+        </div>
+        <div class="service-card-body">
+          <div class="service-card-left">
+            <h2 class="service-card-name">Full Groom Package</h2>
+            <p class="service-card-desc">Cut, beard trim and hot towel finish — the complete Blade &amp; Bone experience. Walk in and walk out transformed.</p>
+            <p class="service-card-duration">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              90 min
+            </p>
+          </div>
+          <div class="service-card-right">
+            <span class="service-card-price">R380</span>
+            <a href="{{ url_for('booking') }}?service=full-groom" class="btn btn-gold service-card-book">Book Package</a>
+          </div>
+        </div>
+      </article>
 
     </div>
-  </div>
-</section>
 
-
-<!-- =========================================================
-     INFO NOTE — cancellation and walk-ins
-========================================================== -->
-<section class="section services-info-section" aria-label="Booking information">
-  <div class="container">
+    <!-- Info cards -->
     <div class="services-info-grid">
-
       <div class="services-info-card">
-        <div class="services-info-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-        </div>
+        <div class="services-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
         <h3>Cancellation Policy</h3>
-        <p>We ask for at least 24 hours notice if you need to cancel or reschedule. Late cancellations may incur a small fee to cover the barber's time.</p>
+        <p>We ask for 24 hours notice to cancel or reschedule. Late cancellations may incur a small fee to cover the barber's time.</p>
       </div>
-
       <div class="services-info-card">
-        <div class="services-info-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-        </div>
+        <div class="services-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg></div>
         <h3>Walk-ins Welcome</h3>
-        <p>Don't want to book ahead? We always try to accommodate walk-in clients. Peak times are Saturday mornings — booking ahead guarantees your slot.</p>
+        <p>No booking? Come in. We always try to accommodate walk-ins. Booking ahead guarantees your preferred barber and time.</p>
       </div>
-
       <div class="services-info-card">
-        <div class="services-info-icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg>
-        </div>
+        <div class="services-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg></div>
         <h3>First Visit Discount</h3>
-        <p>New to Blade &amp; Bone? Use code <strong>NEWCUT10</strong> when booking online and get 10% off your first service. Welcome to the family.</p>
+        <p>New to Blade &amp; Bone? Use code <strong style="color:var(--gold)">NEWCUT10</strong> for 10% off your first service. Welcome to the family.</p>
       </div>
-
     </div>
+
   </div>
 </section>
 
 
-<!-- CTA banner -->
-<section class="cta-banner" aria-labelledby="services-cta-heading">
-  <div class="container cta-inner">
-    <h2 id="services-cta-heading" class="cta-heading">Not Sure Which Service?</h2>
-    <p class="cta-subline">Drop us a message or just come in — we're happy to chat through what'll suit you best.</p>
+<section class="cta-banner" aria-labelledby="services-cta">
+  <div class="container">
+    <h2 id="services-cta" class="cta-heading">Not Sure Which Service?</h2>
+    <p class="cta-sub">Come in and we'll point you in the right direction. Or book the one that sounds closest — we'll sort you out either way.</p>
     <div class="cta-actions">
       <a href="{{ url_for('booking') }}" class="btn btn-gold btn-lg">Book Now</a>
-      <a href="{{ url_for('contact') }}" class="btn btn-outline-light btn-lg">Get in Touch</a>
+      <a href="{{ url_for('contact') }}" class="btn btn-outline btn-lg">Get in Touch</a>
     </div>
   </div>
 </section>

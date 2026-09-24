@@ -28,7 +28,7 @@ BARBERS = [
         "name": "Marcus Reid",
         "role": "Owner & Master Barber",
         "bio": (
-            "Marcus opened Blade & Bone in 2016 after a decade cutting hair in London and Manchester. "
+            "Marcus opened Blade & Bone in 2016 after a decade cutting hair in Johannesburg and Durban. "
             "He trained under some of the best in the business before bringing his craft back home. "
             "His eye for precision and his ability to read a face are second to none."
         ),
@@ -71,9 +71,9 @@ TIME_SLOTS = [
 
 SHOP = {
     "name":    "Blade & Bone Barbershop",
-    "address": "47 King Street, Manchester, M2 4LQ",
-    "phone":   "0161 834 7720",
-    "email":   "hello@bladeandbonebarber.co.uk",
+    "address": "Waterloo, Durban",
+    "phone":   "082 356 2239",
+    "email":   "poomeigh503@gmail.com",
     "hours": {
         "Monday – Friday": "9:00am – 7:00pm",
         "Saturday":        "8:00am – 6:00pm",
@@ -118,8 +118,8 @@ def build_google_cal_url(booking):
         f"Appointment: {service_name}\n"
         f"Barber: {barber_name}\n"
         f"Duration: {duration} minutes\n"
-        f"Address: 47 King Street, Manchester, M2 4LQ\n"
-        f"Phone: 0161 834 7720\n\n"
+        f"Address: Waterloo, Durban\n"
+        f"Phone: 082 356 2239\n\n"
         f"Please arrive 5 minutes before your appointment."
     )
 
@@ -128,7 +128,7 @@ def build_google_cal_url(booking):
         "text":     title,
         "dates":    f"{start_fmt}/{end_fmt}",
         "details":  details,
-        "location": "47 King Street, Manchester, M2 4LQ",
+        "location": "Waterloo, Durban",
     }
 
     return "https://calendar.google.com/calendar/render?" + urllib.parse.urlencode(params)
@@ -160,8 +160,8 @@ def build_ics_content(booking):
         f"Appointment: {service_name}\\n"
         f"Barber: {barber_name}\\n"
         f"Duration: {duration} minutes\\n"
-        f"Address: 47 King Street\\, Manchester\\, M2 4LQ\\n"
-        f"Phone: 0161 834 7720\\n\\n"
+        f"Address: Waterloo\\, Durban\\n"
+        f"Phone: 082 356 2239\\n\\n"
         f"Please arrive 5 minutes before your appointment."
     )
 
@@ -179,7 +179,7 @@ def build_ics_content(booking):
         f"DTEND:{end_fmt}\r\n"
         f"SUMMARY:{service_name} at Blade & Bone Barbershop\r\n"
         f"DESCRIPTION:{description}\r\n"
-        "LOCATION:47 King Street\\, Manchester\\, M2 4LQ\r\n"
+        "LOCATION:Waterloo\\, Durban\r\n"
         "BEGIN:VALARM\r\n"
         "TRIGGER:-PT60M\r\n"
         "ACTION:DISPLAY\r\n"

@@ -1,155 +1,144 @@
 {% extends "base.html" %}
-
-{% block title %}About Us — Blade &amp; Bone Barbershop Manchester{% endblock %}
+{% block title %}About Us — Blade &amp; Bone Barbershop Durban{% endblock %}
 
 {% block content %}
 
-<!-- Page header -->
 <section class="page-hero" aria-label="About page header">
   <div class="container">
     <p class="section-eyebrow">Our Story</p>
     <h1 class="page-hero-heading">About Blade &amp; Bone</h1>
-    <p class="page-hero-sub">A Manchester barbershop built on craft, consistency and good conversation.</p>
+    <p class="page-hero-sub">A Durban barbershop built on craft, consistency and good conversation.</p>
   </div>
 </section>
 
 
-<!-- =========================================================
-     SHOP STORY SECTION
-========================================================== -->
-<section class="section about-story-section" aria-labelledby="story-heading">
-  <div class="container about-story-grid">
-
-    <div class="about-story-image">
+<!-- =====================================================================
+     SHOP STORY — 50/50 split: image left, text right
+====================================================================== -->
+<section class="about-split-section" aria-labelledby="story-heading">
+  <div class="about-split">
+    <div class="about-split-image">
       <img
-        src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=700&h=550&fit=crop&q=80"
-        alt="Interior of Blade and Bone Barbershop — leather chairs and warm lighting"
+        src="https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=900&h=700&fit=crop&q=85"
+        alt="Blade and Bone Barbershop interior — dark leather chairs, warm pendant lighting, wood panelling"
         loading="lazy"
       />
     </div>
-
-    <div class="about-story-text">
-      <p class="section-eyebrow">Est. 2016, Manchester</p>
+    <div class="about-split-text">
+      <p class="section-eyebrow">Est. 2016, Durban</p>
       <h2 id="story-heading" class="section-heading">Built for the Craft</h2>
       <p>
-        Blade &amp; Bone opened on a quiet stretch of King Street in 2016 with one chair, one barber
-        and a very clear idea of what a good barbershop should feel like. No attitude, no rush,
-        no cutting corners. Just honest work done properly.
+        Blade &amp; Bone opened in Waterloo in 2016 with one chair, one barber and a very clear idea
+        of what a good barbershop should feel like. No attitude, no rush, no cutting corners.
+        Just honest work done properly.
       </p>
       <p>
         Eight years later we have three chairs, three exceptional barbers and a reputation that
-        keeps clients coming back. The coffee is still the same brand. The chairs have been reupholstered
-        twice. The standard hasn't changed once.
+        keeps clients coming back month after month. The coffee is still the same brand.
+        The standard hasn't changed once.
       </p>
       <p>
-        We're not a chain, not a franchise and not a trendy pop-up. We're a proper barbershop
-        that happens to be good at what we do — and we intend to keep it that way.
+        We're not a chain. Not a franchise. Not a trendy pop-up.
+        We're a proper barbershop that happens to be very good at what we do.
       </p>
       <div class="about-stats">
-        <div class="stat">
+        <div>
           <span class="stat-number">8+</span>
-          <span class="stat-label">Years in Manchester</span>
+          <span class="stat-label">Years Open</span>
         </div>
-        <div class="stat">
+        <div>
           <span class="stat-number">3</span>
           <span class="stat-label">Expert Barbers</span>
         </div>
-        <div class="stat">
-          <span class="stat-number">4,000+</span>
+        <div>
+          <span class="stat-number">5,000+</span>
           <span class="stat-label">Happy Clients</span>
         </div>
       </div>
     </div>
-
   </div>
 </section>
 
 
-<!-- =========================================================
-     BARBER PROFILES
-========================================================== -->
+<!-- =====================================================================
+     TEAM — barber profile circles
+====================================================================== -->
 <section class="section team-section" aria-labelledby="team-heading">
   <div class="container">
-    <div class="section-header">
+    <div class="section-header section-header--center">
       <p class="section-eyebrow">The Team</p>
       <h2 id="team-heading" class="section-heading">Meet Your Barbers</h2>
-      <p class="section-subline">Three specialists, one standard. Pick the barber that fits your style.</p>
+      <p class="section-sub">Three specialists. One standard. Pick the barber that fits your style.</p>
     </div>
 
-    <div class="team-grid">
+    <div class="barber-circles-grid">
       {% for barber in barbers %}
-      <article class="barber-card" aria-label="{{ barber.name }}">
-        <div class="barber-card-image-wrap">
+      <div class="barber-circle-card">
+        <div class="barber-circle-img-wrap">
           <img
             src="{{ barber.image }}"
-            alt="Portrait of {{ barber.name }}, {{ barber.role }}"
+            alt="Portrait of {{ barber.name }}"
+            class="barber-circle-img"
             loading="lazy"
-            class="barber-card-image"
           />
         </div>
-        <div class="barber-card-body">
-          <h3 class="barber-name">{{ barber.name }}</h3>
-          <p class="barber-role">{{ barber.role }}</p>
-          <p class="barber-bio">{{ barber.bio }}</p>
-          <div class="barber-speciality">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
-            <span>{{ barber.speciality }}</span>
-          </div>
-          <a href="{{ url_for('booking') }}?barber={{ barber.id }}" class="btn btn-outline-dark barber-book-btn">
-            Book with {{ barber.name.split()[0] }}
-          </a>
-        </div>
-      </article>
+        <h3 class="barber-circle-name">{{ barber.name }}</h3>
+        <p class="barber-circle-role">{{ barber.role }}</p>
+        <p class="barber-circle-bio">{{ barber.bio }}</p>
+        <span class="barber-circle-spec">{{ barber.speciality }}</span>
+        <br />
+        <a href="{{ url_for('booking') }}?barber={{ barber.id }}" class="btn btn-outline btn-sm" style="margin-top:16px;">
+          Book with {{ barber.name.split()[0] }}
+        </a>
+      </div>
       {% endfor %}
     </div>
-
   </div>
 </section>
 
 
-<!-- =========================================================
-     VALUES STRIP
-========================================================== -->
-<section class="section values-section" aria-labelledby="values-heading">
+<!-- =====================================================================
+     VALUES
+====================================================================== -->
+<section class="section" style="padding-top:0;" aria-labelledby="values-heading">
   <div class="container">
-    <div class="section-header">
+    <div class="section-header section-header--center">
       <p class="section-eyebrow">How We Work</p>
-      <h2 id="values-heading" class="section-heading">What We Believe In</h2>
+      <h2 id="values-heading" class="section-heading">What We Stand For</h2>
     </div>
     <div class="values-grid">
-      <div class="value-item">
-        <div class="value-icon" aria-hidden="true">&#9998;</div>
+      <div class="value-tile">
+        <span class="value-icon">&#9998;</span>
         <h3>Precision First</h3>
-        <p>Every cut is treated as if it's the only one of the day. We don't rush and we don't settle for close enough.</p>
+        <p>Every cut is treated as if it's the only one of the day. We don't rush. We don't settle for close enough.</p>
       </div>
-      <div class="value-item">
-        <div class="value-icon" aria-hidden="true">&#128172;</div>
+      <div class="value-tile">
+        <span class="value-icon">&#128172;</span>
         <h3>Know Your Client</h3>
-        <p>A good barber listens. We take the time to understand your hair, your lifestyle and what actually works for you.</p>
+        <p>A good barber listens. We take time to understand your hair, your lifestyle and what actually works for you.</p>
       </div>
-      <div class="value-item">
-        <div class="value-icon" aria-hidden="true">&#127775;</div>
+      <div class="value-tile">
+        <span class="value-icon">&#127775;</span>
         <h3>Consistent Results</h3>
         <p>Whether it's your first visit or your fiftieth, you'll leave looking as good as last time. That's the promise.</p>
       </div>
-      <div class="value-item">
-        <div class="value-icon" aria-hidden="true">&#127968;</div>
+      <div class="value-tile">
+        <span class="value-icon">&#127968;</span>
         <h3>Community Rooted</h3>
-        <p>We're a Manchester shop through and through. We support local, hire local and take pride in being part of this city.</p>
+        <p>We're a Durban shop through and through. We support local, hire local and take pride in being part of this city.</p>
       </div>
     </div>
   </div>
 </section>
 
 
-<!-- CTA -->
-<section class="cta-banner" aria-labelledby="about-cta-heading">
-  <div class="container cta-inner">
-    <h2 id="about-cta-heading" class="cta-heading">Come and See for Yourself</h2>
-    <p class="cta-subline">47 King Street, Manchester. Open seven days a week.</p>
+<section class="cta-banner" aria-labelledby="about-cta">
+  <div class="container">
+    <h2 id="about-cta" class="cta-heading">Come and See for Yourself</h2>
+    <p class="cta-sub">Waterloo, Durban. Open seven days a week.</p>
     <div class="cta-actions">
       <a href="{{ url_for('booking') }}" class="btn btn-gold btn-lg">Book an Appointment</a>
-      <a href="{{ url_for('contact') }}" class="btn btn-outline-light btn-lg">Get Directions</a>
+      <a href="{{ url_for('contact') }}" class="btn btn-outline btn-lg">Get Directions</a>
     </div>
   </div>
 </section>

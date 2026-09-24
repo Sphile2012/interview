@@ -1,149 +1,79 @@
 {% extends "base.html" %}
-
 {% block title %}Booking Confirmed — Blade &amp; Bone Barbershop{% endblock %}
 
 {% block content %}
-
-<!-- =========================================================
-     CONFIRMATION PAGE
-     Shows the customer's full booking details and provides
-     both Google Calendar and Apple/iCal download links.
-     The calendar links are built dynamically from their actual
-     booking — not a hard-coded placeholder event.
-========================================================== -->
 <section class="section confirmation-section" aria-labelledby="confirmation-heading">
   <div class="container confirmation-container">
 
-    <!-- Success tick animation -->
     <div class="confirmation-icon" aria-hidden="true">
       <svg viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="40" cy="40" r="38" stroke="#c9a84c" stroke-width="3"/>
-        <polyline points="22,40 34,52 58,28" stroke="#c9a84c" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="40" cy="40" r="38" stroke="#C5A46A" stroke-width="2.5"/>
+        <polyline points="22,40 34,52 58,28" stroke="#C5A46A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
     </div>
 
     <h1 id="confirmation-heading" class="confirmation-heading">You're Booked In!</h1>
-    <p class="confirmation-sub">
-      Thanks, <strong>{{ booking.first_name }}</strong>. Your appointment is confirmed.
-      We've got everything we need — just show up and we'll do the rest.
-    </p>
+    <p class="confirmation-sub">Thanks, <strong style="color:var(--offwhite)">{{ booking.first_name }}</strong>. Your appointment is confirmed. Just show up and we'll handle the rest.</p>
 
-    <!-- -------------------------------------------------------
-         BOOKING DETAILS CARD
-    ------------------------------------------------------- -->
+    <!-- Booking details -->
     <div class="booking-details-card" aria-label="Booking details">
-      <h2 class="details-heading">Appointment Details</h2>
-
-      <div class="details-grid">
-        <div class="detail-row">
-          <div class="detail-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.121 14.121L19 19m-7-7l-3.879-3.879M9.172 9.172L5 5m14 14l-4.95-4.95m0 0L12 12m2.121 2.121L19 19M5 5l4.95 4.95"/></svg>
-          </div>
-          <div>
-            <span class="detail-label">Service</span>
-            <span class="detail-value">{{ booking.service_name }}</span>
-          </div>
-        </div>
-
-        <div class="detail-row">
-          <div class="detail-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          </div>
-          <div>
-            <span class="detail-label">Barber</span>
-            <span class="detail-value">{{ booking.barber_name }}</span>
-          </div>
-        </div>
-
-        <div class="detail-row">
-          <div class="detail-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-          </div>
-          <div>
-            <span class="detail-label">Date</span>
-            <span class="detail-value">{{ display_date }}</span>
-          </div>
-        </div>
-
-        <div class="detail-row">
-          <div class="detail-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          </div>
-          <div>
-            <span class="detail-label">Time</span>
-            <span class="detail-value">{{ booking.time }} ({{ booking.duration }} mins)</span>
-          </div>
-        </div>
-
-        <div class="detail-row">
-          <div class="detail-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
-          </div>
-          <div>
-            <span class="detail-label">Price</span>
-            <span class="detail-value">R{{ booking.price }}</span>
-          </div>
-        </div>
-
-        <div class="detail-row">
-          <div class="detail-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
-          </div>
-          <div>
-            <span class="detail-label">Location</span>
-            <span class="detail-value">47 King Street, Manchester, M2 4LQ</span>
-          </div>
-        </div>
+      <p class="details-heading">Appointment Details</p>
+      <div class="detail-row">
+        <div class="detail-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14.121 14.121L19 19m-7-7l-3.879-3.879M9.172 9.172L5 5"/></svg></div>
+        <div><span class="detail-label">Service</span><span class="detail-value">{{ booking.service_name }}</span></div>
       </div>
-
+      <div class="detail-row">
+        <div class="detail-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <div><span class="detail-label">Barber</span><span class="detail-value">{{ booking.barber_name }}</span></div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <div><span class="detail-label">Date</span><span class="detail-value">{{ display_date }}</span></div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <div><span class="detail-label">Time</span><span class="detail-value">{{ booking.time }} ({{ booking.duration }} min)</span></div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+        <div><span class="detail-label">Price</span><span class="detail-value">R{{ booking.price }}</span></div>
+      </div>
+      <div class="detail-row">
+        <div class="detail-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+        <div><span class="detail-label">Location</span><span class="detail-value">Waterloo, Durban</span></div>
+      </div>
       {% if booking.notes %}
-      <div class="detail-notes">
-        <span class="detail-label">Your notes</span>
-        <p class="detail-notes-text">{{ booking.notes }}</p>
+      <div style="padding:14px 0 0; border-top:1px solid var(--charcoal-line);margin-top:4px;">
+        <span class="detail-label">Notes</span>
+        <p style="color:var(--text-muted);font-size:.9375rem;margin-top:4px;font-style:italic;">{{ booking.notes }}</p>
       </div>
       {% endif %}
     </div>
 
-
-    <!-- -------------------------------------------------------
-         ADD TO CALENDAR — this is the required calendar integration
-         Both Google Calendar (URL redirect) and Apple/iCal (.ics download)
-         use the customer's actual booking data, not a generic placeholder.
-    ------------------------------------------------------- -->
+    <!-- Calendar integration — the critical requirement -->
     <div class="calendar-section" aria-labelledby="calendar-heading">
       <h2 id="calendar-heading" class="calendar-heading">Add to Your Calendar</h2>
-      <p class="calendar-sub">
-        Don't forget your appointment — save it to your calendar with one click.
-      </p>
+      <p class="calendar-sub">Save your appointment before you forget — one click and it's in your calendar with all the details pre-filled.</p>
 
       <div class="calendar-buttons">
-
-        <!-- Google Calendar — opens in a new tab with all details pre-filled -->
-        <a
-          href="{{ google_cal_url }}"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="cal-btn cal-btn--google"
-          aria-label="Add appointment to Google Calendar"
-        >
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="cal-icon" aria-hidden="true">
-            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" stroke="currentColor" stroke-width="1.5"/>
+        <!-- Google Calendar — dynamic URL built from actual booking data -->
+        <a href="{{ google_cal_url }}" target="_blank" rel="noopener noreferrer"
+           class="cal-btn cal-btn--google" aria-label="Add to Google Calendar">
+          <svg class="cal-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/>
             <line x1="16" y1="2" x2="16" y2="6" stroke="currentColor" stroke-width="1.5"/>
             <line x1="8" y1="2" x2="8" y2="6" stroke="currentColor" stroke-width="1.5"/>
             <line x1="3" y1="10" x2="21" y2="10" stroke="currentColor" stroke-width="1.5"/>
-            <text x="12" y="19" text-anchor="middle" font-size="7" fill="currentColor" font-weight="600">G</text>
+            <text x="12" y="20" text-anchor="middle" font-size="7" fill="currentColor" font-weight="700">G</text>
           </svg>
           Add to Google Calendar
         </a>
 
-        <!-- Apple Calendar / iCal — downloads a .ics file -->
-        <a
-          href="{{ url_for('download_ics') }}"
-          class="cal-btn cal-btn--apple"
-          aria-label="Download .ics file for Apple Calendar or Outlook"
-        >
-          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="cal-icon" aria-hidden="true">
-            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" stroke="currentColor" stroke-width="1.5"/>
+        <!-- Apple Calendar — .ics download with actual booking data -->
+        <a href="{{ url_for('download_ics') }}"
+           class="cal-btn cal-btn--apple" aria-label="Download for Apple Calendar">
+          <svg class="cal-icon" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="1.5"/>
             <line x1="16" y1="2" x2="16" y2="6" stroke="currentColor" stroke-width="1.5"/>
             <line x1="8" y1="2" x2="8" y2="6" stroke="currentColor" stroke-width="1.5"/>
             <line x1="3" y1="10" x2="21" y2="10" stroke="currentColor" stroke-width="1.5"/>
@@ -152,36 +82,28 @@
           </svg>
           Apple Calendar / iCal (.ics)
         </a>
-
       </div>
 
-      <p class="calendar-note">
+      <div class="calendar-note">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-        The Google Calendar link opens with your full appointment pre-filled.
-        The .ics file works with Apple Calendar, Outlook and most other calendar apps.
-      </p>
+        Both calendar options use your actual booking details — correct date, time, service and location. Not a generic placeholder.
+      </div>
     </div>
 
-
-    <!-- -------------------------------------------------------
-         IMPORTANT REMINDER
-    ------------------------------------------------------- -->
-    <div class="reminder-box" role="note" aria-label="Appointment reminders">
-      <h3 class="reminder-heading">Good to Know</h3>
+    <div class="reminder-box" role="note">
+      <h3 class="reminder-heading">Before Your Visit</h3>
       <ul class="reminder-list">
-        <li>Please arrive <strong>5 minutes early</strong> so we can get started on time.</li>
-        <li>Need to cancel or reschedule? Give us <strong>24 hours notice</strong> — call <a href="tel:+441618347720">0161 834 7720</a> or email <a href="mailto:hello@bladeandbonebarber.co.uk">hello@bladeandbonebarber.co.uk</a>.</li>
-        <li>Using code <strong>NEWCUT10</strong>? Let your barber know when you arrive.</li>
+        <li>Please arrive <strong style="color:var(--offwhite)">5 minutes early</strong> so we can start on time.</li>
+        <li>To cancel or reschedule call <a href="tel:+27823562239" style="color:var(--gold)">082 356 2239</a> — we need <strong style="color:var(--offwhite)">24 hours notice</strong>.</li>
+        <li>Using code <strong style="color:var(--gold)">NEWCUT10</strong>? Mention it when you arrive.</li>
       </ul>
     </div>
 
-    <!-- Navigation buttons -->
     <div class="confirmation-actions">
-      <a href="{{ url_for('home') }}" class="btn btn-outline-dark">Back to Home</a>
-      <a href="{{ url_for('booking') }}" class="btn btn-gold">Book Another Appointment</a>
+      <a href="{{ url_for('home') }}" class="btn btn-ghost">Back to Home</a>
+      <a href="{{ url_for('booking') }}" class="btn btn-gold">Book Another</a>
     </div>
 
-  </div><!-- /.confirmation-container -->
+  </div>
 </section>
-
 {% endblock %}
