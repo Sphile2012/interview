@@ -236,7 +236,7 @@ ul, ol { list-style: none; }
   text-decoration: none;
   flex-shrink: 0;
 }
-.logo-icon { width: 36px; height: 36px; flex-shrink: 0; }
+.logo-icon { width: 48px; height: 48px; flex-shrink: 0; }
 .logo-text  { display: flex; flex-direction: column; line-height: 1.05; }
 .logo-main  {
   font-family: var(--font-heading);
