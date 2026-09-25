@@ -72,7 +72,7 @@ BARBERS = [
             "giving every client a shape that actually works with their hair."
         ),
         "speciality": "Textured hair, curls and creative styling",
-        "image": "https://images.unsplash.com/photo-1559599101-f09722fb4948?w=400&h=500&fit=crop&q=80",
+        "image": "https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=400&h=500&fit=crop&q=80",
     },
 ]
 
