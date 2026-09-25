@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta name="description" content="Blade & Bone Barbershop — precision cuts, sharp fades and classic barbering in Waterloo, Durban." />
+  <title>Blade &amp; Bone Barbershop — Waterloo, Durban</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><circle cx='24' cy='24' r='23' fill='%23121212' stroke='%23C5A46A' stroke-width='2'/><line x1='16' y1='17' x2='24' y2='24' stroke='%23C5A46A' stroke-width='2' stroke-linecap='round'/><line x1='32' y1='17' x2='24' y2='24' stroke='%23C5A46A' stroke-width='2' stroke-linecap='round'/><circle cx='24' cy='24' r='3' fill='%23C5A46A'/></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- POPUP -->
+<div id="welcome-overlay" class="popup-overlay" role="dialog" aria-modal="true" aria-labelledby="popup-heading" hidden>
+  <div class="popup-card">
+    <button class="popup-close" id="popup-close-btn" aria-label="Close">&#x2715;</button>
+    <div class="popup-badge">First Visit Offer</div>
+    <h2 id="popup-heading" class="popup-heading">10% Off Your First Cut</h2>
+    <p class="popup-body">New to Blade &amp; Bone? Book online and use code <strong>NEWCUT10</strong> at checkout to get 10% off any service.</p>
+    <a href="booking.html" class="btn btn-gold popup-cta">Claim Offer &amp; Book</a>
+    <button class="popup-dismiss" id="popup-dismiss-btn">No thanks, I'll pay full price</button>
+  </div>
+</div>
+<div class="mobile-overlay" id="mobile-overlay"></div>
+
+<!-- HEADER -->
+<header class="site-header" id="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo" aria-label="Blade & Bone Barbershop">
+      <svg class="logo-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="24" cy="24" r="23" fill="#121212" stroke="#C5A46A" stroke-width="1.5"/>
+        <circle cx="24" cy="24" r="20" fill="none" stroke="#C5A46A" stroke-width=".5" stroke-dasharray="2 2"/>
+        <rect x="7" y="13" width="4" height="16" rx="2" fill="#C5A46A" opacity=".7"/>
+        <rect x="7.5" y="15" width="3" height="2" rx=".5" fill="#121212" opacity=".5"/>
+        <rect x="7.5" y="19" width="3" height="2" rx=".5" fill="#121212" opacity=".5"/>
+        <rect x="7.5" y="23" width="3" height="2" rx=".5" fill="#121212" opacity=".5"/>
+        <rect x="37" y="13" width="4" height="16" rx="2" fill="#C5A46A" opacity=".7"/>
+        <rect x="37.5" y="15" width="3" height="2" rx=".5" fill="#121212" opacity=".5"/>
+        <rect x="37.5" y="19" width="3" height="2" rx=".5" fill="#121212" opacity=".5"/>
+        <rect x="37.5" y="23" width="3" height="2" rx=".5" fill="#121212" opacity=".5"/>
+        <line x1="16" y1="18" x2="24" y2="24" stroke="#C5A46A" stroke-width="1.8" stroke-linecap="round"/>
+        <line x1="32" y1="18" x2="24" y2="24" stroke="#C5A46A" stroke-width="1.8" stroke-linecap="round"/>
+        <circle cx="24" cy="24" r="2.5" fill="#C5A46A"/>
+        <line x1="16" y1="30" x2="24" y2="24" stroke="#C5A46A" stroke-width="1.3" stroke-linecap="round" opacity=".6"/>
+        <line x1="32" y1="30" x2="24" y2="24" stroke="#C5A46A" stroke-width="1.3" stroke-linecap="round" opacity=".6"/>
+      </svg>
+      <span class="logo-text"><span class="logo-main">Blade &amp; Bone</span><span class="logo-sub">Barbershop</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <ul class="nav-list">
+        <li><a href="index.html"   class="nav-link active">Home</a></li>
+        <li><a href="services.html" class="nav-link">Services</a></li>
+        <li><a href="about.html"   class="nav-link">About</a></li>
+        <li><a href="contact.html" class="nav-link">Contact</a></li>
+      </ul>
+    </nav>
+    <a href="booking.html" class="btn btn-gold header-book">Book Now</a>
+    <button class="hamburger" id="hamburger-btn" aria-label="Open menu" aria-expanded="false"><span class="hamburger-bar"></span><span class="hamburger-bar"></span><span class="hamburger-bar"></span></button>
+  </div>
+  <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation">
+    <a href="index.html"   class="mobile-link">Home</a>
+    <a href="services.html" class="mobile-link">Services</a>
+    <a href="about.html"   class="mobile-link">About</a>
+    <a href="contact.html" class="mobile-link">Contact</a>
+    <a href="booking.html" class="btn btn-gold mobile-book">Book Now</a>
+  </nav>
+</header>
+
+<main>
+<!-- HERO -->
+<section class="hero" aria-label="Welcome to Blade and Bone">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Waterloo, Durban</p>
+    <h1 class="hero-heading">Sharp Cuts.<br><span>Classic Craft.</span></h1>
+    <p class="hero-sub">Premium barbering in the heart of Durban since 2016. Three specialist barbers. One uncompromising standard.</p>
+    <div class="hero-actions">
+      <a href="booking.html" class="btn btn-gold btn-lg">Book Your Cut</a>
+      <a href="services.html" class="btn btn-outline btn-lg">View Services</a>
+    </div>
+    <div class="hero-stats">
+      <div><span class="hero-stat-number">8+</span><span class="hero-stat-label">Years Open</span></div>
+      <div><span class="hero-stat-number">5,000+</span><span class="hero-stat-label">Cuts Done</span></div>
+      <div><span class="hero-stat-number">4.9</span><span class="hero-stat-label">Star Rating</span></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img class="hero-image" src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=900&h=1100&fit=crop&q=85" alt="Blade and Bone Barbershop interior — dark leather chairs and warm pendant lighting" />
+  </div>
+</section>
+
+<!-- FEATURE STRIP -->
+<div class="feature-strip">
+  <div class="container">
+    <div class="feature-grid">
+      <div class="feature-tile">
+        <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+        <div><p class="feature-title">Master Barbers</p><p class="feature-desc">Three specialists, each with their own expertise. You always leave looking your best.</p></div>
+      </div>
+      <div class="feature-tile">
+        <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+        <div><p class="feature-title">Book in 2 Minutes</p><p class="feature-desc">Pick service, barber and time online. Confirmation instant. No phone calls needed.</p></div>
+      </div>
+      <div class="feature-tile">
+        <div class="feature-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
+        <div><p class="feature-title">Regulars for a Reason</p><p class="feature-desc">A relaxed, no-fuss shop where the craft comes first and the coffee is decent.</p></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES PREVIEW -->
+<section class="section" aria-labelledby="svc-heading">
+  <div class="container">
+    <div class="section-header">
+      <p class="eyebrow">What We Do</p>
+      <h2 id="svc-heading" class="section-heading">Popular Services</h2>
+      <p class="section-sub">From a clean fade to the full groom — we've got every style covered.</p>
+    </div>
+    <div class="svc-grid">
+      <a href="booking.html?service=classic-cut" class="svc-card">
+        <div class="svc-img"><img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=300&h=220&fit=crop&q=80" alt="Classic Cut" loading="lazy" /></div>
+        <div class="svc-body"><p class="svc-name">Classic Cut</p><p class="svc-meta">45 min &bull; Timeless scissor cut</p><p class="svc-price">R180</p></div>
+      </a>
+      <a href="booking.html?service=skin-fade" class="svc-card">
+        <div class="svc-img"><img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=300&h=220&fit=crop&q=80" alt="Skin Fade" loading="lazy" /></div>
+        <div class="svc-body"><p class="svc-name">Skin Fade</p><p class="svc-meta">45 min &bull; Razor-sharp fade</p><p class="svc-price">R220</p></div>
+      </a>
+      <a href="booking.html?service=beard-trim" class="svc-card">
+        <div class="svc-img"><img src="https://images.unsplash.com/photo-1553521041-145359b5fbcf?w=300&h=220&fit=crop&q=80" alt="Beard Trim" loading="lazy" /></div>
+        <div class="svc-body"><p class="svc-name">Beard Trim</p><p class="svc-meta">30 min &bull; Shaped &amp; conditioned</p><p class="svc-price">R120</p></div>
+      </a>
+      <a href="booking.html?service=full-groom" class="svc-card">
+        <div class="svc-img"><img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=300&h=220&fit=crop&q=80" alt="Full Groom Package" loading="lazy" /></div>
+        <div class="svc-body"><p class="svc-name">Full Groom Package</p><p class="svc-meta">90 min &bull; Cut, beard &amp; hot towel</p><p class="svc-price">R380</p></div>
+      </a>
+    </div>
+    <div style="text-align:center;margin-top:40px"><a href="services.html" class="btn btn-outline">View All Services &amp; Pricing</a></div>
+  </div>
+</section>
+
+<!-- MEET THE BARBERS -->
+<section class="section barbers-home" aria-labelledby="barbers-heading">
+  <div class="container">
+    <div class="section-header section-header--center">
+      <p class="eyebrow">The Team</p>
+      <h2 id="barbers-heading" class="section-heading">Meet the Barbers</h2>
+      <p class="section-sub">Three specialists. Pick the one that fits your style — or let us match you.</p>
+    </div>
+    <div class="barber-circles">
+      <div class="barber-circle-card">
+        <div class="barber-circle-wrap"><img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=360&h=360&fit=crop&q=80" alt="Marcus Reid" loading="lazy" /></div>
+        <p class="barber-circle-name">Marcus Reid</p>
+        <p class="barber-circle-role">Owner &amp; Master Barber</p>
+        <span class="barber-circle-spec">Precision cuts &amp; tapers</span><br>
+        <a href="booking.html?barber=marcus" class="btn btn-outline btn-sm" style="margin-top:14px">Book Marcus</a>
+      </div>
+      <div class="barber-circle-card">
+        <div class="barber-circle-wrap"><img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=360&h=360&fit=crop&q=80" alt="Jordan Cole" loading="lazy" /></div>
+        <p class="barber-circle-name">Jordan Cole</p>
+        <p class="barber-circle-role">Fade Specialist</p>
+        <span class="barber-circle-spec">Skin fades &amp; line-ups</span><br>
+        <a href="booking.html?barber=jordan" class="btn btn-outline btn-sm" style="margin-top:14px">Book Jordan</a>
+      </div>
+      <div class="barber-circle-card">
+        <div class="barber-circle-wrap"><img src="https://images.unsplash.com/photo-1559599101-f09722fb4948?w=360&h=360&fit=crop&q=80" alt="Priya Nair" loading="lazy" /></div>
+        <p class="barber-circle-name">Priya Nair</p>
+        <p class="barber-circle-role">Texture &amp; Styling Expert</p>
+        <span class="barber-circle-spec">Textured hair &amp; curls</span><br>
+        <a href="booking.html?barber=priya" class="btn btn-outline btn-sm" style="margin-top:14px">Book Priya</a>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:44px"><a href="about.html" class="btn btn-ghost">Read Their Stories &rarr;</a></div>
+  </div>
+</section>
+
+<!-- SPECIAL OFFER -->
+<section class="promo-section" aria-labelledby="promo-heading">
+  <div class="promo-bg-text" aria-hidden="true">NEW CLIENT</div>
+  <div class="container promo-inner">
+    <div class="promo-badge">Limited Offer</div>
+    <h2 id="promo-heading" class="promo-heading">10% Off Your First Cut</h2>
+    <p class="promo-sub">New to Blade &amp; Bone? Book online and use code <strong style="color:var(--gold)">NEWCUT10</strong> at checkout. Valid on any service.</p>
+    <p class="promo-note">First visit only. Cannot be combined with other offers.</p>
+    <div class="promo-actions">
+      <a href="booking.html" class="btn btn-gold btn-lg">Claim Offer &amp; Book</a>
+      <a href="services.html" class="btn btn-outline btn-lg">View Services</a>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="section" style="padding-top:0" aria-labelledby="gallery-heading">
+  <div class="container">
+    <div class="section-header section-header--center">
+      <p class="eyebrow">The Experience</p>
+      <h2 id="gallery-heading" class="section-heading">Craftsmanship You Can See</h2>
+    </div>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item gallery-item--large"><img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=800&h=600&fit=crop&q=80" alt="Barbershop interior" loading="lazy" /></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=500&h=350&fit=crop&q=80" alt="Precision cut" loading="lazy" /></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=500&h=350&fit=crop&q=80" alt="Skin fade" loading="lazy" /></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=500&h=350&fit=crop&q=80" alt="Scissors cut" loading="lazy" /></div>
+    <div class="gallery-item"><img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=500&h=350&fit=crop&q=80" alt="Hot towel shave" loading="lazy" /></div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="section testimonials-section" aria-labelledby="test-heading">
+  <div class="container">
+    <div class="section-header section-header--center">
+      <p class="eyebrow">Client Reviews</p>
+      <h2 id="test-heading" class="section-heading">Heard on the Street</h2>
+    </div>
+    <div class="testimonials-grid">
+      <blockquote class="testimonial-card">
+        <div class="stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonial-text">"Best fade I've had in Durban. Jordan knew exactly what I wanted from about four words. Great atmosphere too."</p>
+        <footer class="testimonial-author"><strong>Callum B.</strong><span>Regular since 2021</span></footer>
+      </blockquote>
+      <blockquote class="testimonial-card">
+        <div class="stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonial-text">"Priya is an absolute genius with curly hair. First time I've genuinely loved how my hair looks leaving a barbershop."</p>
+        <footer class="testimonial-author"><strong>Theo M.</strong><span>Regular since 2022</span></footer>
+      </blockquote>
+      <blockquote class="testimonial-card">
+        <div class="stars" aria-label="5 stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+        <p class="testimonial-text">"Marcus does my son's hair now too. Both of us happy every single time. Easy booking, always on time, shop is spotless."</p>
+        <footer class="testimonial-author"><strong>David K.</strong><span>Regular since 2019</span></footer>
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-banner" aria-labelledby="cta-heading">
+  <div class="container">
+    <p class="eyebrow" style="justify-content:center">Ready?</p>
+    <h2 id="cta-heading" class="cta-heading">Book Your Appointment Today</h2>
+    <p class="cta-sub">Takes two minutes. Pick your service, choose your barber, lock in your time.</p>
+    <div class="cta-actions">
+      <a href="booking.html" class="btn btn-gold btn-lg">Book Now</a>
+      <a href="contact.html" class="btn btn-outline btn-lg">Get Directions</a>
+    </div>
+  </div>
+</section>
+
+<!-- INFO STRIP -->
+<section class="info-strip" aria-label="Shop information">
+  <div class="container info-strip-grid">
+    <div class="info-block">
+      <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+      <div>
+        <h3 class="info-block-heading">Opening Hours</h3>
+        <ul class="info-hours-list">
+          <li><span>Monday – Friday</span><span>9:00am – 7:00pm</span></li>
+          <li><span>Saturday</span><span>8:00am – 6:00pm</span></li>
+          <li><span>Sunday</span><span>10:00am – 4:00pm</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="info-block">
+      <div class="info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+      <div>
+        <h3 class="info-block-heading">Find Us</h3>
+        <p style="color:var(--muted);font-size:.9375rem;margin-bottom:5px">Waterloo, Durban</p>
+        <p style="margin-bottom:7px"><a href="tel:+27823562239" style="color:var(--muted);font-size:.9375rem">082 356 2239</a></p>
+        <a href="https://maps.google.com/?q=Waterloo+Durban" target="_blank" rel="noopener noreferrer" class="map-link">Get directions &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <a href="index.html" class="footer-logo"><span class="logo-main">Blade &amp; Bone</span><span class="logo-sub">Barbershop</span></a>
+      <p class="footer-tagline">Precision cuts and classic craft in Waterloo, Durban since 2016.</p>
+      <div class="social-links">
+        <a href="https://instagram.com" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor" stroke="none"/></svg></a>
+        <a href="https://facebook.com" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+        <a href="https://tiktok.com" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V9.05a8.16 8.16 0 004.77 1.52V7.12a4.85 4.85 0 01-1-.43z"/></svg></a>
+      </div>
+    </div>
+    <div>
+      <h3 class="footer-heading">Navigate</h3>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="services.html">Services &amp; Pricing</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="booking.html">Book Appointment</a></li>
+        <li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="footer-heading">Opening Hours</h3>
+      <ul class="footer-hours">
+        <li><span class="hours-day">Mon – Fri</span><span class="hours-time">9:00am – 7:00pm</span></li>
+        <li><span class="hours-day">Saturday</span><span class="hours-time">8:00am – 6:00pm</span></li>
+        <li><span class="hours-day">Sunday</span><span class="hours-time">10:00am – 4:00pm</span></li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="footer-heading">Find Us</h3>
+      <address class="footer-address">
+        <p><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Waterloo, Durban</p>
+        <p><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg><a href="tel:+27823562239">082 356 2239</a></p>
+        <p><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:poomeigh503@gmail.com">poomeigh503@gmail.com</a></p>
+      </address>
+      <a href="booking.html" class="btn btn-gold footer-book-btn">Book Now</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container footer-bottom-inner">
+      <p class="copyright">&copy; 2024 Blade &amp; Bone Barbershop. All rights reserved.</p>
+      <ul class="legal-links"><li><a href="terms.html">Terms &amp; Conditions</a></li><li><a href="privacy.html">Privacy Policy</a></li></ul>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>

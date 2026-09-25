@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta name="description" content="Blade & Bone Barbershop services and pricing — haircuts, fades, beard trims, kids cuts and grooming packages in Waterloo, Durban." />
+  <title>Services &amp; Pricing — Blade &amp; Bone Barbershop</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><circle cx='24' cy='24' r='23' fill='%23121212' stroke='%23C5A46A' stroke-width='2'/><line x1='16' y1='17' x2='24' y2='24' stroke='%23C5A46A' stroke-width='2' stroke-linecap='round'/><line x1='32' y1='17' x2='24' y2='24' stroke='%23C5A46A' stroke-width='2' stroke-linecap='round'/><circle cx='24' cy='24' r='3' fill='%23C5A46A'/></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div class="mobile-overlay" id="mobile-overlay"></div>
+<header class="site-header" id="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo" aria-label="Blade & Bone Barbershop">
+      <svg class="logo-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <circle cx="24" cy="24" r="23" fill="#121212" stroke="#C5A46A" stroke-width="1.5"/>
+        <line x1="16" y1="18" x2="24" y2="24" stroke="#C5A46A" stroke-width="1.8" stroke-linecap="round"/>
+        <line x1="32" y1="18" x2="24" y2="24" stroke="#C5A46A" stroke-width="1.8" stroke-linecap="round"/>
+        <circle cx="24" cy="24" r="2.5" fill="#C5A46A"/>
+        <line x1="16" y1="30" x2="24" y2="24" stroke="#C5A46A" stroke-width="1.3" stroke-linecap="round" opacity=".6"/>
+        <line x1="32" y1="30" x2="24" y2="24" stroke="#C5A46A" stroke-width="1.3" stroke-linecap="round" opacity=".6"/>
+      </svg>
+      <span class="logo-text"><span class="logo-main">Blade &amp; Bone</span><span class="logo-sub">Barbershop</span></span>
+    </a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <ul class="nav-list">
+        <li><a href="index.html"    class="nav-link">Home</a></li>
+        <li><a href="services.html" class="nav-link active">Services</a></li>
+        <li><a href="about.html"    class="nav-link">About</a></li>
+        <li><a href="contact.html"  class="nav-link">Contact</a></li>
+      </ul>
+    </nav>
+    <a href="booking.html" class="btn btn-gold header-book">Book Now</a>
+    <button class="hamburger" id="hamburger-btn" aria-label="Open menu" aria-expanded="false"><span class="hamburger-bar"></span><span class="hamburger-bar"></span><span class="hamburger-bar"></span></button>
+  </div>
+  <nav class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation">
+    <a href="index.html"    class="mobile-link">Home</a>
+    <a href="services.html" class="mobile-link">Services</a>
+    <a href="about.html"    class="mobile-link">About</a>
+    <a href="contact.html"  class="mobile-link">Contact</a>
+    <a href="booking.html"  class="btn btn-gold mobile-book">Book Now</a>
+  </nav>
+</header>
+
+<main>
+<section class="page-hero"><div class="container">
+  <p class="eyebrow">What We Offer</p>
+  <h1 class="page-hero-heading">Services &amp; Pricing</h1>
+  <p class="page-hero-sub">Transparent pricing. No hidden extras. Just great work at honest prices.</p>
+</div></section>
+
+<section class="section" aria-labelledby="services-heading">
+  <div class="container">
+    <h2 id="services-heading" class="sr-only">All services</h2>
+    <div class="services-grid">
+
+      <article class="service-card" aria-label="Classic Cut">
+        <div class="service-card-img"><img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=700&h=300&fit=crop&q=80" alt="Classic scissor cut" loading="lazy" /></div>
+        <div class="service-card-body">
+          <div class="service-card-left">
+            <h2 class="service-card-name">Classic Cut</h2>
+            <p class="service-card-desc">A timeless scissor cut tailored to your head shape and lifestyle. Clean finish, every time.</p>
+            <p class="service-card-dur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>45 min</p>
+          </div>
+          <div class="service-card-right">
+            <span class="service-card-price">R180</span>
+            <a href="booking.html?service=classic-cut" class="btn btn-gold btn-sm" style="margin-top:12px">Book</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="service-card" aria-label="Skin Fade">
+        <div class="service-card-img"><img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=700&h=300&fit=crop&q=80" alt="Skin fade haircut" loading="lazy" /></div>
+        <div class="service-card-body">
+          <div class="service-card-left">
+            <h2 class="service-card-name">Skin Fade</h2>
+            <p class="service-card-desc">Razor-sharp fade from skin to your preferred length on top. Our most booked service.</p>
+            <p class="service-card-dur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>45 min</p>
+          </div>
+          <div class="service-card-right">
+            <span class="service-card-price">R220</span>
+            <a href="booking.html?service=skin-fade" class="btn btn-gold btn-sm" style="margin-top:12px">Book</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="service-card" aria-label="Beard Trim">
+        <div class="service-card-img"><img src="https://images.unsplash.com/photo-1553521041-145359b5fbcf?w=700&h=300&fit=crop&q=80" alt="Beard trim" loading="lazy" /></div>
+        <div class="service-card-body">
+          <div class="service-card-left">
+            <h2 class="service-card-name">Beard Trim</h2>
+            <p class="service-card-desc">Shaped, lined up and conditioned so your beard looks its absolute best.</p>
+            <p class="service-card-dur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>30 min</p>
+          </div>
+          <div class="service-card-right">
+            <span class="service-card-price">R120</span>
+            <a href="booking.html?service=beard-trim" class="btn btn-gold btn-sm" style="margin-top:12px">Book</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="service-card" aria-label="Cut and Beard">
+        <div class="service-card-img"><img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=700&h=300&fit=crop&q=80" alt="Cut and beard combo" loading="lazy" /></div>
+        <div class="service-card-body">
+          <div class="service-card-left">
+            <h2 class="service-card-name">Cut &amp; Beard</h2>
+            <p class="service-card-desc">The full package — haircut and beard trim in one sitting. Best value combo.</p>
+            <p class="service-card-dur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>60 min</p>
+          </div>
+          <div class="service-card-right">
+            <span class="service-card-price">R280</span>
+            <a href="booking.html?service=cut-and-beard" class="btn btn-gold btn-sm" style="margin-top:12px">Book</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="service-card" aria-label="Kids Cut">
+        <div class="service-card-img"><img src="https://images.unsplash.com/photo-1534297635766-a262cdcb8ee4?w=700&h=300&fit=crop&q=80" alt="Kids haircut" loading="lazy" /></div>
+        <div class="service-card-body">
+          <div class="service-card-left">
+            <h2 class="service-card-name">Kids Cut</h2>
+            <p class="service-card-desc">Patient, friendly cuts for children under 12. No fuss, great results every time.</p>
+            <p class="service-card-dur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>30 min</p>
+          </div>
+          <div class="service-card-right">
+            <span class="service-card-price">R140</span>
+            <a href="booking.html?service=kids-cut" class="btn btn-gold btn-sm" style="margin-top:12px">Book</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="service-card" aria-label="Hot Towel Shave">
+        <div class="service-card-img"><img src="https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=700&h=300&fit=crop&q=80" alt="Hot towel shave" loading="lazy" /></div>
+        <div class="service-card-body">
+          <div class="service-card-left">
+            <h2 class="service-card-name">Hot Towel Shave</h2>
+            <p class="service-card-desc">Traditional straight-razor shave with hot towel prep and cold finish. Pure luxury.</p>
+            <p class="service-card-dur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>45 min</p>
+          </div>
+          <div class="service-card-right">
+            <span class="service-card-price">R200</span>
+            <a href="booking.html?service=hot-towel-shave" class="btn btn-gold btn-sm" style="margin-top:12px">Book</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="service-card" aria-label="Full Groom Package" style="grid-column:span 2">
+        <div class="service-card-img" style="aspect-ratio:21/6"><img src="https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=1200&h=360&fit=crop&q=80" alt="Full groom package" loading="lazy" /></div>
+        <div class="service-card-body">
+          <div class="service-card-left">
+            <h2 class="service-card-name">Full Groom Package</h2>
+            <p class="service-card-desc">Cut, beard trim and hot towel finish — the complete Blade &amp; Bone experience. Walk in and walk out transformed.</p>
+            <p class="service-card-dur"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>90 min</p>
+          </div>
+          <div class="service-card-right">
+            <span class="service-card-price">R380</span>
+            <a href="booking.html?service=full-groom" class="btn btn-gold" style="margin-top:12px">Book Package</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="services-info-grid">
+      <div class="services-info-card">
+        <div class="services-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <h3>Cancellation Policy</h3>
+        <p>We ask for 24 hours notice to cancel or reschedule. Late cancellations may incur a small fee to cover the barber's time.</p>
+      </div>
+      <div class="services-info-card">
+        <div class="services-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+        <h3>Walk-ins Welcome</h3>
+        <p>No booking? Come in. We always try to accommodate walk-ins. Booking ahead guarantees your preferred barber and time slot.</p>
+      </div>
+      <div class="services-info-card">
+        <div class="services-info-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg></div>
+        <h3>First Visit Discount</h3>
+        <p>New to Blade &amp; Bone? Use code <strong style="color:var(--gold)">NEWCUT10</strong> when booking for 10% off your first service. Welcome to the family.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-banner" aria-labelledby="svc-cta">
+  <div class="container">
+    <h2 id="svc-cta" class="cta-heading">Not Sure Which Service?</h2>
+    <p class="cta-sub">Come in and we'll point you in the right direction. Or book the one that sounds closest — we'll sort you out either way.</p>
+    <div class="cta-actions">
+      <a href="booking.html" class="btn btn-gold btn-lg">Book Now</a>
+      <a href="contact.html" class="btn btn-outline btn-lg">Get in Touch</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <a href="index.html" class="footer-logo"><span class="logo-main">Blade &amp; Bone</span><span class="logo-sub">Barbershop</span></a>
+      <p class="footer-tagline">Precision cuts and classic craft in Waterloo, Durban since 2016.</p>
+      <div class="social-links">
+        <a href="https://instagram.com" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor" stroke="none"/></svg></a>
+        <a href="https://facebook.com" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+        <a href="https://tiktok.com" class="social-link" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.34 6.34 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V9.05a8.16 8.16 0 004.77 1.52V7.12a4.85 4.85 0 01-1-.43z"/></svg></a>
+      </div>
+    </div>
+    <div>
+      <h3 class="footer-heading">Navigate</h3>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li><li><a href="services.html">Services &amp; Pricing</a></li>
+        <li><a href="about.html">About Us</a></li><li><a href="booking.html">Book Appointment</a></li><li><a href="contact.html">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="footer-heading">Opening Hours</h3>
+      <ul class="footer-hours">
+        <li><span class="hours-day">Mon – Fri</span><span class="hours-time">9:00am – 7:00pm</span></li>
+        <li><span class="hours-day">Saturday</span><span class="hours-time">8:00am – 6:00pm</span></li>
+        <li><span class="hours-day">Sunday</span><span class="hours-time">10:00am – 4:00pm</span></li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="footer-heading">Find Us</h3>
+      <address class="footer-address">
+        <p><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Waterloo, Durban</p>
+        <p><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg><a href="tel:+27823562239">082 356 2239</a></p>
+        <p><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><a href="mailto:poomeigh503@gmail.com">poomeigh503@gmail.com</a></p>
+      </address>
+      <a href="booking.html" class="btn btn-gold footer-book-btn">Book Now</a>
+    </div>
+  </div>
+  <div class="footer-bottom"><div class="container footer-bottom-inner">
+    <p class="copyright">&copy; 2024 Blade &amp; Bone Barbershop. All rights reserved.</p>
+    <ul class="legal-links"><li><a href="terms.html">Terms &amp; Conditions</a></li><li><a href="privacy.html">Privacy Policy</a></li></ul>
+  </div></div>
+</footer>
+<script src="js/main.js"></script>
+</body>
+</html>

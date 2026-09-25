@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta name="description" content="Book an appointment at Blade & Bone Barbershop, Waterloo Durban. Choose your service, barber, date and time." />
+  <title>Book an Appointment — Blade &amp; Bone Barbershop</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><circle cx='24' cy='24' r='23' fill='%23121212' stroke='%23C5A46A' stroke-width='2'/><line x1='16' y1='17' x2='24' y2='24' stroke='%23C5A46A' stroke-width='2' stroke-linecap='round'/><line x1='32' y1='17' x2='24' y2='24' stroke='%23C5A46A' stroke-width='2' stroke-linecap='round'/><circle cx='24' cy='24' r='3' fill='%23C5A46A'/></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+</head>
+<body>
+<div class="mobile-overlay" id="mobile-overlay"></div>
+<header class="site-header" id="site-header">
+  <div class="container header-inner">
+    <a href="index.html" class="logo"><svg class="logo-icon" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><circle cx="24" cy="24" r="23" fill="#121212" stroke="#C5A46A" stroke-width="1.5"/><line x1="16" y1="18" x2="24" y2="24" stroke="#C5A46A" stroke-width="1.8" stroke-linecap="round"/><line x1="32" y1="18" x2="24" y2="24" stroke="#C5A46A" stroke-width="1.8" stroke-linecap="round"/><circle cx="24" cy="24" r="2.5" fill="#C5A46A"/><line x1="16" y1="30" x2="24" y2="24" stroke="#C5A46A" stroke-width="1.3" stroke-linecap="round" opacity=".6"/><line x1="32" y1="30" x2="24" y2="24" stroke="#C5A46A" stroke-width="1.3" stroke-linecap="round" opacity=".6"/></svg><span class="logo-text"><span class="logo-main">Blade &amp; Bone</span><span class="logo-sub">Barbershop</span></span></a>
+    <nav class="main-nav"><ul class="nav-list">
+      <li><a href="index.html"    class="nav-link">Home</a></li>
+      <li><a href="services.html" class="nav-link">Services</a></li>
+      <li><a href="about.html"    class="nav-link">About</a></li>
+      <li><a href="contact.html"  class="nav-link">Contact</a></li>
+    </ul></nav>
+    <a href="booking.html" class="btn btn-gold header-book">Book Now</a>
+    <button class="hamburger" id="hamburger-btn" aria-label="Open menu" aria-expanded="false"><span class="hamburger-bar"></span><span class="hamburger-bar"></span><span class="hamburger-bar"></span></button>
+  </div>
+  <nav class="mobile-menu" id="mobile-menu">
+    <a href="index.html"    class="mobile-link">Home</a>
+    <a href="services.html" class="mobile-link">Services</a>
+    <a href="about.html"    class="mobile-link">About</a>
+    <a href="contact.html"  class="mobile-link">Contact</a>
+    <a href="booking.html"  class="btn btn-gold mobile-book">Book Now</a>
+  </nav>
+</header>
+
+<main>
+<section class="page-hero"><div class="container">
+  <p class="eyebrow">Reserve Your Chair</p>
+  <h1 class="page-hero-heading">Book an Appointment</h1>
+  <p class="page-hero-sub">Four steps. Two minutes. Your chair is waiting.</p>
+</div></section>
+
+<section class="section" style="padding-top:48px;padding-bottom:80px">
+  <div class="container">
+
+    <!-- Stepper -->
+    <div class="stepper" aria-label="Booking steps">
+      <div class="stepper-step active" id="stepper-1" data-step="1"><div class="stepper-dot">1</div><span class="stepper-label">Service</span></div>
+      <div class="stepper-line"></div>
+      <div class="stepper-step" id="stepper-2" data-step="2"><div class="stepper-dot">2</div><span class="stepper-label">Barber</span></div>
+      <div class="stepper-line"></div>
+      <div class="stepper-step" id="stepper-3" data-step="3"><div class="stepper-dot">3</div><span class="stepper-label">Date &amp; Time</span></div>
+      <div class="stepper-line"></div>
+      <div class="stepper-step" id="stepper-4" data-step="4"><div class="stepper-dot">4</div><span class="stepper-label">Your Details</span></div>
+    </div>
+
+    <div class="booking-layout">
+      <!-- FORM -->
+      <div>
+        <form id="booking-form" novalidate>
+
+          <!-- STEP 1: Service -->
+          <div class="booking-step" id="step-1" data-step="1">
+            <h3 class="step-heading">Choose your service</h3>
+            <p class="step-sub">Select one service to continue.</p>
+            <div class="svc-choice-grid">
+              <label class="svc-choice" for="svc-classic-cut"><input type="radio" name="service" id="svc-classic-cut" value="classic-cut" data-duration="45" data-price="180" data-name="Classic Cut" /><div class="svc-choice-header"><span class="svc-choice-name">Classic Cut</span><span class="svc-choice-price">R180</span></div><p class="svc-choice-desc">A timeless scissor cut tailored to your head shape.</p><p class="svc-choice-dur">45 min</p></label>
+              <label class="svc-choice" for="svc-skin-fade"><input type="radio" name="service" id="svc-skin-fade" value="skin-fade" data-duration="45" data-price="220" data-name="Skin Fade" /><div class="svc-choice-header"><span class="svc-choice-name">Skin Fade</span><span class="svc-choice-price">R220</span></div><p class="svc-choice-desc">Razor-sharp fade from skin to preferred length on top.</p><p class="svc-choice-dur">45 min</p></label>
+              <label class="svc-choice" for="svc-beard-trim"><input type="radio" name="service" id="svc-beard-trim" value="beard-trim" data-duration="30" data-price="120" data-name="Beard Trim" /><div class="svc-choice-header"><span class="svc-choice-name">Beard Trim</span><span class="svc-choice-price">R120</span></div><p class="svc-choice-desc">Shaped, lined up and conditioned so your beard looks its best.</p><p class="svc-choice-dur">30 min</p></label>
+              <label class="svc-choice" for="svc-cut-and-beard"><input type="radio" name="service" id="svc-cut-and-beard" value="cut-and-beard" data-duration="60" data-price="280" data-name="Cut &amp; Beard" /><div class="svc-choice-header"><span class="svc-choice-name">Cut &amp; Beard</span><span class="svc-choice-price">R280</span></div><p class="svc-choice-desc">The full package — haircut and beard trim in one sitting.</p><p class="svc-choice-dur">60 min</p></label>
+              <label class="svc-choice" for="svc-kids-cut"><input type="radio" name="service" id="svc-kids-cut" value="kids-cut" data-duration="30" data-price="140" data-name="Kids Cut" /><div class="svc-choice-header"><span class="svc-choice-name">Kids Cut</span><span class="svc-choice-price">R140</span></div><p class="svc-choice-desc">Patient, friendly cuts for kids under 12. No fuss.</p><p class="svc-choice-dur">30 min</p></label>
+              <label class="svc-choice" for="svc-hot-towel"><input type="radio" name="service" id="svc-hot-towel" value="hot-towel-shave" data-duration="45" data-price="200" data-name="Hot Towel Shave" /><div class="svc-choice-header"><span class="svc-choice-name">Hot Towel Shave</span><span class="svc-choice-price">R200</span></div><p class="svc-choice-desc">Traditional straight-razor shave with hot towel prep.</p><p class="svc-choice-dur">45 min</p></label>
+              <label class="svc-choice" for="svc-full-groom"><input type="radio" name="service" id="svc-full-groom" value="full-groom" data-duration="90" data-price="380" data-name="Full Groom Package" /><div class="svc-choice-header"><span class="svc-choice-name">Full Groom Package</span><span class="svc-choice-price">R380</span></div><p class="svc-choice-desc">Cut, beard trim and hot towel — the full experience.</p><p class="svc-choice-dur">90 min</p></label>
+            </div>
+            <div class="step-actions"><button type="button" class="btn btn-gold step-next-btn" data-next="2">Continue — Choose Barber &rarr;</button></div>
+          </div>
+
+          <!-- STEP 2: Barber -->
+          <div class="booking-step hidden" id="step-2" data-step="2">
+            <h3 class="step-heading">Choose your barber</h3>
+            <p class="step-sub">All three are great — pick based on what you're after.</p>
+            <div class="brb-choice-grid">
+              <label class="brb-choice" for="brb-marcus"><input type="radio" name="barber" id="brb-marcus" value="marcus" data-name="Marcus Reid" /><img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=300&h=180&fit=crop&q=80" alt="Marcus Reid" loading="lazy" /><div class="brb-choice-body"><span class="brb-choice-name">Marcus Reid</span><span class="brb-choice-role">Owner &amp; Master Barber</span><p class="brb-choice-spec">Precision cuts, tapers &amp; classic barbering</p></div></label>
+              <label class="brb-choice" for="brb-jordan"><input type="radio" name="barber" id="brb-jordan" value="jordan" data-name="Jordan Cole" /><img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=300&h=180&fit=crop&q=80" alt="Jordan Cole" loading="lazy" /><div class="brb-choice-body"><span class="brb-choice-name">Jordan Cole</span><span class="brb-choice-role">Fade Specialist</span><p class="brb-choice-spec">Skin fades, high fades &amp; fresh line-ups</p></div></label>
+              <label class="brb-choice" for="brb-priya"><input type="radio" name="barber" id="brb-priya" value="priya" data-name="Priya Nair" /><img src="https://images.unsplash.com/photo-1559599101-f09722fb4948?w=300&h=180&fit=crop&q=80" alt="Priya Nair" loading="lazy" /><div class="brb-choice-body"><span class="brb-choice-name">Priya Nair</span><span class="brb-choice-role">Texture &amp; Styling Expert</span><p class="brb-choice-spec">Textured hair, curls &amp; creative styling</p></div></label>
+            </div>
+            <div class="step-actions step-actions--split">
+              <button type="button" class="btn btn-ghost step-back-btn" data-back="1">&larr; Back</button>
+              <button type="button" class="btn btn-gold step-next-btn" data-next="3">Continue — Date &amp; Time &rarr;</button>
+            </div>
+          </div>
+
+          <!-- STEP 3: Date & Time -->
+          <div class="booking-step hidden" id="step-3" data-step="3">
+            <h3 class="step-heading">Pick a date and time</h3>
+            <p class="step-sub">Select a date, then choose an available time slot.</p>
+            <div class="datetime-grid">
+              <div>
+                <label for="date-input" class="field-label">Date</label>
+                <input type="text" id="date-input" name="date" class="field-input date-flatpickr" placeholder="Select a date" readonly required aria-required="true" />
+              </div>
+              <div>
+                <p class="field-label">Time</p>
+                <div class="time-slots" role="radiogroup" aria-label="Available time slots">
+                  <label class="time-slot" for="t-0900"><input type="radio" name="time" id="t-0900" value="09:00" required />09:00</label>
+                  <label class="time-slot" for="t-0930"><input type="radio" name="time" id="t-0930" value="09:30" />09:30</label>
+                  <label class="time-slot" for="t-1000"><input type="radio" name="time" id="t-1000" value="10:00" />10:00</label>
+                  <label class="time-slot" for="t-1030"><input type="radio" name="time" id="t-1030" value="10:30" />10:30</label>
+                  <label class="time-slot" for="t-1100"><input type="radio" name="time" id="t-1100" value="11:00" />11:00</label>
+                  <label class="time-slot" for="t-1130"><input type="radio" name="time" id="t-1130" value="11:30" />11:30</label>
+                  <label class="time-slot" for="t-1200"><input type="radio" name="time" id="t-1200" value="12:00" />12:00</label>
+                  <label class="time-slot" for="t-1230"><input type="radio" name="time" id="t-1230" value="12:30" />12:30</label>
+                  <label class="time-slot" for="t-1300"><input type="radio" name="time" id="t-1300" value="13:00" />13:00</label>
+                  <label class="time-slot" for="t-1330"><input type="radio" name="time" id="t-1330" value="13:30" />13:30</label>
+                  <label class="time-slot" for="t-1400"><input type="radio" name="time" id="t-1400" value="14:00" />14:00</label>
+                  <label class="time-slot" for="t-1430"><input type="radio" name="time" id="t-1430" value="14:30" />14:30</label>
+                  <label class="time-slot" for="t-1500"><input type="radio" name="time" id="t-1500" value="15:00" />15:00</label>
+                  <label class="time-slot" for="t-1530"><input type="radio" name="time" id="t-1530" value="15:30" />15:30</label>
+                  <label class="time-slot" for="t-1600"><input type="radio" name="time" id="t-1600" value="16:00" />16:00</label>
+                  <label class="time-slot" for="t-1630"><input type="radio" name="time" id="t-1630" value="16:30" />16:30</label>
+                  <label class="time-slot" for="t-1700"><input type="radio" name="time" id="t-1700" value="17:00" />17:00</label>
+                  <label class="time-slot" for="t-1730"><input type="radio" name="time" id="t-1730" value="17:30" />17:30</label>
+                  <label class="time-slot" for="t-1800"><input type="radio" name="time" id="t-1800" value="18:00" />18:00</label>
+                  <label class="time-slot" for="t-1830"><input type="radio" name="time" id="t-1830" value="18:30" />18:30</label>
+                </div>
+              </div>
+            </div>
+            <div class="step-actions step-actions--split">
+              <button type="button" class="btn btn-ghost step-back-btn" data-back="2">&larr; Back</button>
+              <button type="button" class="btn btn-gold step-next-btn" data-next="4">Continue — Your Details &rarr;</button>
+            </div>
+          </div>
+
+          <!-- STEP 4: Details -->
+          <div class="booking-step hidden" id="step-4" data-step="4">
+            <h3 class="step-heading">Your details</h3>
+            <p class="step-sub">Almost done — just a few things to confirm your booking.</p>
+            <div class="personal-fields">
+              <div class="fields-row">
+                <div class="field-group"><label for="first_name" class="field-label">First name <span style="color:var(--error)">*</span></label><input type="text" id="first_name" class="field-input" autocomplete="given-name" required /></div>
+                <div class="field-group"><label for="last_name" class="field-label">Last name <span style="color:var(--error)">*</span></label><input type="text" id="last_name" class="field-input" autocomplete="family-name" required /></div>
+              </div>
+              <div class="fields-row">
+                <div class="field-group"><label for="email" class="field-label">Email address <span style="color:var(--error)">*</span></label><input type="email" id="email" class="field-input" autocomplete="email" required /></div>
+                <div class="field-group"><label for="phone" class="field-label">Phone number <span style="color:var(--error)">*</span></label><input type="tel" id="phone" class="field-input" autocomplete="tel" required /></div>
+              </div>
+              <div class="field-group"><label for="notes" class="field-label">Notes <span style="font-weight:400;color:var(--muted);font-size:.8rem">(optional)</span></label><textarea id="notes" class="field-input field-textarea" rows="3" placeholder="e.g. preferred style, first-visit code NEWCUT10, any concerns..."></textarea></div>
+            </div>
+            <div class="field-group" style="margin-bottom:22px">
+              <label class="checkbox-label" for="agree-terms">
+                <input type="checkbox" id="agree-terms" required />
+                <span>I agree to the <a href="terms.html" target="_blank" class="inline-link">Terms &amp; Conditions</a> and <a href="privacy.html" target="_blank" class="inline-link">Privacy Policy</a>. I understand the 24-hour cancellation policy.</span>
+              </label>
+            </div>
+            <div class="step-actions step-actions--split">
+              <button type="button" class="btn btn-ghost step-back-btn" data-back="3">&larr; Back</button>
+              <button type="submit" class="btn btn-gold btn-lg">Confirm Booking</button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+
+      <!-- STICKY SUMMARY PANEL -->
+      <aside class="summary-panel" aria-label="Booking summary">
+        <p class="summary-panel-title">Your Booking</p>
+        <div class="summary-rows">
+          <p class="summary-empty" id="summary-empty">Select a service to begin</p>
+          <div class="summary-row hidden" id="sum-service-row"><span class="summary-row-label">Service</span><span class="summary-row-value" id="sum-service">—</span></div>
+          <div class="summary-row hidden" id="sum-barber-row"><span class="summary-row-label">Barber</span><span class="summary-row-value" id="sum-barber">—</span></div>
+          <div class="summary-row hidden" id="sum-date-row"><span class="summary-row-label">Date</span><span class="summary-row-value" id="sum-date">—</span></div>
+          <div class="summary-row hidden" id="sum-time-row"><span class="summary-row-label">Time</span><span class="summary-row-value" id="sum-time">—</span></div>
+          <div class="summary-row hidden" id="sum-duration-row"><span class="summary-row-label">Duration</span><span class="summary-row-value" id="sum-duration">—</span></div>
+        </div>
+        <div class="summary-total hidden" id="sum-total-row">
+          <span class="summary-total-label">Total</span>
+          <span class="summary-total-price" id="sum-total">R—</span>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div><a href="index.html" class="footer-logo"><span class="logo-main">Blade &amp; Bone</span><span class="logo-sub">Barbershop</span></a><p class="footer-tagline">Precision cuts and classic craft in Waterloo, Durban since 2016.</p></div>
+    <div><h3 class="footer-heading">Navigate</h3><ul class="footer-links"><li><a href="index.html">Home</a></li><li><a href="services.html">Services</a></li><li><a href="about.html">About</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div><h3 class="footer-heading">Opening Hours</h3><ul class="footer-hours"><li><span class="hours-day">Mon – Fri</span><span class="hours-time">9:00am – 7:00pm</span></li><li><span class="hours-day">Saturday</span><span class="hours-time">8:00am – 6:00pm</span></li><li><span class="hours-day">Sunday</span><span class="hours-time">10:00am – 4:00pm</span></li></ul></div>
+    <div><h3 class="footer-heading">Find Us</h3><address class="footer-address"><p><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>Waterloo, Durban</p><p><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg><a href="tel:+27823562239">082 356 2239</a></p></address></div>
+  </div>
+  <div class="footer-bottom"><div class="container footer-bottom-inner"><p class="copyright">&copy; 2024 Blade &amp; Bone Barbershop. All rights reserved.</p><ul class="legal-links"><li><a href="terms.html">Terms &amp; Conditions</a></li><li><a href="privacy.html">Privacy Policy</a></li></ul></div></div>
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

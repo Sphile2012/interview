@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Admin Dashboard — Blade &amp; Bone Barbershop</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'><circle cx='24' cy='24' r='23' fill='%23121212' stroke='%23C5A46A' stroke-width='2'/><circle cx='24' cy='24' r='3' fill='%23C5A46A'/></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="admin-body">
+
+<!-- LOGIN -->
+<div id="admin-login-wrap">
+  <div class="admin-login-wrap">
+    <div class="admin-brand">
+      <span class="admin-brand-name">Blade &amp; Bone</span>
+      <span class="admin-brand-sub">Admin Dashboard</span>
+    </div>
+    <div class="admin-card">
+      <p style="font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:20px;text-align:center">Sign In</p>
+      <div class="admin-hint">Enter your admin email to access the dashboard.<br><strong>poomeigh503@gmail.com</strong></div>
+      <div class="admin-error" id="admin-login-error" hidden></div>
+      <form id="admin-login-form">
+        <div class="field-group" style="margin-bottom:16px">
+          <label for="admin-email" class="field-label">Email Address</label>
+          <input type="email" id="admin-email" class="field-input" placeholder="poomeigh503@gmail.com" autocomplete="email" required />
+        </div>
+        <button type="submit" class="admin-submit">Access Dashboard &rarr;</button>
+      </form>
+    </div>
+    <div class="admin-foot"><a href="index.html">&larr; Back to Website</a></div>
+  </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="admin-dashboard" class="hidden">
+  <div class="admin-wrap">
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <div class="admin-sb-brand"><span class="admin-sb-name">Blade &amp; Bone</span><span class="admin-sb-sub">Admin Panel</span></div>
+      <nav class="admin-sb-nav">
+        <p class="admin-sb-sec">Overview</p>
+        <a href="admin.html" class="admin-sb-link active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Dashboard
+        </a>
+        <p class="admin-sb-sec">Site</p>
+        <a href="index.html" target="_blank" class="admin-sb-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+          View Website
+        </a>
+        <a href="booking.html" target="_blank" class="admin-sb-link">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+          New Booking
+        </a>
+      </nav>
+      <div class="admin-sb-foot">
+        <span class="admin-sb-email">poomeigh503@gmail.com</span>
+        <button id="admin-logout-btn" class="btn btn-ghost btn-sm" style="width:100%;justify-content:center">Sign Out</button>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <div class="admin-main">
+      <div class="admin-topbar">
+        <span class="admin-topbar-title">Dashboard</span>
+        <div style="display:flex;align-items:center;gap:12px">
+          <a href="index.html" target="_blank" style="font-size:.8rem;color:var(--muted)">&#8599; View Site</a>
+          <a href="booking.html" target="_blank" class="btn btn-gold btn-sm">+ New Booking</a>
+        </div>
+      </div>
+
+      <div class="admin-pb">
+        <!-- Stats -->
+        <div class="stats-grid">
+          <div class="stat-card"><p class="stat-lbl">Total Bookings</p><p class="stat-val" id="stat-total">0</p><p class="stat-sub">All time</p></div>
+          <div class="stat-card"><p class="stat-lbl">Today</p><p class="stat-val" id="stat-today">0</p><p class="stat-sub">Appointments</p></div>
+          <div class="stat-card"><p class="stat-lbl">Confirmed</p><p class="stat-val" id="stat-confirmed">0</p><p class="stat-sub">Active</p></div>
+          <div class="stat-card"><p class="stat-lbl">Completed</p><p class="stat-val" id="stat-completed">0</p><p class="stat-sub">Done</p></div>
+          <div class="stat-card"><p class="stat-lbl">Revenue</p><p class="stat-val" id="stat-revenue" style="font-size:1.4rem">R0</p><p class="stat-sub">Excl. cancelled</p></div>
+        </div>
+
+        <!-- Bookings table -->
+        <div class="tw">
+          <div class="tw-header">
+            <span class="tw-title">All Bookings</span>
+            <a href="booking.html" target="_blank" class="btn btn-gold btn-sm">+ New Booking</a>
+          </div>
+          <div style="overflow-x:auto">
+            <table>
+              <thead><tr>
+                <th>#</th><th>Client</th><th>Service</th><th>Barber</th><th>Date</th><th>Time</th><th>Price</th><th>Status</th><th>Actions</th>
+              </tr></thead>
+              <tbody id="bookings-tbody">
+                <tr><td colspan="9" class="empty-state"><p style="font-size:1.5rem;margin-bottom:8px">📅</p><p>No bookings yet — they'll appear here once customers book.</p></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Services reference -->
+        <div class="tw" style="margin-top:20px">
+          <div class="tw-header"><span class="tw-title">Services &amp; Pricing</span></div>
+          <div style="overflow-x:auto">
+            <table>
+              <thead><tr><th>Service</th><th>Duration</th><th>Price</th><th>Book</th></tr></thead>
+              <tbody>
+                <tr><td><strong>Classic Cut</strong></td><td>45 min</td><td style="color:var(--gold);font-weight:600">R180</td><td><a href="booking.html?service=classic-cut" target="_blank" class="btn btn-ghost btn-sm">Book</a></td></tr>
+                <tr><td><strong>Skin Fade</strong></td><td>45 min</td><td style="color:var(--gold);font-weight:600">R220</td><td><a href="booking.html?service=skin-fade" target="_blank" class="btn btn-ghost btn-sm">Book</a></td></tr>
+                <tr><td><strong>Beard Trim</strong></td><td>30 min</td><td style="color:var(--gold);font-weight:600">R120</td><td><a href="booking.html?service=beard-trim" target="_blank" class="btn btn-ghost btn-sm">Book</a></td></tr>
+                <tr><td><strong>Cut &amp; Beard</strong></td><td>60 min</td><td style="color:var(--gold);font-weight:600">R280</td><td><a href="booking.html?service=cut-and-beard" target="_blank" class="btn btn-ghost btn-sm">Book</a></td></tr>
+                <tr><td><strong>Kids Cut</strong></td><td>30 min</td><td style="color:var(--gold);font-weight:600">R140</td><td><a href="booking.html?service=kids-cut" target="_blank" class="btn btn-ghost btn-sm">Book</a></td></tr>
+                <tr><td><strong>Hot Towel Shave</strong></td><td>45 min</td><td style="color:var(--gold);font-weight:600">R200</td><td><a href="booking.html?service=hot-towel-shave" target="_blank" class="btn btn-ghost btn-sm">Book</a></td></tr>
+                <tr><td><strong>Full Groom Package</strong></td><td>90 min</td><td style="color:var(--gold);font-weight:600">R380</td><td><a href="booking.html?service=full-groom" target="_blank" class="btn btn-ghost btn-sm">Book</a></td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Barbers reference -->
+        <div class="tw" style="margin-top:20px">
+          <div class="tw-header"><span class="tw-title">Barbers</span></div>
+          <div style="overflow-x:auto">
+            <table>
+              <thead><tr><th>Photo</th><th>Name</th><th>Role</th><th>Speciality</th><th>Book</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td><img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=48&h=48&fit=crop&q=80" alt="Marcus" style="width:40px;height:40px;border-radius:50%;object-fit:cover;object-position:top" /></td>
+                  <td><strong>Marcus Reid</strong></td><td style="color:var(--muted)">Owner &amp; Master Barber</td>
+                  <td style="color:var(--muted);font-size:.8rem">Precision cuts &amp; tapers</td>
+                  <td><a href="booking.html?barber=marcus" target="_blank" class="btn btn-ghost btn-sm">Book</a></td>
+                </tr>
+                <tr>
+                  <td><img src="https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=48&h=48&fit=crop&q=80" alt="Jordan" style="width:40px;height:40px;border-radius:50%;object-fit:cover;object-position:top" /></td>
+                  <td><strong>Jordan Cole</strong></td><td style="color:var(--muted)">Fade Specialist</td>
+                  <td style="color:var(--muted);font-size:.8rem">Skin fades &amp; line-ups</td>
+                  <td><a href="booking.html?barber=jordan" target="_blank" class="btn btn-ghost btn-sm">Book</a></td>
+                </tr>
+                <tr>
+                  <td><img src="https://images.unsplash.com/photo-1559599101-f09722fb4948?w=48&h=48&fit=crop&q=80" alt="Priya" style="width:40px;height:40px;border-radius:50%;object-fit:cover;object-position:top" /></td>
+                  <td><strong>Priya Nair</strong></td><td style="color:var(--muted)">Texture &amp; Styling Expert</td>
+                  <td style="color:var(--muted);font-size:.8rem">Textured hair &amp; curls</td>
+                  <td><a href="booking.html?barber=priya" target="_blank" class="btn btn-ghost btn-sm">Book</a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="js/main.js"></script>
+</body>
+</html>
