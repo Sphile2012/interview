@@ -1,27 +1,50 @@
 [build]
-  command   = "pip install -r requirements.txt -t netlify/functions/packages && pip install serverless-wsgi -t netlify/functions/packages"
-  functions = "netlify/functions"
-  publish   = "static"
+  publish   = "static-site"
 
 [build.environment]
   PYTHON_VERSION = "3.11"
 
-[functions]
-  included_files = [
-    "app.py",
-    "templates/**",
-    "static/**"
-  ]
-
-# Serve static files directly without going through function
 [[redirects]]
-  from   = "/static/*"
-  to     = "/static/:splat"
+  from   = "/booking"
+  to     = "/booking.html"
   status = 200
 
-# Send everything else to the Flask function
+[[redirects]]
+  from   = "/services"
+  to     = "/services.html"
+  status = 200
+
+[[redirects]]
+  from   = "/about"
+  to     = "/about.html"
+  status = 200
+
+[[redirects]]
+  from   = "/contact"
+  to     = "/contact.html"
+  status = 200
+
+[[redirects]]
+  from   = "/terms"
+  to     = "/terms.html"
+  status = 200
+
+[[redirects]]
+  from   = "/privacy"
+  to     = "/privacy.html"
+  status = 200
+
+[[redirects]]
+  from   = "/confirmation"
+  to     = "/confirmation.html"
+  status = 200
+
+[[redirects]]
+  from   = "/admin"
+  to     = "/admin.html"
+  status = 200
+
 [[redirects]]
   from   = "/*"
-  to     = "/.netlify/functions/app"
+  to     = "/index.html"
   status = 200
-  force  = true
