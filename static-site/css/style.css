@@ -537,3 +537,63 @@ td strong { color:var(--offwhite); }
   .hero-stats { flex-direction:column; gap:16px; }
   .stats-grid { grid-template-columns:1fr 1fr; }
 }
+
+/* ── POLISH PASS ── */
+body { background:linear-gradient(135deg,#121212 0%,#151613 52%,#121212 100%); }
+.section { position:relative; }
+.section:not(.testimonials-section) + .section { border-top:1px solid rgba(255,255,255,.035); }
+.page-hero { background:linear-gradient(105deg,#2b2d26 0%,#24251f 62%,#1b1c19 100%); position:relative; overflow:hidden; }
+.page-hero::after { content:''; position:absolute; width:420px; height:420px; right:-180px; top:-220px; border:1px solid rgba(197,164,106,.18); border-radius:50%; box-shadow:0 0 0 28px rgba(197,164,106,.035),0 0 0 56px rgba(197,164,106,.025); pointer-events:none; }
+.page-hero .container { position:relative; z-index:1; }
+.btn:focus-visible, .nav-link:focus-visible, .mobile-link:focus-visible, .field-input:focus-visible, .time-slot:focus-within, .svc-choice:focus-within, .brb-choice:focus-within { outline:2px solid var(--gold-light); outline-offset:3px; }
+
+/* Booking keeps the decision-making area quiet and high contrast. */
+.booking-layout { gap:44px; }
+.stepper { padding:14px 18px; background:rgba(26,26,26,.74); border:1px solid var(--border); border-radius:8px; box-shadow:0 14px 34px rgba(0,0,0,.16); }
+.booking-step { box-shadow:0 18px 44px rgba(0,0,0,.14); }
+.step-heading { font-size:1.3rem; letter-spacing:.01em; }
+.svc-choice, .brb-choice { position:relative; }
+.svc-choice.selected::before, .brb-choice.selected::before { content:'✓'; position:absolute; right:12px; bottom:12px; width:21px; height:21px; display:grid; place-items:center; border-radius:50%; background:var(--gold); color:var(--charcoal); font-size:.72rem; font-weight:800; }
+.brb-choice.selected { box-shadow:0 0 0 2px rgba(197,164,106,.1),0 12px 24px rgba(0,0,0,.2); }
+.summary-panel { box-shadow:0 18px 44px rgba(0,0,0,.2); }
+.summary-panel::before { content:'Live preview'; display:block; color:var(--gold); font-size:.6rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; margin-bottom:8px; }
+.summary-panel-title { margin-bottom:14px; }
+.summary-empty { border:1px dashed rgba(197,164,106,.25); border-radius:6px; padding:18px 12px; }
+.time-slot { min-height:40px; }
+.time-slot.selected { box-shadow:0 5px 14px rgba(197,164,106,.2); }
+
+/* The dashboard reads like a small working console rather than a second website. */
+.admin-body { background:linear-gradient(135deg,#121212 0%,#171814 54%,#121212 100%); }
+.admin-login-wrap { padding-top:clamp(64px,12vh,128px); }
+.admin-card { box-shadow:0 24px 60px rgba(0,0,0,.28); }
+.admin-sidebar { box-shadow:8px 0 28px rgba(0,0,0,.14); }
+.admin-sb-brand { padding:24px 20px 22px; }
+.admin-sb-name { font-family:var(--font-h); font-size:1.25rem; letter-spacing:.06em; color:var(--offwhite); }
+.admin-sb-sub { color:var(--gold); margin-top:3px; }
+.admin-topbar { box-shadow:0 4px 18px rgba(0,0,0,.12); }
+.admin-topbar-title { font-family:var(--font-h); font-size:1.35rem; letter-spacing:.04em; }
+.admin-pb { max-width:1500px; width:100%; }
+.stat-card { min-height:116px; display:flex; flex-direction:column; justify-content:center; box-shadow:0 10px 26px rgba(0,0,0,.12); transition:transform .2s,border-color .2s; }
+.stat-card:hover { transform:translateY(-2px); border-color:rgba(197,164,106,.45); }
+.tw { box-shadow:0 14px 34px rgba(0,0,0,.12); }
+.tw-header { min-height:62px; padding:16px 20px; }
+.tw-title { font-size:1rem; }
+thead th { padding-top:12px; padding-bottom:12px; }
+td { padding-top:13px; padding-bottom:13px; }
+
+@media(max-width:768px) {
+  .container { padding-left:18px; padding-right:18px; }
+  .page-hero { padding:56px 0 48px; }
+  .booking-step { padding:24px 18px; }
+  .stepper { padding:12px 10px; }
+  .stepper-line { margin:0 6px; }
+  .summary-panel { margin-top:4px; }
+  .admin-topbar { height:auto; min-height:64px; padding:12px 16px; gap:12px; }
+  .admin-topbar > div { gap:8px !important; }
+  .admin-topbar > div > a:first-child { display:none; }
+  .admin-pb { padding:16px; }
+  .stats-grid { gap:8px; }
+  .stat-card { min-height:104px; padding:14px 12px; }
+  .stat-val { font-size:1.55rem; }
+  .tw-header { padding:14px 16px; }
+}
