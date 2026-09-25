@@ -185,6 +185,24 @@ def delete_booking(bid):
     db.commit()
 
 
+def booking_slot_available(barber_id, date_str, time_str, duration):
+    requested_start = datetime.strptime(f"{date_str} {time_str}", "%Y-%m-%d %H:%M")
+    requested_end = requested_start + timedelta(minutes=duration)
+    rows = get_db().execute(
+        """SELECT date, time, duration FROM bookings
+           WHERE barber_id=? AND date=? AND status != 'cancelled'""",
+        (barber_id, date_str),
+    ).fetchall()
+    for row in rows:
+        existing_start = datetime.strptime(
+            f"{row['date']} {row['time']}", "%Y-%m-%d %H:%M"
+        )
+        existing_end = existing_start + timedelta(minutes=int(row["duration"]))
+        if requested_start < existing_end and requested_end > existing_start:
+            return False
+    return True
+
+
 # Create tables on startup
 with app.app_context():
     init_db()
@@ -294,6 +312,20 @@ def booking():
         if not last_name:             errors.append("Please enter your last name.")
         if not email or "@" not in email: errors.append("Please enter a valid email.")
         if not phone:                 errors.append("Please enter your phone number.")
+
+        appointment_date = None
+        if date_str:
+            try:
+                appointment_date = datetime.strptime(date_str, "%Y-%m-%d").date()
+            except ValueError:
+                errors.append("Please choose a valid date.")
+        if appointment_date and appointment_date < datetime.now().date():
+            errors.append("Please choose a future date.")
+        if time_str and time_str not in TIME_SLOTS:
+            errors.append("Please choose an available time slot.")
+        if service and barber and appointment_date and time_str in TIME_SLOTS:
+            if not booking_slot_available(barber_id, date_str, time_str, service["duration"]):
+                errors.append("That barber is already booked for the selected time.")
 
         if errors:
             return render_template(
