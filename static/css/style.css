@@ -287,8 +287,8 @@ ul, ol { list-style: none; }
 .hamburger-bar {
   display: block;
   width: 22px;
-  height: 1.5px;
-  background: var(--offwhite);
+  height: 2px;
+  background: var(--gold);
   transition: transform .3s, opacity .3s;
 }
 .hamburger.open .hamburger-bar:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
@@ -1133,7 +1133,6 @@ ul, ol { list-style: none; }
   background: var(--charcoal-mid);
   padding: 40px 28px;
 }
-.value-icon { font-size: 1.75rem; display: block; margin-bottom: 16px; }
 .value-tile h3 {
   font-family: var(--font-body);
   font-size: .9375rem;
