@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Leave a Review — Blade &amp; Bone Barbershop{% endblock %}
+
+{% block content %}
+<section class="page-hero" aria-label="Leave a review page header">
+  <div class="container">
+    <p class="section-eyebrow">Your Experience</p>
+    <h1 class="page-hero-heading">Rate Your Visit</h1>
+    <p class="page-hero-sub">Tell us how we did. Your rating is required; written feedback is optional.</p>
+  </div>
+</section>
+
+<section class="section review-section" aria-labelledby="review-heading">
+  <div class="container review-container">
+    <div class="review-form-wrap">
+      <h2 id="review-heading" class="section-heading">Leave a Review</h2>
+      <p class="section-sub">Feedback is checked by our team before anything is published.</p>
+
+      {% if errors %}
+      <div class="form-errors" role="alert">
+        <strong>Please fix the following:</strong>
+        <ul>{% for error in errors %}<li>{{ error }}</li>{% endfor %}</ul>
+      </div>
+      {% endif %}
+
+      <form method="POST" action="{{ url_for('review') }}" class="review-form">
+        <div class="field-group">
+          <label for="review-name" class="field-label">Name <span class="required-mark">*</span></label>
+          <input type="text" id="review-name" name="name" class="field-input" value="{{ form_data.get('name', '') }}" autocomplete="name" maxlength="100" required />
+        </div>
+
+        <div class="field-group">
+          <label for="review-email" class="field-label">Email <span class="optional-mark">(optional)</span></label>
+          <input type="email" id="review-email" name="email" class="field-input" value="{{ form_data.get('email', '') }}" autocomplete="email" maxlength="120" />
+        </div>
+
+        <fieldset class="rating-fieldset">
+          <legend class="field-label">Rating <span class="required-mark">*</span></legend>
+          <div class="rating-options" role="radiogroup" aria-label="Rating from one to five stars">
+            {% for value in range(5, 0, -1) %}
+            <label class="rating-option" for="rating-{{ value }}">
+              <input type="radio" id="rating-{{ value }}" name="rating" value="{{ value }}" {% if form_data.get('rating') == value|string %}checked{% endif %} required />
+              <span aria-hidden="true">{{ value }} star{{ 's' if value != 1 }}</span>
+            </label>
+            {% endfor %}
+          </div>
+        </fieldset>
+
+        <div class="field-group">
+          <label for="review-text" class="field-label">Your feedback <span class="optional-mark">(optional)</span></label>
+          <textarea id="review-text" name="review" class="field-input field-textarea" rows="6" maxlength="1000" placeholder="Share anything that would help us improve...">{{ form_data.get('review', '') }}</textarea>
+        </div>
+
+        <button type="submit" class="btn btn-gold">Submit Feedback</button>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock %}

@@ -141,6 +141,17 @@ def init_db():
             status       TEXT    DEFAULT 'confirmed'
         )
     """)
+    db.execute("""
+        CREATE TABLE IF NOT EXISTS reviews (
+            id         INTEGER PRIMARY KEY AUTOINCREMENT,
+            created_at TEXT    DEFAULT (datetime('now','localtime')),
+            name       TEXT    NOT NULL,
+            email      TEXT    DEFAULT '',
+            rating     INTEGER NOT NULL CHECK (rating BETWEEN 1 AND 5),
+            review     TEXT    DEFAULT '',
+            status     TEXT    DEFAULT 'pending'
+        )
+    """)
     db.commit()
 
 
@@ -390,6 +401,41 @@ def download_ics():
 @app.route("/contact")
 def contact():
     return render_template("contact.html", shop=SHOP)
+
+
+@app.route("/review", methods=["GET", "POST"])
+def review():
+    errors = []
+    form_data = request.form if request.method == "POST" else {}
+
+    if request.method == "POST":
+        name = request.form.get("name", "").strip()
+        email = request.form.get("email", "").strip()
+        rating = request.form.get("rating", "").strip()
+        review_text = request.form.get("review", "").strip()
+
+        if not name:
+            errors.append("Please enter your name.")
+        if email and "@" not in email:
+            errors.append("Please enter a valid email address.")
+        if rating not in {"1", "2", "3", "4", "5"}:
+            errors.append("Please choose a rating from 1 to 5 stars.")
+        if len(review_text) > 1000:
+            errors.append("Your review must be 1,000 characters or fewer.")
+
+        if not errors:
+            get_db().execute(
+                """INSERT INTO reviews (name, email, rating, review)
+                   VALUES (?, ?, ?, ?)""",
+                (name, email, int(rating), review_text),
+            )
+            get_db().commit()
+            flash("Thanks for your feedback. It has been sent for review.", "success")
+            return redirect(url_for("review"))
+
+    return render_template(
+        "review.html", shop=SHOP, errors=errors, form_data=form_data,
+    )
 
 
 @app.route("/terms")

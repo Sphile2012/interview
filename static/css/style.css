@@ -1571,7 +1571,23 @@ ul, ol { list-style: none; }
 
 
 /* ------------------------------------------------------------
-   20. LEGAL PAGES
+  20. REVIEW FORM
+  ------------------------------------------------------------ */
+.review-container { max-width: 720px; }
+.review-form-wrap { background: var(--charcoal-mid); border: 1px solid var(--charcoal-line); border-top: 2px solid var(--gold); border-radius: var(--radius-md); padding: 40px; }
+.review-form-wrap .section-sub { margin-bottom: 32px; }
+.review-form { display: flex; flex-direction: column; gap: 20px; }
+.rating-fieldset { border: 0; padding: 0; }
+.rating-options { display: flex; flex-wrap: wrap; gap: 8px; }
+.rating-option { cursor: pointer; }
+.rating-option input { position: absolute; opacity: 0; pointer-events: none; }
+.rating-option span { display: block; padding: 10px 14px; border: 1px solid var(--charcoal-line); border-radius: var(--radius-sm); color: var(--text-muted); font-size: .8125rem; transition: border-color .2s, background .2s, color .2s; }
+.rating-option:hover span, .rating-option input:checked + span { border-color: var(--gold); background: var(--gold-muted); color: var(--gold); }
+.rating-option input:focus-visible + span { outline: 2px solid var(--gold); outline-offset: 3px; }
+
+
+/* ------------------------------------------------------------
+  21. LEGAL PAGES
    ------------------------------------------------------------ */
 .legal-section { background: var(--charcoal); }
 .legal-container { max-width: 760px; }
