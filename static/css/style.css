@@ -1,6 +1,6 @@
 /* ============================================================
    BLADE & BONE BARBERSHOP — Premium Redesign
-   Palette: Charcoal #121212 | Off-White #F5F3EF | Gold #C5A46A | Olive #2B2D26
+  Palette: Charcoal #111111 | Off-White #F5F3EF | Gold #C6A664 | Dark Grey #2B2B2B
    Fonts: Bebas Neue (headings) | Inter (body)
    ============================================================ */
 
@@ -9,15 +9,15 @@
    1. DESIGN TOKENS
    ------------------------------------------------------------ */
 :root {
-  --charcoal:      #121212;
-  --charcoal-mid:  #1a1a1a;
-  --charcoal-soft: #242424;
-  --charcoal-line: #2e2e2e;
-  --olive:         #2B2D26;
-  --gold:          #C5A46A;
-  --gold-light:    #d4b87e;
-  --gold-dark:     #a8843e;
-  --gold-muted:    rgba(197,164,106,.15);
+  --charcoal:      #111111;
+  --charcoal-mid:  #2B2B2B;
+  --charcoal-soft: #3A3A3A;
+  --charcoal-line: #4A4A4A;
+  --olive:         #2B2B2B;
+  --gold:          #C6A664;
+  --gold-light:    #D8BD7E;
+  --gold-dark:     #A3843C;
+  --gold-muted:    rgba(198,166,100,.15);
   --offwhite:      #F5F3EF;
   --offwhite-mid:  #E8E4DC;
   --offwhite-dark: #D4CFC5;
@@ -713,49 +713,6 @@ ul, ol { list-style: none; }
 }
 .gallery-item:hover img { transform: scale(1.05); filter: brightness(.9) saturate(.95); }
 .gallery-item--large { grid-row: span 2; }
-
-
-/* ------------------------------------------------------------
-   11. TESTIMONIALS
-   ------------------------------------------------------------ */
-.testimonials-section { background: var(--charcoal-mid); }
-
-.testimonials-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2px;
-  background: var(--charcoal-line);
-}
-
-.testimonial-card {
-  background: var(--charcoal-mid);
-  padding: 40px 36px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  transition: background .25s;
-}
-.testimonial-card:hover { background: var(--charcoal-soft); }
-
-.stars { color: var(--gold); font-size: .875rem; letter-spacing: 3px; }
-
-.testimonial-text {
-  font-size: .9375rem;
-  color: var(--text-body);
-  font-style: italic;
-  line-height: 1.7;
-  flex: 1;
-}
-.testimonial-author strong {
-  display: block;
-  font-size: .875rem;
-  font-weight: 600;
-  color: var(--offwhite);
-}
-.testimonial-author span {
-  font-size: .8rem;
-  color: var(--text-muted);
-}
 
 
 /* ------------------------------------------------------------
@@ -1758,8 +1715,6 @@ ul, ol { list-style: none; }
   .gallery-item { height: 220px; }
   .gallery-item--large { height: 280px; grid-row: span 1; }
 
-  /* Testimonials */
-  .testimonials-grid { grid-template-columns: 1fr; }
 
   /* Info strip */
   .info-strip-grid { grid-template-columns: 1fr; gap: 36px; }

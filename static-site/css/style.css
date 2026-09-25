@@ -1,13 +1,13 @@
 /* ============================================================
    BLADE & BONE BARBERSHOP — Static Site Stylesheet
-   Palette: #121212 charcoal | #F5F3EF offwhite | #C5A46A gold | #2B2D26 olive
+  Palette: #111111 charcoal | #F5F3EF offwhite | #C6A664 gold | #2B2B2B dark grey
    Fonts: Bebas Neue (headings) | Inter (body)
    ============================================================ */
 
 :root {
-  --charcoal: #121212; --surface: #1a1a1a; --surface2: #242424;
-  --border: #2e2e2e; --olive: #2B2D26; --gold: #C5A46A;
-  --gold-d: #a8843e; --gold-light: #d4b87e; --offwhite: #F5F3EF;
+  --charcoal: #111111; --surface: #2B2B2B; --surface2: #3A3A3A;
+  --border: #4A4A4A; --olive: #2B2B2B; --gold: #C6A664;
+  --gold-d: #A3843C; --gold-light: #D8BD7E; --offwhite: #F5F3EF;
   --offwhite-mid: #E8E4DC; --body: #C8C4BC; --muted: #7a7670;
   --error: #e05c5c; --success: #4caf72;
   --font-h: 'Bebas Neue', Impact, sans-serif;
@@ -145,16 +145,6 @@ ul { list-style:none; }
 .gallery-item img { width:100%; height:100%; object-fit:cover; filter:brightness(.72) saturate(.8); transition:transform .6s,filter .4s; }
 .gallery-item:hover img { transform:scale(1.05); filter:brightness(.88) saturate(.95); }
 .gallery-item--large { grid-row:span 2; }
-
-/* ── TESTIMONIALS ── */
-.testimonials-section { background:var(--surface); }
-.testimonials-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:2px; background:var(--border); }
-.testimonial-card { background:var(--surface); padding:36px 32px; display:flex; flex-direction:column; gap:16px; transition:background .25s; }
-.testimonial-card:hover { background:var(--surface2); }
-.stars { color:var(--gold); font-size:.875rem; letter-spacing:2px; }
-.testimonial-text { font-size:.9375rem; color:var(--body); font-style:italic; line-height:1.7; flex:1; }
-.testimonial-author strong { display:block; font-size:.875rem; color:var(--offwhite); }
-.testimonial-author span { font-size:.8rem; color:var(--muted); }
 
 /* ── CTA BANNER ── */
 .cta-banner { background:var(--olive); padding:var(--spy) 0; text-align:center; position:relative; overflow:hidden; }
@@ -499,7 +489,6 @@ td strong { color:var(--offwhite); }
   .gallery-grid { grid-template-columns:1fr; grid-template-rows:none; gap:4px; }
   .gallery-item { height:220px; }
   .gallery-item--large { height:280px; grid-row:span 1; }
-  .testimonials-grid { grid-template-columns:1fr; }
   .info-strip-grid { grid-template-columns:1fr; gap:36px; }
   .services-grid { grid-template-columns:1fr; }
   .services-info-grid { grid-template-columns:1fr; }
@@ -541,7 +530,7 @@ td strong { color:var(--offwhite); }
 /* ── POLISH PASS ── */
 body { background:linear-gradient(135deg,#121212 0%,#151613 52%,#121212 100%); }
 .section { position:relative; }
-.section:not(.testimonials-section) + .section { border-top:1px solid rgba(255,255,255,.035); }
+.section + .section { border-top:1px solid rgba(255,255,255,.035); }
 .page-hero { background:linear-gradient(105deg,#2b2d26 0%,#24251f 62%,#1b1c19 100%); position:relative; overflow:hidden; }
 .page-hero::after { content:''; position:absolute; width:420px; height:420px; right:-180px; top:-220px; border:1px solid rgba(197,164,106,.18); border-radius:50%; box-shadow:0 0 0 28px rgba(197,164,106,.035),0 0 0 56px rgba(197,164,106,.025); pointer-events:none; }
 .page-hero .container { position:relative; z-index:1; }
