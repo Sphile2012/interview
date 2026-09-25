@@ -1,5 +1,5 @@
 [build]
-  command   = "pip install -r netlify/functions/requirements.txt -t netlify/functions/packages --upgrade"
+  command   = "pip install -r requirements.txt -t netlify/functions/packages && pip install serverless-wsgi -t netlify/functions/packages"
   functions = "netlify/functions"
   publish   = "static"
 
@@ -8,25 +8,18 @@
 
 [functions]
   included_files = [
+    "app.py",
     "templates/**",
-    "static/**",
-    "app.py"
+    "static/**"
   ]
 
-# Static assets served directly from the publish dir
+# Serve static files directly without going through function
 [[redirects]]
   from   = "/static/*"
   to     = "/static/:splat"
   status = 200
 
-# Root goes to Flask function
-[[redirects]]
-  from   = "/"
-  to     = "/.netlify/functions/app"
-  status = 200
-  force  = true
-
-# All other pages go to Flask function
+# Send everything else to the Flask function
 [[redirects]]
   from   = "/*"
   to     = "/.netlify/functions/app"
