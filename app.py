@@ -42,10 +42,10 @@ SERVICES = [
 BARBERS = [
     {
         "id": "marcus",
-        "name": "Marcus Reid",
+        "name": "Thobani Mkhize",
         "role": "Owner & Master Barber",
         "bio": (
-            "Marcus opened Blade & Bone in 2016 after a decade cutting hair in "
+            "Thobani opened Blade & Bone in 2016 after a decade cutting hair in "
             "Johannesburg and Durban. His eye for precision and his ability to read "
             "a face are second to none."
         ),
@@ -54,10 +54,10 @@ BARBERS = [
     },
     {
         "id": "jordan",
-        "name": "Jordan Cole",
+        "name": "Brian Kodibone",
         "role": "Fade Specialist",
         "bio": (
-            "Jordan joined Blade & Bone in 2019 and quickly built a loyal following "
+            "Brian joined Blade & Bone in 2019 and quickly built a loyal following "
             "for his razor-sharp fades. If you want a skin fade that turns heads, book Jordan."
         ),
         "speciality": "Skin fades, high fades and fresh line-ups",
@@ -65,10 +65,10 @@ BARBERS = [
     },
     {
         "id": "priya",
-        "name": "Priya Nair",
+        "name": "Phathutshedzo",
         "role": "Texture & Styling Expert",
         "bio": (
-            "Priya has a gift for working with natural texture and curl patterns, "
+            "Phathutshedzo has a gift for working with natural texture and curl patterns, "
             "giving every client a shape that actually works with their hair."
         ),
         "speciality": "Textured hair, curls and creative styling",

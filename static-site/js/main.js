@@ -23,9 +23,9 @@ const SERVICES = [
 ];
 
 const BARBERS = [
-  { id:"marcus", name:"Marcus Reid",  role:"Owner & Master Barber",   speciality:"Precision cuts, tapers and classic barbering",   image:"https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=400&h=500&fit=crop&q=80" },
-  { id:"jordan", name:"Jordan Cole",  role:"Fade Specialist",          speciality:"Skin fades, high fades and fresh line-ups",       image:"https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=400&h=500&fit=crop&q=80" },
-  { id:"priya",  name:"Priya Nair",   role:"Texture & Styling Expert", speciality:"Textured hair, curls and creative styling",       image:"https://images.unsplash.com/photo-1559599101-f09722fb4948?w=400&h=500&fit=crop&q=80" }
+  { id:"marcus", name:"Thobani Mkhize", role:"Owner & Master Barber",   speciality:"Precision cuts, tapers and classic barbering",   image:"https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=400&h=500&fit=crop&q=80" },
+  { id:"jordan", name:"Brian Kodibone", role:"Fade Specialist",          speciality:"Skin fades, high fades and fresh line-ups",       image:"https://images.unsplash.com/photo-1503951914875-452162b0f3f1?w=400&h=500&fit=crop&q=80" },
+  { id:"priya",  name:"Phathutshedzo",  role:"Texture & Styling Expert", speciality:"Textured hair, curls and creative styling",       image:"https://images.unsplash.com/photo-1559599101-f09722fb4948?w=400&h=500&fit=crop&q=80" }
 ];
 
 const ADMIN_EMAIL = "poomeigh503@gmail.com";
